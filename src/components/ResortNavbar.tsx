@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = ["Suites", "Dining", "Experiences", "Wellness", "Gallery", "Contact"];
+const navLinks = ["About", "Villas", "Dining", "Offers", "Wellbeing", "Weddings", "Experiences"];
 
 const ResortNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -18,7 +18,7 @@ const ResortNavbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled
           ? "bg-background/95 backdrop-blur-md shadow-sm py-3"
-          : "bg-transparent py-6"
+          : "bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
@@ -29,12 +29,12 @@ const ResortNavbar = () => {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav className="hidden xl:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className={`luxury-subheading text-[11px] tracking-[0.25em] transition-colors duration-300 hover:opacity-70 ${
+              className={`luxury-subheading text-[10px] tracking-[0.2em] transition-colors duration-300 hover:opacity-70 ${
                 scrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
@@ -45,19 +45,19 @@ const ResortNavbar = () => {
 
         <a
           href="#contact"
-          className={`hidden lg:inline-block luxury-btn text-[10px] ${
+          className={`hidden xl:inline-block luxury-btn text-[10px] py-3 px-8 ${
             scrolled
-              ? "border-foreground/30 text-foreground hover:bg-foreground hover:text-background"
-              : "border-primary-foreground/60 text-primary-foreground hover:bg-primary-foreground/20"
+              ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+              : "border-primary-foreground/80 bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/30"
           }`}
         >
-          Reserve
+          Book a Room
         </a>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`lg:hidden flex flex-col gap-1.5 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+          className={`xl:hidden flex flex-col gap-1.5 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
           aria-label="Toggle menu"
         >
           <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-foreground" : "bg-primary-foreground"} ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
@@ -72,7 +72,7 @@ const ResortNavbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/98 backdrop-blur-lg"
+            className="xl:hidden bg-background/98 backdrop-blur-lg"
           >
             <nav className="flex flex-col items-center gap-6 py-10">
               {navLinks.map((link) => (
@@ -85,8 +85,12 @@ const ResortNavbar = () => {
                   {link}
                 </a>
               ))}
-              <a href="#contact" className="luxury-btn-outline mt-2" onClick={() => setMenuOpen(false)}>
-                Reserve
+              <a
+                href="#contact"
+                className="luxury-btn border-primary bg-primary text-primary-foreground hover:bg-primary/90 text-[10px] py-3 px-8 mt-2"
+                onClick={() => setMenuOpen(false)}
+              >
+                Book a Room
               </a>
             </nav>
           </motion.div>
