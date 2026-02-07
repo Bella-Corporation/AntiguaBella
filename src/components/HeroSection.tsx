@@ -13,21 +13,12 @@ const HeroSection = () => {
         <div className="image-overlay" />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-end text-center px-6 pb-32 lg:pb-36">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-          className="luxury-subheading text-foreground/35 mb-8 text-[10px] tracking-[0.5em]"
-        >
-          Private Travel Platform
-        </motion.p>
-
+      <div className="relative z-10 flex h-full flex-col items-center justify-end text-center px-6 pb-36 lg:pb-44">
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, delay: 0.6 }}
-          className="luxury-heading text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[1.08] mb-10"
+          transition={{ duration: 1.6, delay: 0.5 }}
+          className="luxury-heading text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[1.08] mb-12"
         >
           The Caribbean,
           <br />
@@ -37,28 +28,27 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          className="w-12 border-t border-primary/40 mb-10"
+          transition={{ duration: 0.8, delay: 1.6 }}
+          className="w-12 border-t border-primary/40 mb-12"
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 1.8 }}
-          className="luxury-body text-foreground/40 max-w-lg text-base lg:text-lg mb-14"
+          transition={{ duration: 1.2, delay: 2 }}
+          className="luxury-body text-foreground/35 max-w-sm text-base mb-16"
         >
-          Antigua's finest stays, experiences, and services — for travelers
-          who value discretion over display.
+          Antigua's finest — for travelers who value discretion.
         </motion.p>
 
         <motion.a
           href="#about"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 2.2 }}
+          transition={{ duration: 0.8, delay: 2.5 }}
           className="luxury-btn-outline text-[10px] py-3.5 px-12"
         >
-          Explore Antigua
+          Explore
         </motion.a>
       </div>
 
