@@ -38,7 +38,7 @@ const WellnessSection = () => {
   const scrollNext = () => setActiveIndex((prev) => (prev === wellnessCards.length - 1 ? 0 : prev + 1));
 
   return (
-    <section id="wellbeing" className="section-padding bg-secondary/30">
+    <section id="wellbeing" className="section-padding bg-secondary/50">
       <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -46,9 +46,9 @@ const WellnessSection = () => {
           transition={{ duration: 0.8 }}
           className="section-header"
         >
-          <p className="luxury-subheading mb-6">Wellness & Spa</p>
+          <p className="luxury-subheading text-primary mb-6">Wellness & Spa</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-            Restore Your Soul
+            Restore Your <span className="italic">Soul</span>
           </h2>
           <div className="luxury-divider mb-8" />
           <p className="luxury-body text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -57,7 +57,6 @@ const WellnessSection = () => {
           </p>
         </motion.div>
 
-        {/* Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -117,7 +116,7 @@ const WellnessSection = () => {
           <div className="flex items-center justify-center gap-6 mt-12">
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 rounded-full border border-foreground/15 flex items-center justify-center hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 hover:shadow-[var(--shadow-soft)]"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-foreground/50 hover:text-primary hover:border-primary/40 transition-all duration-300"
               aria-label="Previous wellness card"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -136,7 +135,7 @@ const WellnessSection = () => {
             </div>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 rounded-full border border-foreground/15 flex items-center justify-center hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 hover:shadow-[var(--shadow-soft)]"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-foreground/50 hover:text-primary hover:border-primary/40 transition-all duration-300"
               aria-label="Next wellness card"
             >
               <ChevronRight className="w-4 h-4" />

@@ -38,9 +38,9 @@ const VillasSection = () => {
           transition={{ duration: 0.8 }}
           className="section-header"
         >
-          <p className="luxury-subheading mb-6">Accommodations</p>
+          <p className="luxury-subheading text-primary mb-6">Accommodations</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-            Your Private Sanctuary
+            Your Private <span className="italic">Sanctuary</span>
           </h2>
           <div className="luxury-divider mb-8" />
           <p className="luxury-body text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -61,13 +61,12 @@ const VillasSection = () => {
               <div className="luxury-card-image">
                 <img
                   src={villa.image}
-                  alt={`${villa.name} at Hermitage Bay resort`}
+                  alt={`${villa.name} at AntiguaBella resort`}
                   className="h-[320px] lg:h-[380px]"
                 />
                 <div className="luxury-card-overlay" />
-                {/* Title overlay on hover */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="luxury-subheading text-[10px] text-primary-foreground/80">
+                  <span className="luxury-subheading text-[10px] text-primary">
                     Explore →
                   </span>
                 </div>

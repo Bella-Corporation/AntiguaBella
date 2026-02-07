@@ -41,18 +41,17 @@ const ExperiencesSection = () => {
           transition={{ duration: 0.8 }}
           className="section-header"
         >
-          <p className="luxury-subheading mb-6">Experiences</p>
+          <p className="luxury-subheading text-primary mb-6">Experiences</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-            Curated Moments
+            Curated <span className="italic">Moments</span>
           </h2>
           <div className="luxury-divider mb-8" />
           <p className="luxury-body text-muted-foreground max-w-2xl mx-auto text-lg">
             From ocean adventures to cultural discoveries, every experience at
-            Hermitage Bay is crafted to create lasting memories.
+            AntiguaBella is crafted to create lasting memories.
           </p>
         </motion.div>
 
-        {/* Gallery Grid - asymmetric layout with rounded card style */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {experiences.map((exp, i) => (
             <motion.div
@@ -60,7 +59,7 @@ const ExperiencesSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.12 * i }}
-              className={`group relative rounded-lg overflow-hidden cursor-pointer shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] transition-all duration-500 ${
+              className={`group relative rounded-2xl overflow-hidden cursor-pointer border border-border/30 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] hover:border-primary/20 transition-all duration-500 ${
                 i === 0 ? "col-span-2 row-span-2" : ""
               }`}
             >
@@ -71,13 +70,12 @@ const ExperiencesSection = () => {
                   i === 0 ? "h-[400px] lg:h-full" : "h-[200px] lg:h-[280px]"
                 }`}
               />
-              {/* Persistent bottom gradient with title */}
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/5 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
-                <h3 className="luxury-heading text-lg lg:text-xl text-primary-foreground mb-1 drop-shadow-sm">
+                <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-1 drop-shadow-sm">
                   {exp.title}
                 </h3>
-                <p className="luxury-body text-primary-foreground/70 text-xs lg:text-sm translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <p className="luxury-body text-foreground/50 text-xs lg:text-sm translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   {exp.description}
                 </p>
               </div>
