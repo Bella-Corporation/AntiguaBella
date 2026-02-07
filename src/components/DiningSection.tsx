@@ -10,13 +10,12 @@ const DiningSection = () => {
     <section id="dining" className="section-padding">
       <div ref={ref} className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image on left with rounded card treatment */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <div className="rounded-lg overflow-hidden shadow-[var(--shadow-card)]">
+            <div className="rounded-2xl overflow-hidden shadow-[var(--shadow-card)] border border-border/30">
               <img
                 src={diningImage}
                 alt="Fine dining on the beach at sunset with candlelit table"
@@ -25,17 +24,16 @@ const DiningSection = () => {
             </div>
           </motion.div>
 
-          {/* Text on right */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1 }}
           >
-            <p className="luxury-subheading mb-6">Dining & Drinks</p>
+            <p className="luxury-subheading text-primary mb-6">Dining & Drinks</p>
             <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-8">
               A Feast for
               <br />
-              Every Sense
+              <span className="italic">Every Sense</span>
             </h2>
             <div className="luxury-divider mx-0 mb-8" />
             <p className="luxury-body text-muted-foreground text-lg mb-6">

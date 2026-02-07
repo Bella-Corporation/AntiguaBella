@@ -23,8 +23,8 @@ const ResortNavbar = () => {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
         <a href="#" className="luxury-heading text-2xl lg:text-3xl">
-          <span className={`transition-colors duration-500 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
-            Hermitage Bay
+          <span className={`transition-colors duration-500 ${scrolled ? "text-foreground" : "text-foreground"}`}>
+            Antigua<span className="gold-text">Bella</span>
           </span>
         </a>
 
@@ -34,10 +34,10 @@ const ResortNavbar = () => {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className={`luxury-subheading text-[10px] tracking-[0.2em] transition-all duration-300 hover:opacity-70 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:transition-all after:duration-300 hover:after:w-full ${
+              className={`luxury-subheading text-[10px] tracking-[0.2em] transition-all duration-300 hover:text-primary relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-primary/50 after:transition-all after:duration-300 hover:after:w-full ${
                 scrolled
-                  ? "text-foreground after:bg-foreground/40"
-                  : "text-primary-foreground after:bg-primary-foreground/40"
+                  ? "text-foreground/70"
+                  : "text-foreground/60"
               }`}
             >
               {link}
@@ -45,14 +45,10 @@ const ResortNavbar = () => {
           ))}
         </nav>
 
-        {/* Bold CTA button */}
+        {/* Bold gold CTA button */}
         <a
           href="#contact"
-          className={`hidden xl:inline-block luxury-btn text-[10px] py-3 px-8 rounded-sm transition-all duration-500 ${
-            scrolled
-              ? "border-primary bg-primary text-primary-foreground hover:bg-ocean-light hover:shadow-[0_8px_24px_-8px_hsl(195_60%_35%/0.35)]"
-              : "border-primary-foreground/70 bg-primary-foreground/15 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/25 hover:shadow-[0_8px_24px_-8px_hsl(40_33%_97%/0.2)]"
-          }`}
+          className="hidden xl:inline-block luxury-btn-bold text-[10px] py-3 px-8"
         >
           Book a Room
         </a>
@@ -60,11 +56,11 @@ const ResortNavbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`xl:hidden flex flex-col gap-1.5 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+          className="xl:hidden flex flex-col gap-1.5"
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-foreground" : "bg-primary-foreground"} ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-          <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-foreground" : "bg-primary-foreground"} ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+          <span className={`block w-6 h-px transition-all duration-300 bg-foreground ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+          <span className={`block w-6 h-px transition-all duration-300 bg-foreground ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
         </button>
       </div>
 
@@ -75,7 +71,7 @@ const ResortNavbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-background/98 backdrop-blur-lg"
+            className="xl:hidden bg-background/98 backdrop-blur-lg border-t border-border/30"
           >
             <nav className="flex flex-col items-center gap-6 py-10">
               {navLinks.map((link) => (
@@ -83,7 +79,7 @@ const ResortNavbar = () => {
                   key={link}
                   href={`#${link.toLowerCase()}`}
                   onClick={() => setMenuOpen(false)}
-                  className="luxury-subheading text-foreground hover:text-primary transition-colors duration-300"
+                  className="luxury-subheading text-foreground/70 hover:text-primary transition-colors duration-300"
                 >
                   {link}
                 </a>
