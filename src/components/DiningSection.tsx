@@ -7,16 +7,16 @@ const DiningSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="dining" className="py-28 lg:py-40 px-6">
+    <section id="dining" className="section-padding">
       <div ref={ref} className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image on left */}
+          {/* Image on left with rounded card treatment */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <div className="overflow-hidden">
+            <div className="rounded-lg overflow-hidden shadow-[var(--shadow-card)]">
               <img
                 src={diningImage}
                 alt="Fine dining on the beach at sunset with candlelit table"
@@ -48,7 +48,7 @@ const DiningSection = () => {
               dinners under the stars featuring island-grown produce, every meal
               is a celebration of Antiguan flavors and craftsmanship.
             </p>
-            <ul className="space-y-2 mb-8">
+            <ul className="space-y-3 mb-10">
               {["Farm-to-table organic ingredients", "Caribbean rum & cocktail bar", "Private beach dining experiences"].map((item) => (
                 <li key={item} className="luxury-body text-muted-foreground text-sm flex items-center gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
@@ -56,9 +56,14 @@ const DiningSection = () => {
                 </li>
               ))}
             </ul>
-            <a href="#contact" className="luxury-btn-outline">
+            <motion.a
+              href="#contact"
+              className="luxury-btn-outline"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
               Explore Menus
-            </a>
+            </motion.a>
           </motion.div>
         </div>
       </div>

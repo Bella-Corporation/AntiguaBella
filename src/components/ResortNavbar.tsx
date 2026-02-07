@@ -17,13 +17,13 @@ const ResortNavbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm py-3"
+          ? "bg-background/95 backdrop-blur-md shadow-[var(--shadow-soft)] py-3"
           : "bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
         <a href="#" className="luxury-heading text-2xl lg:text-3xl">
-          <span className={scrolled ? "text-foreground" : "text-primary-foreground"}>
+          <span className={`transition-colors duration-500 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
             Hermitage Bay
           </span>
         </a>
@@ -34,8 +34,10 @@ const ResortNavbar = () => {
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className={`luxury-subheading text-[10px] tracking-[0.2em] transition-colors duration-300 hover:opacity-70 ${
-                scrolled ? "text-foreground" : "text-primary-foreground"
+              className={`luxury-subheading text-[10px] tracking-[0.2em] transition-all duration-300 hover:opacity-70 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:transition-all after:duration-300 hover:after:w-full ${
+                scrolled
+                  ? "text-foreground after:bg-foreground/40"
+                  : "text-primary-foreground after:bg-primary-foreground/40"
               }`}
             >
               {link}
@@ -43,12 +45,13 @@ const ResortNavbar = () => {
           ))}
         </nav>
 
+        {/* Bold CTA button */}
         <a
           href="#contact"
-          className={`hidden xl:inline-block luxury-btn text-[10px] py-3 px-8 ${
+          className={`hidden xl:inline-block luxury-btn text-[10px] py-3 px-8 rounded-sm transition-all duration-500 ${
             scrolled
-              ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
-              : "border-primary-foreground/80 bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/30"
+              ? "border-primary bg-primary text-primary-foreground hover:bg-ocean-light hover:shadow-[0_8px_24px_-8px_hsl(195_60%_35%/0.35)]"
+              : "border-primary-foreground/70 bg-primary-foreground/15 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/25 hover:shadow-[0_8px_24px_-8px_hsl(40_33%_97%/0.2)]"
           }`}
         >
           Book a Room
@@ -80,14 +83,14 @@ const ResortNavbar = () => {
                   key={link}
                   href={`#${link.toLowerCase()}`}
                   onClick={() => setMenuOpen(false)}
-                  className="luxury-subheading text-foreground"
+                  className="luxury-subheading text-foreground hover:text-primary transition-colors duration-300"
                 >
                   {link}
                 </a>
               ))}
               <a
                 href="#contact"
-                className="luxury-btn border-primary bg-primary text-primary-foreground hover:bg-primary/90 text-[10px] py-3 px-8 mt-2"
+                className="luxury-btn-bold text-[10px] py-3 px-8 mt-2"
                 onClick={() => setMenuOpen(false)}
               >
                 Book a Room

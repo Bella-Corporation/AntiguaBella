@@ -38,13 +38,13 @@ const WellnessSection = () => {
   const scrollNext = () => setActiveIndex((prev) => (prev === wellnessCards.length - 1 ? 0 : prev + 1));
 
   return (
-    <section id="wellbeing" className="py-28 lg:py-40 bg-secondary/30 px-6">
+    <section id="wellbeing" className="section-padding bg-secondary/30">
       <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="section-header"
         >
           <p className="luxury-subheading mb-6">Wellness & Spa</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
@@ -65,25 +65,28 @@ const WellnessSection = () => {
           className="relative"
         >
           {/* Desktop: show 3 cards */}
-          <div className="hidden md:grid md:grid-cols-3 gap-6">
+          <div className="hidden md:grid md:grid-cols-3 gap-8">
             {[0, 1, 2].map((offset) => {
               const index = (activeIndex + offset) % wellnessCards.length;
               const card = wellnessCards[index];
               return (
-                <div key={`${card.title}-${offset}`} className="group">
-                  <div className="overflow-hidden mb-5">
+                <div key={`${card.title}-${offset}`} className="luxury-card group">
+                  <div className="luxury-card-image">
                     <img
                       src={card.image}
                       alt={card.title}
-                      className="w-full h-[300px] lg:h-[360px] object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-[280px] lg:h-[340px]"
                     />
+                    <div className="luxury-card-overlay" />
                   </div>
-                  <h3 className="luxury-heading text-xl lg:text-2xl text-foreground mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="luxury-body text-muted-foreground text-sm">
-                    {card.description}
-                  </p>
+                  <div className="luxury-card-body">
+                    <h3 className="luxury-heading text-xl lg:text-2xl text-foreground mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="luxury-body text-muted-foreground text-sm">
+                      {card.description}
+                    </p>
+                  </div>
                 </div>
               );
             })}
@@ -91,39 +94,41 @@ const WellnessSection = () => {
 
           {/* Mobile: show 1 card */}
           <div className="md:hidden">
-            <div className="group">
-              <div className="overflow-hidden mb-5">
+            <div className="luxury-card group">
+              <div className="luxury-card-image">
                 <img
                   src={wellnessCards[activeIndex].image}
                   alt={wellnessCards[activeIndex].title}
-                  className="w-full h-[300px] object-cover"
+                  className="h-[280px]"
                 />
               </div>
-              <h3 className="luxury-heading text-xl text-foreground mb-2">
-                {wellnessCards[activeIndex].title}
-              </h3>
-              <p className="luxury-body text-muted-foreground text-sm">
-                {wellnessCards[activeIndex].description}
-              </p>
+              <div className="luxury-card-body">
+                <h3 className="luxury-heading text-xl text-foreground mb-2">
+                  {wellnessCards[activeIndex].title}
+                </h3>
+                <p className="luxury-body text-muted-foreground text-sm">
+                  {wellnessCards[activeIndex].description}
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Navigation arrows */}
-          <div className="flex items-center justify-center gap-6 mt-10">
+          <div className="flex items-center justify-center gap-6 mt-12">
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors duration-300"
+              className="w-10 h-10 rounded-full border border-foreground/15 flex items-center justify-center hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 hover:shadow-[var(--shadow-soft)]"
               aria-label="Previous wellness card"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-2.5">
               {wellnessCards.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                    i === activeIndex ? "bg-primary" : "bg-foreground/20"
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    i === activeIndex ? "bg-primary scale-125" : "bg-foreground/15 hover:bg-foreground/30"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
@@ -131,7 +136,7 @@ const WellnessSection = () => {
             </div>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors duration-300"
+              className="w-10 h-10 rounded-full border border-foreground/15 flex items-center justify-center hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 hover:shadow-[var(--shadow-soft)]"
               aria-label="Next wellness card"
             >
               <ChevronRight className="w-4 h-4" />

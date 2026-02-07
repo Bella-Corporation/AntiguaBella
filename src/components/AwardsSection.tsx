@@ -30,13 +30,13 @@ const AwardsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 lg:py-32 bg-foreground text-background px-6">
+    <section className="py-24 lg:py-36 bg-foreground text-background px-6 lg:px-10">
       <div ref={ref} className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-16 lg:mb-20"
         >
           <p className="luxury-subheading text-background/40 mb-6">Recognition</p>
           <h2 className="luxury-heading text-3xl md:text-4xl lg:text-5xl text-background mb-6">
@@ -52,13 +52,15 @@ const AwardsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.12 * i }}
-              className="text-center"
+              className="text-center group"
             >
-              <award.icon className="w-8 h-8 mx-auto mb-4 text-gold opacity-80" strokeWidth={1} />
+              <div className="w-16 h-16 mx-auto mb-5 rounded-full border border-background/10 flex items-center justify-center group-hover:border-gold/40 transition-colors duration-500">
+                <award.icon className="w-7 h-7 text-gold opacity-80 group-hover:opacity-100 transition-opacity duration-500" strokeWidth={1} />
+              </div>
               <h3 className="luxury-heading text-lg lg:text-xl text-background mb-1">
                 {award.title}
               </h3>
-              <p className="luxury-body text-background/50 text-xs">
+              <p className="luxury-body text-background/45 text-xs">
                 {award.subtitle}
               </p>
             </motion.div>
@@ -69,13 +71,13 @@ const AwardsSection = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center"
+          className="mt-20 text-center"
         >
-          <p className="luxury-body text-background/40 text-sm italic max-w-xl mx-auto">
+          <p className="luxury-body text-background/35 text-sm italic max-w-xl mx-auto leading-relaxed">
             "One of the Caribbean's finest boutique resorts — an intimate paradise 
             that redefines luxury hospitality."
           </p>
-          <p className="luxury-subheading text-[10px] text-background/30 mt-4">
+          <p className="luxury-subheading text-[10px] text-background/25 mt-5">
             — Condé Nast Traveler
           </p>
         </motion.div>

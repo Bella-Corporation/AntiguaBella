@@ -8,7 +8,7 @@ const IntroSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-28 lg:py-40 px-6">
+    <section id="about" className="section-padding">
       <div ref={ref} className="mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div
@@ -41,12 +41,14 @@ const IntroSection = () => {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative"
           >
-            <img
-              src={resortAerial}
-              alt="Aerial view of the luxury resort estate with tropical gardens"
-              className="w-full h-[500px] lg:h-[600px] object-cover"
-            />
-            <div className="absolute -bottom-6 -left-6 bg-secondary p-6 lg:p-8 hidden lg:block">
+            <div className="rounded-lg overflow-hidden shadow-[var(--shadow-card)]">
+              <img
+                src={resortAerial}
+                alt="Aerial view of the luxury resort estate with tropical gardens"
+                className="w-full h-[500px] lg:h-[600px] object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-6 -left-6 bg-card rounded-lg p-6 lg:p-8 shadow-[var(--shadow-card)] hidden lg:block">
               <p className="luxury-subheading text-[10px] mb-2">Established</p>
               <p className="luxury-heading text-3xl text-foreground">2003</p>
             </div>
