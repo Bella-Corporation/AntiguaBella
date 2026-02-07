@@ -29,9 +29,9 @@ const HeroSection = () => {
           transition={{ duration: 1.2, delay: 0.5 }}
           className="luxury-heading text-5xl md:text-7xl lg:text-8xl text-primary-foreground leading-tight mb-8"
         >
-          Where Luxury
+          Live the
           <br />
-          Meets Paradise
+          Caribbean Way
         </motion.h1>
 
         <motion.div
@@ -52,13 +52,13 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.a
-          href="#suites"
+          href="#contact"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.8 }}
           className="luxury-btn-primary"
         >
-          Explore the Resort
+          Book Now
         </motion.a>
       </div>
 

@@ -1,9 +1,11 @@
 import ResortNavbar from "@/components/ResortNavbar";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
-import SuitesSection from "@/components/SuitesSection";
+import VillasSection from "@/components/VillasSection";
 import DiningSection from "@/components/DiningSection";
+import WellnessSection from "@/components/WellnessSection";
 import ExperiencesSection from "@/components/ExperiencesSection";
+import AwardsSection from "@/components/AwardsSection";
 import ResortFooter from "@/components/ResortFooter";
 
 const Index = () => {
@@ -13,9 +15,11 @@ const Index = () => {
       <main>
         <HeroSection />
         <IntroSection />
-        <SuitesSection />
+        <VillasSection />
         <DiningSection />
+        <WellnessSection />
         <ExperiencesSection />
+        <AwardsSection />
       </main>
       <ResortFooter />
     </div>
