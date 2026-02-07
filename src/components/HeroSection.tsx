@@ -7,60 +7,58 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Cinematic aerial view of Antigua's pristine Caribbean coastline at golden hour"
+          alt="Antigua's pristine Caribbean coastline at golden hour"
           className="h-full w-full object-cover animate-ken-burns"
         />
         <div className="image-overlay" />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6">
+      <div className="relative z-10 flex h-full flex-col items-center justify-end text-center px-6 pb-32 lg:pb-36">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="luxury-subheading text-foreground/50 mb-8 text-xs tracking-[0.4em]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+          className="luxury-subheading text-foreground/35 mb-8 text-[10px] tracking-[0.5em]"
         >
-          Antigua · West Indies
+          Private Travel Platform
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          className="luxury-heading text-5xl md:text-7xl lg:text-[6.5rem] text-foreground leading-[1.05] mb-10"
+          transition={{ duration: 1.4, delay: 0.6 }}
+          className="luxury-heading text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[1.08] mb-10"
         >
-          Live the
+          The Caribbean,
           <br />
-          <span className="italic">Caribbean Way</span>
+          <span className="italic">Curated.</span>
         </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="w-20 border-t border-primary/60 mb-10"
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="w-12 border-t border-primary/40 mb-10"
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="luxury-body text-foreground/60 max-w-md text-lg mb-12"
+          transition={{ duration: 1.2, delay: 1.8 }}
+          className="luxury-body text-foreground/40 max-w-lg text-base lg:text-lg mb-14"
         >
-          An elite concierge experience on Antigua's most exclusive shores.
-          Curated luxury, without compromise.
+          Antigua's finest stays, experiences, and services — for travelers
+          who value discretion over display.
         </motion.p>
 
         <motion.a
-          href="#contact"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
-          className="luxury-btn-bold text-[11px] py-4 px-14"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.98 }}
+          href="#about"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.2 }}
+          className="luxury-btn-outline text-[10px] py-3.5 px-12"
         >
-          Book Now
+          Explore Antigua
         </motion.a>
       </div>
 
@@ -68,14 +66,13 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        transition={{ delay: 3, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="luxury-subheading text-[9px] text-foreground/30">Scroll</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-px h-8 bg-primary/30"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-8 bg-foreground/15"
         />
       </motion.div>
     </section>
