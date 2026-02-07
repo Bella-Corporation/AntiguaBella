@@ -34,7 +34,7 @@
     --input: 35 20% 85%;
     --ring: 195 60% 35%;
 
-    --radius: 0.25rem;
+    --radius: 0.75rem;
 
     --sand: 35 40% 88%;
     --sand-dark: 30 25% 70%;
@@ -44,6 +44,10 @@
     --tropical: 160 35% 40%;
     --coral: 15 60% 55%;
     --gold: 42 70% 55%;
+
+    --shadow-soft: 0 4px 24px -4px hsl(220 20% 15% / 0.08);
+    --shadow-card: 0 8px 32px -8px hsl(220 20% 15% / 0.1);
+    --shadow-hover: 0 16px 48px -12px hsl(220 20% 15% / 0.15);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -75,6 +79,11 @@
     --border: 220 20% 18%;
     --input: 220 20% 18%;
     --ring: 195 55% 50%;
+
+    --shadow-soft: 0 4px 24px -4px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.4);
+    --shadow-hover: 0 16px 48px -12px hsl(0 0% 0% / 0.5);
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -91,6 +100,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Lato', sans-serif;
@@ -102,6 +115,7 @@
 }
 
 @layer components {
+  /* ── Typography ────────────────────────────── */
   .luxury-heading {
     font-family: 'Cormorant Garamond', serif;
     @apply font-light tracking-wide;
@@ -121,20 +135,98 @@
     @apply mx-auto w-16 border-t border-primary/40;
   }
 
+  /* ── Buttons ───────────────────────────────── */
   .luxury-btn {
     font-family: 'Lato', sans-serif;
-    @apply inline-block px-10 py-4 text-xs font-light uppercase tracking-[0.25em] border transition-all duration-500;
+    @apply inline-block px-10 py-4 text-xs font-light uppercase tracking-[0.25em] border rounded-sm transition-all duration-500;
+  }
+
+  .luxury-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .luxury-btn:active {
+    transform: translateY(0);
   }
 
   .luxury-btn-primary {
-    @apply luxury-btn border-primary-foreground/80 text-primary-foreground hover:bg-primary-foreground hover:text-foreground;
+    @apply luxury-btn border-primary-foreground/80 text-primary-foreground;
+    background: hsl(var(--primary-foreground) / 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .luxury-btn-primary:hover {
+    background: hsl(var(--primary-foreground) / 0.2);
+    box-shadow: 0 8px 24px -8px hsl(var(--primary-foreground) / 0.2);
   }
 
   .luxury-btn-outline {
-    @apply luxury-btn border-foreground/30 text-foreground hover:bg-foreground hover:text-background;
+    @apply luxury-btn border-foreground/20 text-foreground;
   }
 
+  .luxury-btn-outline:hover {
+    @apply bg-foreground text-background;
+    box-shadow: var(--shadow-hover);
+  }
+
+  .luxury-btn-bold {
+    @apply luxury-btn border-primary bg-primary text-primary-foreground rounded-sm;
+  }
+
+  .luxury-btn-bold:hover {
+    @apply bg-ocean-light;
+    box-shadow: 0 8px 24px -8px hsl(var(--ocean) / 0.35);
+  }
+
+  /* ── Cards ─────────────────────────────────── */
+  .luxury-card {
+    @apply rounded-lg overflow-hidden bg-card;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.5s ease, transform 0.5s ease;
+  }
+
+  .luxury-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .luxury-card-image {
+    @apply relative overflow-hidden;
+  }
+
+  .luxury-card-image img {
+    @apply w-full object-cover transition-transform duration-700;
+  }
+
+  .luxury-card:hover .luxury-card-image img {
+    transform: scale(1.05);
+  }
+
+  .luxury-card-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/5 to-transparent;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .luxury-card:hover .luxury-card-overlay {
+    opacity: 1;
+  }
+
+  .luxury-card-body {
+    @apply p-6 lg:p-7;
+  }
+
+  /* ── Image overlays ────────────────────────── */
   .image-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-foreground/20 via-transparent to-foreground/40;
+    @apply absolute inset-0 bg-gradient-to-b from-foreground/30 via-foreground/5 to-foreground/50;
+  }
+
+  /* ── Section spacing rhythm ────────────────── */
+  .section-padding {
+    @apply py-28 lg:py-40 px-6 lg:px-10;
+  }
+
+  .section-header {
+    @apply text-center mb-20 lg:mb-24;
   }
 }

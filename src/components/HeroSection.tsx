@@ -18,7 +18,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="luxury-subheading text-primary-foreground/80 mb-6"
+          className="luxury-subheading text-primary-foreground/70 mb-8 text-xs"
         >
           Antigua, West Indies
         </motion.p>
@@ -27,7 +27,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5 }}
-          className="luxury-heading text-5xl md:text-7xl lg:text-8xl text-primary-foreground leading-tight mb-8"
+          className="luxury-heading text-5xl md:text-7xl lg:text-[6.5rem] text-primary-foreground leading-[1.05] mb-10"
         >
           Live the
           <br />
@@ -35,17 +35,17 @@ const HeroSection = () => {
         </motion.h1>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="luxury-divider border-primary-foreground/50 mb-8"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="luxury-divider border-primary-foreground/40 mb-10"
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="luxury-body text-primary-foreground/80 max-w-lg text-lg mb-10"
+          className="luxury-body text-primary-foreground/75 max-w-md text-lg mb-12"
         >
           An intimate sanctuary nestled on a secluded beach,
           where every moment is crafted for your indulgence.
@@ -56,7 +56,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.8 }}
-          className="luxury-btn-primary"
+          className="luxury-btn-primary text-[11px] py-4 px-12"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
         >
           Book Now
         </motion.a>
@@ -69,11 +71,11 @@ const HeroSection = () => {
         transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="luxury-subheading text-[9px] text-primary-foreground/50">Scroll</span>
+        <span className="luxury-subheading text-[9px] text-primary-foreground/40">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-px h-8 bg-primary-foreground/30"
+          className="w-px h-8 bg-primary-foreground/25"
         />
       </motion.div>
     </section>

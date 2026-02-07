@@ -33,13 +33,13 @@ const ExperiencesSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="experiences" className="py-28 lg:py-40 px-6">
+    <section id="experiences" className="section-padding">
       <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="section-header"
         >
           <p className="luxury-subheading mb-6">Experiences</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
@@ -52,15 +52,15 @@ const ExperiencesSection = () => {
           </p>
         </motion.div>
 
-        {/* Gallery Grid - asymmetric layout */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        {/* Gallery Grid - asymmetric layout with rounded card style */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {experiences.map((exp, i) => (
             <motion.div
               key={exp.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.12 * i }}
-              className={`group relative overflow-hidden cursor-pointer ${
+              className={`group relative rounded-lg overflow-hidden cursor-pointer shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-hover)] transition-all duration-500 ${
                 i === 0 ? "col-span-2 row-span-2" : ""
               }`}
             >
@@ -71,12 +71,13 @@ const ExperiencesSection = () => {
                   i === 0 ? "h-[400px] lg:h-full" : "h-[200px] lg:h-[280px]"
                 }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                <h3 className="luxury-heading text-lg lg:text-xl text-primary-foreground mb-1">
+              {/* Persistent bottom gradient with title */}
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/5 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
+                <h3 className="luxury-heading text-lg lg:text-xl text-primary-foreground mb-1 drop-shadow-sm">
                   {exp.title}
                 </h3>
-                <p className="luxury-body text-primary-foreground/80 text-xs lg:text-sm">
+                <p className="luxury-body text-primary-foreground/70 text-xs lg:text-sm translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   {exp.description}
                 </p>
               </div>
