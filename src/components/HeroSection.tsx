@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import heroVideo from "@/assets/hero-video.mp4";
 
+const heroNavLinks = ["Stays", "Experiences", "Concierge"];
+
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -27,67 +36,93 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* ── Hero overlay UI ──────────────────────── */}
+      {/* ── Single consolidated overlay ──────────── */}
       <div className="relative z-10 flex h-full flex-col">
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-6 pt-6 lg:px-10 lg:pt-8"
-          style={{ paddingTop: "max(env(safe-area-inset-top, 0px), 1.5rem)" }}
+
+        {/* Top bar — sticky header that transitions on scroll */}
+        <header
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+            scrolled
+              ? "bg-background/95 backdrop-blur-md py-3"
+              : "bg-transparent py-5 lg:py-6"
+          }`}
+          style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
         >
-          {/* Book — top left */}
-          <a
-            href="#book"
-            className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            Book
-          </a>
-
-          {/* Hamburger — top right */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="hero-glow-hover flex flex-col items-end gap-[5px] p-1 transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            aria-label="Toggle menu"
-          >
-            <span
-              className={`block h-px bg-foreground/50 transition-all duration-300 ${
-                menuOpen ? "w-5 rotate-45 translate-y-[3px]" : "w-5"
-              }`}
-            />
-            <span
-              className={`block h-px bg-foreground/50 transition-all duration-300 ${
-                menuOpen ? "w-5 -rotate-45 -translate-y-[3px]" : "w-4"
-              }`}
-            />
-            {!menuOpen && (
-              <span className="block h-px w-3 bg-foreground/50 transition-all duration-300" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile drawer from hero hamburger */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden"
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
+            {/* Book — left */}
+            <a
+              href="#book"
+              className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
             >
-              <nav className="flex flex-col items-center gap-7 py-12">
-                {["Stays", "Experiences", "Concierge"].map((link) => (
+              Book
+            </a>
+
+            {/* Brand — center */}
+            <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide">
+              <span className={`transition-all duration-700 ${
+                scrolled ? "text-[1.4rem] lg:text-[1.6rem]" : "text-[1.6rem] lg:text-[2rem]"
+              }`}>
+                <span className="text-foreground/90">
+                  Antigua<span className="gold-text">Bella</span>
+                </span>
+              </span>
+            </a>
+
+            {/* Hamburger — right */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="hero-glow-hover flex flex-col items-end gap-[5px] p-1 transition-all duration-300"
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`block h-px bg-foreground/50 transition-all duration-300 ${
+                  menuOpen ? "w-5 rotate-45 translate-y-[3px]" : "w-5"
+                }`}
+              />
+              <span
+                className={`block h-px bg-foreground/50 transition-all duration-300 ${
+                  menuOpen ? "w-5 -rotate-45 -translate-y-[3px]" : "w-4"
+                }`}
+              />
+              {!menuOpen && (
+                <span className="block h-px w-3 bg-foreground/50 transition-all duration-300" />
+              )}
+            </button>
+          </div>
+
+          {/* Mobile / menu drawer */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="overflow-hidden bg-background/98 backdrop-blur-lg border-t border-border/10"
+              >
+                <nav className="flex flex-col items-center gap-7 py-12">
+                  {heroNavLinks.map((link) => (
+                    <a
+                      key={link}
+                      href={`#${link.toLowerCase()}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover font-aguero text-[10px] tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground/70 transition-colors duration-400"
+                    >
+                      {link}
+                    </a>
+                  ))}
                   <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
+                    href="#begin"
                     onClick={() => setMenuOpen(false)}
-                    className="font-aguero text-[10px] tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground/70 transition-colors duration-400"
+                    className="hero-glow-hover font-aguero text-[10px] tracking-[0.22em] uppercase text-foreground/35 hover:text-foreground/60 transition-colors duration-500 mt-4"
                   >
-                    {link}
+                    Sign In
                   </a>
-                ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </nav>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </header>
 
         {/* Spacer */}
         <div className="flex-1" />
@@ -102,7 +137,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, delay: 1.6, ease: "easeOut" }}
-            className="hero-glow-hover font-luxury text-[12px] tracking-[0.3em] uppercase text-foreground/55 border border-foreground/10 py-3.5 px-14 transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="hero-glow-hover font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border border-foreground/20 py-3.5 px-14 transition-all duration-300"
           >
             Explore
           </motion.a>
