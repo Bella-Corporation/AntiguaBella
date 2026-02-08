@@ -8,12 +8,15 @@ const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [exploreCompact, setExploreCompact] = useState(false);
+  const [exploreHidden, setExploreHidden] = useState(false);
 
   useEffect(() => {
     const handler = () => {
       const y = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(y > 60);
       setExploreCompact(y > 40);
+      setExploreHidden(maxScroll > 0 && y >= maxScroll - 80);
     };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
@@ -138,8 +141,9 @@ const HeroSection = () => {
         className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
         style={{ paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)" }}
         animate={{
-          scale: exploreCompact ? 0.88 : 1,
-          opacity: 1,
+          scale: exploreHidden ? 0.8 : exploreCompact ? 0.88 : 1,
+          opacity: exploreHidden ? 0 : 1,
+          y: exploreHidden ? 20 : 0,
         }}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
