@@ -93,27 +93,28 @@
   /* ── Typography ────────────────────────────── */
   .luxury-heading {
     font-family: 'Playfair Display', serif;
-    @apply font-medium tracking-wide;
+    @apply font-normal tracking-normal;
+    letter-spacing: -0.01em;
   }
 
   .luxury-subheading {
     font-family: 'Inter', sans-serif;
-    @apply text-xs font-light uppercase tracking-[0.3em] text-muted-foreground;
+    @apply text-[11px] font-light uppercase tracking-[0.35em] text-muted-foreground;
   }
 
   .luxury-body {
     font-family: 'Inter', sans-serif;
-    @apply font-light leading-[1.85];
+    @apply font-light leading-[1.95] text-[15px];
   }
 
   .luxury-divider {
-    @apply mx-auto w-12 border-t border-primary/40;
+    @apply mx-auto w-10 border-t border-primary/30;
   }
 
   /* ── Buttons ───────────────────────────────── */
   .luxury-btn {
     font-family: 'Inter', sans-serif;
-    @apply inline-block px-10 py-4 text-[11px] font-normal uppercase tracking-[0.25em] border rounded-none transition-all duration-500;
+    @apply inline-block px-10 py-4 text-[10px] font-normal uppercase tracking-[0.28em] border rounded-none transition-all duration-500;
   }
 
   .luxury-btn:hover {
@@ -135,12 +136,12 @@
   }
 
   .luxury-btn-outline {
-    @apply luxury-btn text-foreground/70;
-    border-color: hsl(var(--foreground) / 0.12);
+    @apply luxury-btn text-foreground/60;
+    border-color: hsl(var(--foreground) / 0.1);
   }
 
   .luxury-btn-outline:hover {
-    @apply border-primary/30 text-primary;
+    @apply border-primary/25 text-primary;
   }
 
   .luxury-btn-bold {
@@ -188,11 +189,11 @@
 
   /* ── Section spacing rhythm ────────────────── */
   .section-padding {
-    @apply py-32 lg:py-44 px-6 lg:px-10;
+    @apply py-36 lg:py-48 px-6 lg:px-12;
   }
 
   .section-header {
-    @apply text-center mb-20 lg:mb-28;
+    @apply text-center mb-24 lg:mb-32;
   }
 
   /* ── Gold accent utilities ─────────────────── */

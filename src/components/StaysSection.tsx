@@ -33,10 +33,10 @@ const StaysSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
-          className="mb-20 lg:mb-28"
+          className="mb-24 lg:mb-32"
         >
-          <p className="luxury-subheading text-primary/70 mb-8">Curated Stays</p>
-          <h2 className="luxury-heading text-4xl md:text-5xl lg:text-[3.5rem] text-foreground leading-[1.15] max-w-xl">
+          <p className="luxury-subheading text-primary/60 mb-6">Curated Stays</p>
+          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] max-w-md">
             Where You Stay
             <br />
             <span className="italic">Matters</span>
@@ -44,26 +44,26 @@ const StaysSection = () => {
         </motion.div>
 
         {/* Asymmetric editorial layout */}
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
+        <div className="grid lg:grid-cols-12 gap-5 lg:gap-6">
           {/* Large featured stay */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.15 }}
             className="lg:col-span-7 group cursor-pointer"
           >
-            <div className="relative rounded-2xl overflow-hidden border border-border/20">
+            <div className="relative rounded-2xl overflow-hidden border border-border/15">
               <img
                 src={stays[0].image}
                 alt={stays[0].name}
-                className="w-full h-[400px] lg:h-[560px] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
+                className="w-full h-[380px] lg:h-[540px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-background/30 group-hover:bg-background/20 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10">
-                <h3 className="luxury-heading text-2xl lg:text-3xl text-foreground mb-2">
+                <h3 className="luxury-heading text-[1.4rem] lg:text-[1.7rem] text-foreground mb-2">
                   {stays[0].name}
                 </h3>
-                <p className="luxury-body text-foreground/40 text-sm">
+                <p className="luxury-body text-foreground/30 text-[13px]">
                   {stays[0].tagline}
                 </p>
               </div>
@@ -71,27 +71,27 @@ const StaysSection = () => {
           </motion.div>
 
           {/* Stacked smaller stays */}
-          <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-8">
+          <div className="lg:col-span-5 flex flex-col gap-5 lg:gap-6">
             {stays.slice(1).map((stay, i) => (
               <motion.div
                 key={stay.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.3 + i * 0.15 }}
                 className="group cursor-pointer flex-1"
               >
-                <div className="relative rounded-2xl overflow-hidden border border-border/20 h-full">
+                <div className="relative rounded-2xl overflow-hidden border border-border/15 h-full">
                   <img
                     src={stay.image}
                     alt={stay.name}
-                    className="w-full h-[240px] lg:h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
+                    className="w-full h-[220px] lg:h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-background/30 group-hover:bg-background/20 transition-all duration-700" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                    <h3 className="luxury-heading text-xl lg:text-2xl text-foreground mb-1">
+                    <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1">
                       {stay.name}
                     </h3>
-                    <p className="luxury-body text-foreground/40 text-sm">
+                    <p className="luxury-body text-foreground/30 text-[13px]">
                       {stay.tagline}
                     </p>
                   </div>
@@ -105,9 +105,9 @@ const StaysSection = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 lg:mt-20"
+          className="mt-20 lg:mt-24"
         >
-          <a href="#begin" className="luxury-btn-outline text-[10px]">
+          <a href="#begin" className="luxury-btn-outline">
             Discover All Stays
           </a>
         </motion.div>

@@ -26,42 +26,42 @@ const ConciergeSection = () => {
 
   return (
     <section id="concierge" className="section-padding">
-      <div ref={ref} className="mx-auto max-w-6xl">
+      <div ref={ref} className="mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
-          className="text-center mb-24 lg:mb-32"
+          className="text-center mb-28 lg:mb-36"
         >
-          <p className="luxury-subheading text-primary/70 mb-8">The Concierge</p>
-          <h2 className="luxury-heading text-4xl md:text-5xl lg:text-[3.5rem] text-foreground leading-[1.15] mb-10">
+          <p className="luxury-subheading text-primary/60 mb-6">The Concierge</p>
+          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
             Your Antigua,
             <br />
             <span className="italic">Designed</span>
           </h2>
           <div className="luxury-divider mb-10" />
-          <p className="luxury-body text-muted-foreground text-base max-w-lg mx-auto">
+          <p className="luxury-body text-muted-foreground max-w-md mx-auto">
             Every journey through AntiguaBella begins with understanding.
-            We design around you — not the other way around.
+            We design around you.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid md:grid-cols-3 gap-16 lg:gap-20">
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.15 * i }}
               className="text-center lg:text-left"
             >
-              <div className="w-12 h-12 mx-auto lg:mx-0 mb-6 rounded-full border border-border/40 flex items-center justify-center">
-                <pillar.icon className="w-5 h-5 text-primary/70" strokeWidth={1.2} />
+              <div className="w-11 h-11 mx-auto lg:mx-0 mb-7 rounded-full border border-border/30 flex items-center justify-center">
+                <pillar.icon className="w-[18px] h-[18px] text-primary/60" strokeWidth={1.2} />
               </div>
-              <h3 className="luxury-heading text-xl lg:text-2xl text-foreground mb-4">
+              <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-4">
                 {pillar.title}
               </h3>
-              <p className="luxury-body text-muted-foreground text-sm max-w-xs mx-auto lg:mx-0">
+              <p className="luxury-body text-muted-foreground text-[13px] max-w-[260px] mx-auto lg:mx-0">
                 {pillar.description}
               </p>
             </motion.div>
