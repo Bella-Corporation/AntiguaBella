@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
+/* Custom brand fonts — drop .ttf files into public/fonts/ */
+@font-face {
+  font-family: 'Aguero Serif';
+  src: url('/fonts/AgueroSerif.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Luxury';
+  src: url('/fonts/Luxury.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -203,5 +220,25 @@
 
   .gold-border {
     border-color: hsl(var(--primary) / 0.3);
+  }
+
+  /* ── Hero font utilities ──────────────────── */
+  .font-aguero {
+    font-family: 'Aguero Serif', 'Playfair Display', serif;
+  }
+
+  .font-luxury {
+    font-family: 'Luxury', 'Playfair Display', serif;
+  }
+
+  /* ── Hero gold glow hover ─────────────────── */
+  .hero-glow-hover {
+    transition: color 0.28s ease, text-shadow 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
+  }
+
+  .hero-glow-hover:hover {
+    color: hsl(var(--primary) / 0.85);
+    text-shadow: 0 0 18px hsl(var(--primary) / 0.2), 0 0 40px hsl(var(--primary) / 0.08);
+    border-color: hsl(var(--primary) / 0.25);
   }
 }
