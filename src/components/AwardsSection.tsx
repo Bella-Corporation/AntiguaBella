@@ -6,32 +6,32 @@ const AwardsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-32 lg:py-44 px-6 lg:px-10 border-t border-border/15">
-      <div ref={ref} className="mx-auto max-w-4xl text-center">
+    <section className="py-36 lg:py-48 px-6 lg:px-12 border-t border-border/10">
+      <div ref={ref} className="mx-auto max-w-3xl text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
         >
-          <div className="luxury-divider mb-16" />
+          <div className="luxury-divider mb-20" />
 
-          <p className="luxury-heading text-2xl md:text-3xl lg:text-4xl text-foreground/80 italic leading-[1.5] mb-12 max-w-2xl mx-auto">
+          <p className="luxury-heading text-[1.4rem] md:text-[1.7rem] lg:text-[2rem] text-foreground/70 italic leading-[1.6] mb-14 max-w-xl mx-auto">
             "A rare platform that understands the difference between
             luxury and excess. Antigua, finally done right."
           </p>
 
-          <p className="luxury-subheading text-[10px] text-primary/50 mb-16">
+          <p className="luxury-subheading text-[10px] text-primary/40 mb-20">
             — Condé Nast Traveler
           </p>
 
-          <div className="flex items-center justify-center gap-12 lg:gap-16">
+          <div className="flex items-center justify-center gap-14 lg:gap-20">
             {["Condé Nast Gold List", "Forbes Travel Guide", "Michelin Keys"].map((name, i) => (
               <motion.p
                 key={name}
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 + i * 0.15 }}
-                className="luxury-subheading text-[9px] text-muted-foreground/40 tracking-[0.2em]"
+                className="luxury-subheading text-[9px] text-muted-foreground/30 tracking-[0.2em]"
               >
                 {name}
               </motion.p>

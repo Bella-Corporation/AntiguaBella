@@ -13,12 +13,12 @@ const HeroSection = () => {
         <div className="image-overlay" />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-end text-center px-6 pb-36 lg:pb-44">
+      <div className="relative z-10 flex h-full flex-col items-center justify-end text-center px-6 pb-40 lg:pb-48">
         <motion.h1
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.6, delay: 0.5 }}
-          className="luxury-heading text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[1.08] mb-12"
+          className="luxury-heading text-[2.8rem] md:text-[4.5rem] lg:text-[6rem] text-foreground leading-[1.05] mb-14"
         >
           The Caribbean,
           <br />
@@ -29,14 +29,14 @@ const HeroSection = () => {
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.8, delay: 1.6 }}
-          className="w-12 border-t border-primary/40 mb-12"
+          className="w-10 border-t border-primary/30 mb-14"
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 2 }}
-          className="luxury-body text-foreground/35 max-w-sm text-base mb-16"
+          className="luxury-body text-foreground/30 max-w-sm text-[15px] mb-20"
         >
           Antigua's finest — for travelers who value discretion.
         </motion.p>
@@ -46,7 +46,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 2.5 }}
-          className="luxury-btn-outline text-[10px] py-3.5 px-12"
+          className="luxury-btn-outline py-3.5 px-12"
         >
           Explore
         </motion.a>
@@ -62,7 +62,7 @@ const HeroSection = () => {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8 bg-foreground/15"
+          className="w-px h-8 bg-foreground/10"
         />
       </motion.div>
     </section>
