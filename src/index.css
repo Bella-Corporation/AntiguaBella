@@ -233,12 +233,12 @@
 
   /* ── Hero gold glow hover ─────────────────── */
   .hero-glow-hover {
-    transition: color 0.28s ease, text-shadow 0.28s ease, border-color 0.28s ease, filter 0.28s ease;
+    transition: color 0.25s ease, text-shadow 0.25s ease, border-color 0.25s ease;
   }
 
   .hero-glow-hover:hover {
-    color: hsl(var(--primary) / 0.85);
-    text-shadow: 0 0 18px hsl(var(--primary) / 0.2), 0 0 40px hsl(var(--primary) / 0.08);
-    border-color: hsl(var(--primary) / 0.25);
+    color: hsl(var(--primary) / 0.92) !important;
+    text-shadow: 0 0 14px hsl(var(--primary) / 0.35), 0 0 32px hsl(var(--primary) / 0.15);
+    border-color: hsl(var(--primary) / 0.35);
   }
 }

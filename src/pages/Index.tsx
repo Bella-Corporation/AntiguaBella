@@ -1,4 +1,3 @@
-import ResortNavbar from "@/components/ResortNavbar";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import StaysSection from "@/components/StaysSection";
@@ -10,7 +9,6 @@ import ResortFooter from "@/components/ResortFooter";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <ResortNavbar />
       <main>
         <HeroSection />
         <IntroSection />
