@@ -148,7 +148,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, delay: 1.6, ease: "easeOut" }}
-          className={`hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border-0 backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 ${
+          className={`hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border-0 rounded-full backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 ${
             exploreCompact ? "py-2.5 px-10" : "py-3.5 px-14"
           }`}
           style={{
