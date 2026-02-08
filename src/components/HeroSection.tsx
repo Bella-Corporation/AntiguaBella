@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import heroVideo from "@/assets/hero-video.mp4";
 
@@ -7,18 +7,15 @@ const heroNavLinks = ["Stays", "Experiences", "Concierge"];
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [exploreLocked, setExploreLocked] = useState(false);
-  const hasLockedRef = useRef(false);
+  const [exploreCompact, setExploreCompact] = useState(false);
 
   useEffect(() => {
     const handler = () => {
-      setScrolled(window.scrollY > 60);
-      if (!hasLockedRef.current && window.scrollY > 20) {
-        hasLockedRef.current = true;
-        setExploreLocked(true);
-      }
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      setExploreCompact(y > 40);
     };
-    window.addEventListener("scroll", handler);
+    window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
@@ -140,10 +137,9 @@ const HeroSection = () => {
       <motion.div
         className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
         style={{ paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)" }}
-        initial={{ opacity: 0, y: 12 }}
         animate={{
-          opacity: exploreLocked ? 1 : 0.85,
-          y: exploreLocked ? 0 : 12,
+          scale: exploreCompact ? 0.88 : 1,
+          opacity: 1,
         }}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
@@ -152,10 +148,14 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, delay: 1.6, ease: "easeOut" }}
-          className="hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/80 border border-foreground/15 py-3.5 px-14 transition-all duration-300 backdrop-blur-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2"
+          className={`hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border border-foreground/8 backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 ${
+            exploreCompact ? "py-2.5 px-10" : "py-3.5 px-14"
+          }`}
           style={{
-            background: "hsla(0, 0%, 0%, 0.35)",
-            boxShadow: "0 0 20px 0 hsla(41, 54%, 54%, 0.06), inset 0 0.5px 0 0 hsla(38, 15%, 92%, 0.08)",
+            background: exploreCompact
+              ? "hsla(41, 12%, 50%, 0.06)"
+              : "hsla(41, 12%, 50%, 0.08)",
+            boxShadow: "inset 0 0.5px 0 0 hsla(38, 15%, 92%, 0.06)",
           }}
         >
           Explore
