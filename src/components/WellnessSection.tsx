@@ -102,7 +102,7 @@ const WellnessSection = () => {
         </div>
 
         {/* Pagination dots & arrows */}
-        <div className="flex items-center justify-center gap-4">
+        <div id="wellness-pagination" className="flex items-center justify-center gap-4">
           <button
             onClick={() => goToPage(Math.max(0, page - 1))}
             disabled={page === 0}
