@@ -110,18 +110,18 @@
   /* ── Typography ────────────────────────────── */
   .luxury-heading {
     font-family: 'Playfair Display', serif;
-    @apply font-normal tracking-normal;
+    @apply font-semibold tracking-normal;
     letter-spacing: -0.01em;
   }
 
   .luxury-subheading {
     font-family: 'Inter', sans-serif;
-    @apply text-[11px] font-light uppercase tracking-[0.35em] text-muted-foreground;
+    @apply text-[12px] font-medium uppercase tracking-[0.3em] text-muted-foreground;
   }
 
   .luxury-body {
     font-family: 'Inter', sans-serif;
-    @apply font-light leading-[1.85] text-[16px];
+    @apply font-normal leading-[1.85] text-[17px];
   }
 
   .luxury-divider {
