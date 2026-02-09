@@ -74,7 +74,7 @@ const StaysSection = () => {
         <div className="grid lg:grid-cols-12 gap-5 lg:gap-6">
           {/* Large featured stay */}
           <SlideInCard x={-25} delay={0} className="lg:col-span-7 group cursor-pointer">
-            <div className="relative rounded-2xl overflow-hidden border border-border/15">
+            <div className="relative rounded-2xl overflow-hidden border border-border/15 image-card-hover">
               <img
                 src={stays[0].image}
                 alt={stays[0].name}
@@ -101,7 +101,7 @@ const StaysSection = () => {
                 delay={i * 0.1}
                 className="group cursor-pointer flex-1"
               >
-                <div className="relative rounded-2xl overflow-hidden border border-border/15 h-full">
+                <div className="relative rounded-2xl overflow-hidden border border-border/15 h-full image-card-hover">
                   <img
                     src={stay.image}
                     alt={stay.name}

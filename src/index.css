@@ -140,8 +140,9 @@
   }
 
   .luxury-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 0 12px 1px hsl(41 54% 54% / 0.12);
+    transform: scale(0.975) translateY(0);
+    box-shadow: 0 0 8px 1px hsl(41 54% 54% / 0.10);
+    transition-duration: 100ms;
   }
 
   .luxury-btn-primary {
@@ -179,7 +180,7 @@
   }
 
   .luxury-card:hover {
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-hover), 0 0 20px -4px hsl(var(--primary) / 0.08);
     transform: translateY(-3px);
     border-color: hsl(var(--primary) / 0.15);
   }
@@ -266,5 +267,27 @@
   [data-reveal].is-revealed {
     opacity: 1 !important;
     transform: translate(0) !important;
+  }
+
+  /* ── Interactive image card hover ────────── */
+  .image-card-hover {
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, border-color 0.5s ease-out;
+  }
+
+  .image-card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px -6px hsl(0 0% 0% / 0.5), 0 0 18px -4px hsl(var(--primary) / 0.08);
+    border-color: hsl(var(--primary) / 0.12);
+  }
+
+  .image-card-hover:active {
+    transform: scale(0.985) translateY(-1px);
+    transition-duration: 100ms;
+  }
+
+  /* ── Generic interactive press ──────────── */
+  .press-feedback:active {
+    transform: scale(0.975);
+    transition: transform 100ms ease-out;
   }
 }
