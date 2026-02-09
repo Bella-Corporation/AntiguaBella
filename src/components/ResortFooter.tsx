@@ -11,8 +11,8 @@ const ResortFooter = () => {
   return (
     <footer id="begin" className="border-t border-border/10 text-foreground">
       {/* Newsletter / Begin section */}
-      <div className="py-36 lg:py-48 px-6 lg:px-12">
-        <div className="mx-auto max-w-lg text-center">
+      <div className="section-padding">
+        <div className="mx-auto max-w-7xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ const ResortFooter = () => {
       </div>
 
       {/* Combined footer */}
-      <div className="border-t border-border/8 py-16 lg:py-20 px-6 lg:px-12">
+      <div className="border-t border-border/8 py-16 lg:py-20 px-6 lg:px-12 mx-auto">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Left — Brand + Contact */}
           <div className="text-center md:text-left" data-reveal="slide-left">
