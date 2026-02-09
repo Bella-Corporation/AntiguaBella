@@ -56,14 +56,15 @@ const ExperiencesSection = () => {
               <img
                 src={exp.image}
                 alt={exp.title}
-                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.06]"
+                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
               />
-              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-all duration-700" />
+              {/* Bottom-up gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-black/10 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1">
+                <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
                   {exp.title}
                 </h3>
-                <p className="luxury-body text-foreground/30 text-[13px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                <p className="luxury-body text-foreground/60 text-[13px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
                   {exp.tagline}
                 </p>
               </div>
