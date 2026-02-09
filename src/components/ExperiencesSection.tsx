@@ -30,7 +30,7 @@ const experiences = [
 
 const ExperiencesSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section id="experiences" className="section-padding bg-card">
