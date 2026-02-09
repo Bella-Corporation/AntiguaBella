@@ -13,7 +13,7 @@ const AwardsSection = () => {
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-6">Recognition</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground leading-[1.2]">
+          <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground leading-[1.2]">
             World-Class <span className="italic">Accolades</span>
           </h2>
         </div>

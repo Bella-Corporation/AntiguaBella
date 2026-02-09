@@ -7,7 +7,7 @@ const IntroSection = () => {
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <div>
             <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">The Platform</p>
-            <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+            <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
               Access Without
               <br />
               <span className="italic">Compromise</span>

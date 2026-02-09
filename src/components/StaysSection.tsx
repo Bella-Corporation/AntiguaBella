@@ -30,7 +30,7 @@ const StaysSection = () => {
         {/* Header */}
         <div className="section-header">
           <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary mb-4">Accommodations</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
+          <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
             Your Private <span className="italic">Sanctuary</span>
           </h2>
           <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mb-6" />

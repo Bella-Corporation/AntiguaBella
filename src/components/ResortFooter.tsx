@@ -13,7 +13,7 @@ const ResortFooter = () => {
         <div data-reveal="slide-up" className="mx-auto max-w-7xl text-center">
           <div>
             <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-5">Begin</p>
-            <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
+            <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
               Ready When <span className="italic">You Are</span>
             </h2>
             <p data-reveal="slide-up" data-reveal-delay="340" className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">
