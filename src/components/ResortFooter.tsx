@@ -41,7 +41,7 @@ const ResortFooter = () => {
             <p className="luxury-heading text-sm">
               Antigua<span className="gold-text">Bella</span>
             </p>
-            <span className="text-muted-foreground/30 text-[11px]">© 2025</span>
+            <span className="text-muted-foreground/30 text-[11px]">© 2021</span>
             <a
               href="mailto:concierge@antiguabella.com"
               className="text-muted-foreground/40 hover:text-primary text-[10px] uppercase tracking-[0.2em] transition-colors duration-300"
@@ -56,7 +56,7 @@ const ResortFooter = () => {
                 key={social.label}
                 href="#"
                 aria-label={social.label}
-                className="text-muted-foreground/30 hover:text-primary transition-colors duration-400"
+                className="text-muted-foreground/30 hover:text-primary hover:drop-shadow-[0_0_8px_hsl(41_54%_54%_/_0.5)] transition-all duration-400"
               >
                 <social.icon size={16} strokeWidth={1.3} />
               </a>
