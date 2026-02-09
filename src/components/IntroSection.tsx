@@ -5,7 +5,7 @@ const IntroSection = () => {
   const ref = useRef(null);
 
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding bg-background">
       <div ref={ref} className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-20 lg:gap-24 items-center">
           <div>

@@ -47,7 +47,7 @@ const WellnessSection = () => {
   };
 
   return (
-    <section id="wellness" className="section-padding bg-background">
+    <section id="wellness" className="section-padding bg-card">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-20 lg:mb-28">
           <p className="luxury-subheading text-primary/60 mb-6">Wellness & Spa</p>
