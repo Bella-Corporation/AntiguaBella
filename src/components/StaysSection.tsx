@@ -25,7 +25,7 @@ const villas = [
 
 const StaysSection = () => {
   return (
-    <section id="stays" className="section-padding">
+    <section id="stays" className="section-padding bg-card">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="section-header">

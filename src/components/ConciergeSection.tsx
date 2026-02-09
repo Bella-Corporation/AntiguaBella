@@ -20,7 +20,7 @@ const pillars = [
 
 const ConciergeSection = () => {
   return (
-    <section id="concierge" className="section-padding">
+    <section id="concierge" className="section-padding bg-background">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-28 lg:mb-36">
           <p className="luxury-subheading text-primary/60 mb-6">The Concierge</p>

@@ -28,7 +28,7 @@ const experiences = [
 
 const ExperiencesSection = () => {
   return (
-    <section id="experiences" className="section-padding bg-card">
+    <section id="experiences" className="section-padding bg-background">
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-28 items-start mb-20 lg:mb-28">
           <div className="lg:col-span-5">

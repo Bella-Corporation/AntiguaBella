@@ -9,7 +9,7 @@ const accolades = [
 
 const AwardsSection = () => {
   return (
-    <section className="section-padding border-t border-border/10">
+    <section className="section-padding bg-card border-t border-border/10">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-20">
           <p className="luxury-subheading text-primary/60 mb-6">Recognition</p>
