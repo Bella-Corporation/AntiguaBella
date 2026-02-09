@@ -40,46 +40,28 @@ const ResortFooter = () => {
         </div>
       </div>
 
-      {/* Brand info, contact & social */}
-      <div className="border-t border-border/8 py-20 lg:py-28 px-6 lg:px-12">
-        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-20">
-          {/* Brand description */}
-          <div>
-            <p className="luxury-heading text-lg mb-4">
+      {/* Combined footer */}
+      <div className="border-t border-border/8 py-16 lg:py-20 px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10">
+          {/* Left — Brand + Contact */}
+          <div className="text-center md:text-left">
+            <p className="luxury-heading text-lg mb-2">
               Antigua<span className="gold-text">Bella</span>
             </p>
-            <p className="luxury-body text-muted-foreground text-[13px] mb-2">
-              An elite luxury experiences platform on Antigua's most exclusive shores.
+            <p className="luxury-body text-muted-foreground/50 text-[12px] mb-4">
+              © 2025 AntiguaBella
             </p>
-            <p className="luxury-body text-muted-foreground/50 text-[12px]">
-              Where Caribbean luxury finds its finest expression.
-            </p>
+            <a
+              href="mailto:concierge@antiguabella.com"
+              className="luxury-btn-outline py-2.5 px-6 text-[9px]"
+            >
+              Contact
+            </a>
           </div>
 
-          {/* Contact */}
-          <div>
-            <p className="luxury-subheading text-primary/50 mb-6">Contact</p>
-            <div className="luxury-body text-muted-foreground text-[13px] space-y-1.5">
-              <p>AntiguaBella, St. Mary's</p>
-              <p>Antigua, West Indies</p>
-              <a
-                href="tel:+12685625500"
-                className="block hover:text-primary/70 transition-colors duration-300"
-              >
-                +1 (268) 562-5500
-              </a>
-              <a
-                href="mailto:concierge@antiguabella.com"
-                className="block hover:text-primary/70 transition-colors duration-300"
-              >
-                concierge@antiguabella.com
-              </a>
-            </div>
-          </div>
-
-          {/* Social */}
-          <div>
-            <p className="luxury-subheading text-primary/50 mb-6">Follow</p>
+          {/* Center — Social */}
+          <div className="flex flex-col items-center gap-4">
+            <p className="luxury-subheading text-primary/50 text-[10px]">Follow</p>
             <div className="flex gap-5">
               {socialLinks.map((social) => (
                 <a
@@ -93,20 +75,8 @@ const ResortFooter = () => {
               ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-border/8 py-8 px-6 lg:px-12">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="luxury-heading text-base tracking-normal">
-            Antigua<span className="gold-text">Bella</span>
-          </p>
-
-          <p className="luxury-body text-muted-foreground/30 text-[11px]">
-            © 2025 AntiguaBella
-          </p>
-
+          {/* Right — Legal */}
           <div className="flex gap-8">
             {["Privacy", "Terms"].map((link) => (
               <a
