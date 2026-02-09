@@ -243,4 +243,28 @@
     text-shadow: 0 0 14px hsl(var(--primary) / 0.35), 0 0 32px hsl(var(--primary) / 0.15);
     border-color: hsl(var(--primary) / 0.35);
   }
+
+  /* ── Scroll Reveal (opt-in only) ─────────── */
+  [data-reveal] {
+    will-change: transform, opacity;
+    transition: transform 420ms ease-out, opacity 420ms ease-out;
+  }
+
+  [data-reveal="slide-left"] {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  [data-reveal="slide-right"] {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  [data-reveal="slide-up"] {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1 !important;
+    transform: translate(0) !important;
+  }
 }

@@ -44,7 +44,7 @@ const ResortFooter = () => {
       <div className="border-t border-border/8 py-16 lg:py-20 px-6 lg:px-12">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Left — Brand + Contact */}
-          <div className="text-center md:text-left">
+          <div className="text-center md:text-left" data-reveal="slide-left">
             <p className="luxury-heading text-lg mb-2">
               Antigua<span className="gold-text">Bella</span>
             </p>
@@ -60,7 +60,7 @@ const ResortFooter = () => {
           </div>
 
           {/* Center — Social */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4" data-reveal="slide-up">
             <p className="luxury-subheading text-primary/50 text-[10px]">Follow</p>
             <div className="flex gap-5">
               {socialLinks.map((social) => (
@@ -77,7 +77,7 @@ const ResortFooter = () => {
           </div>
 
           {/* Right — Legal */}
-          <div className="flex gap-8">
+          <div className="flex gap-8" data-reveal="slide-right">
             {["Privacy", "Terms"].map((link) => (
               <a
                 key={link}
