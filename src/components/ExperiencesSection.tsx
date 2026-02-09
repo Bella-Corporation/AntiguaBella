@@ -37,9 +37,9 @@ const ExperiencesSection = () => {
       <div ref={ref} className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-28 items-start mb-20 lg:mb-28">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, x: -25 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="lg:col-span-5"
           >
             <p className="luxury-subheading text-primary/60 mb-6">Experiences</p>
@@ -61,9 +61,9 @@ const ExperiencesSection = () => {
           {experiences.map((exp, i) => (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 * i }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 * i }}
               className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15"
             >
               <img
