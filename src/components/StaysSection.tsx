@@ -30,9 +30,9 @@ const StaysSection = () => {
     <section id="stays" className="section-padding">
       <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
+          initial={{ opacity: 0, x: -40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-24 lg:mb-32"
         >
           <p className="luxury-subheading text-primary/60 mb-6">Curated Stays</p>
@@ -47,9 +47,9 @@ const StaysSection = () => {
         <div className="grid lg:grid-cols-12 gap-5 lg:gap-6">
           {/* Large featured stay */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.15 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
             className="lg:col-span-7 group cursor-pointer"
           >
             <div className="relative rounded-2xl overflow-hidden border border-border/15">
@@ -75,9 +75,9 @@ const StaysSection = () => {
             {stays.slice(1).map((stay, i) => (
               <motion.div
                 key={stay.name}
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 1, delay: 0.3 + i * 0.15 }}
+                initial={{ opacity: 0, x: 30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 + i * 0.15 }}
                 className="group cursor-pointer flex-1"
               >
                 <div className="relative rounded-2xl overflow-hidden border border-border/15 h-full">

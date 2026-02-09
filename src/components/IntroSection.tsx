@@ -11,9 +11,9 @@ const IntroSection = () => {
       <div ref={ref} className="mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <p className="luxury-subheading text-primary/60 mb-6">The Platform</p>
             <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
@@ -33,9 +33,9 @@ const IntroSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.2, delay: 0.3 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <div className="rounded-2xl overflow-hidden border border-border/15">
               <img

@@ -136,10 +136,12 @@
 
   .luxury-btn:hover {
     transform: translateY(-1px);
+    box-shadow: 0 0 18px 2px hsl(41 54% 54% / 0.18), 0 0 40px 4px hsl(41 54% 54% / 0.08);
   }
 
   .luxury-btn:active {
     transform: translateY(0);
+    box-shadow: 0 0 12px 1px hsl(41 54% 54% / 0.12);
   }
 
   .luxury-btn-primary {
