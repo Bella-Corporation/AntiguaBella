@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
+import HeaderSearch from "@/components/HeaderSearch";
 import heroVideo from "@/assets/hero-video.mp4";
 
 const heroNavLinks = ["Stays", "Experiences", "Concierge"];
@@ -79,7 +80,8 @@ const HeroSection = () => {
             </a>
 
             {/* Right icons */}
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-4">
+              <HeaderSearch />
               <Link
                 to="/book"
                 className="hero-glow-hover text-foreground/50 transition-all duration-300"
