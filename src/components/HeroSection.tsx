@@ -15,7 +15,7 @@ const HeroSection = () => {
   const [exploreVisible, setExploreVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setExploreVisible(true), 3000);
+    const timer = setTimeout(() => setExploreVisible(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
