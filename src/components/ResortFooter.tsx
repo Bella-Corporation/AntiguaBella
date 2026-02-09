@@ -56,10 +56,16 @@ const ResortFooter = () => {
                 key={social.label}
                 href="#"
                 aria-label={social.label}
-                className="text-muted-foreground/30 hover:text-primary transition-all duration-300"
-                style={{ filter: 'drop-shadow(0 0 0px transparent)' }}
-                onMouseEnter={e => { e.currentTarget.style.filter = 'drop-shadow(0 0 8px hsl(41 54% 54% / 0.6))'; }}
-                onMouseLeave={e => { e.currentTarget.style.filter = 'drop-shadow(0 0 0px transparent)'; }}
+                className="transition-all duration-300 rounded-full p-2"
+                style={{ color: 'hsl(38 15% 92% / 0.3)' }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.color = 'hsl(41 54% 54%)';
+                  e.currentTarget.style.boxShadow = '0 0 12px 2px hsl(41 54% 54% / 0.4)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
                 <social.icon size={16} strokeWidth={1.3} />
               </a>
