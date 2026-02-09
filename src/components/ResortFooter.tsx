@@ -32,7 +32,7 @@ const ResortFooter = () => {
                 placeholder="Your email"
                 className="flex-1 bg-transparent border border-border/30 rounded-none px-5 py-3.5 text-[13px] text-foreground placeholder:text-muted-foreground/35 focus:border-primary/25 focus:outline-none transition-all duration-300"
               />
-              <button className="luxury-btn-outline py-3.5 px-8 whitespace-nowrap">
+              <button className="luxury-btn-outline py-3.5 px-8 whitespace-nowrap press-feedback">
                 Get in Touch
               </button>
             </div>

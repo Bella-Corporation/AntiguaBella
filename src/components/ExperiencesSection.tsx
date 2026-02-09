@@ -90,7 +90,7 @@ const ExperiencesSection = () => {
               key={exp.title}
               x={i % 2 === 0 ? -20 : 20}
               delay={0.08 * i}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
             >
               <img
                 src={exp.image}
