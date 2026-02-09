@@ -216,6 +216,15 @@
     @apply text-center mb-14 lg:mb-20;
   }
 
+  /* ── Social icon hover ───────────────────── */
+  .social-icon-gold {
+    color: hsl(38 15% 92% / 0.3);
+    transition: color 0.3s ease;
+  }
+  .social-icon-gold:hover {
+    color: hsl(41 54% 54%);
+  }
+
   /* ── Gold accent utilities ─────────────────── */
   .gold-text {
     color: hsl(var(--primary));

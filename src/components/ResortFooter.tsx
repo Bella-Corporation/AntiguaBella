@@ -50,38 +50,15 @@ const ResortFooter = () => {
             </a>
           </div>
 
-          <div className="flex items-center gap-2">
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="transition-colors duration-300 p-2"
-              style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
-            >
-              <Instagram size={16} strokeWidth={1.3} />
-            </a>
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="transition-colors duration-300 p-2"
-              style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
-            >
-              <Facebook size={16} strokeWidth={1.3} />
-            </a>
-            <a
-              href="#"
-              aria-label="Twitter"
-              className="transition-colors duration-300 p-2"
-              style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
-            >
-              <Twitter size={16} strokeWidth={1.3} />
-            </a>
-          </div>
+          <a href="#" aria-label="Instagram" className="social-icon-gold p-2">
+            <Instagram size={16} strokeWidth={1.3} />
+          </a>
+          <a href="#" aria-label="Facebook" className="social-icon-gold p-2">
+            <Facebook size={16} strokeWidth={1.3} />
+          </a>
+          <a href="#" aria-label="Twitter" className="social-icon-gold p-2">
+            <Twitter size={16} strokeWidth={1.3} />
+          </a>
 
           <div className="flex gap-6">
             {["Privacy", "Sitemap", "Terms"].map((link) => (
