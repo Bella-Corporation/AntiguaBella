@@ -1,28 +1,12 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import resortAerial from "@/assets/resort-aerial.jpg";
 
 const IntroSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Delay slightly so the slide feels intentional
-          setTimeout(() => setVisible(true), 200);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const ref = useRef(null);
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding bg-background">
-      <div className="mx-auto max-w-7xl">
+    <section id="about" className="section-padding bg-background">
+      <div ref={ref} className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <div>
             <p className="luxury-subheading text-primary/60 mb-4">The Platform</p>
@@ -42,14 +26,8 @@ const IntroSection = () => {
             </p>
           </div>
 
-          <div className="overflow-hidden">
-            <div
-              className="rounded-2xl overflow-hidden border border-border/15"
-              style={{
-                transform: visible ? "translateX(0)" : "translateX(100%)",
-                transition: "transform 1s cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
-            >
+          <div>
+            <div className="rounded-2xl overflow-hidden border border-border/15">
               <img
                 src={resortAerial}
                 alt="Aerial view of Antigua's coastline"
