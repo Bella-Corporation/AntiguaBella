@@ -84,7 +84,7 @@ const ResortFooter = () => {
           </div>
 
           <div className="flex gap-6">
-            {["Privacy", "Terms"].map((link) => (
+            {["Privacy", "Sitemap", "Terms"].map((link) => (
               <a
                 key={link}
                 href="#"
