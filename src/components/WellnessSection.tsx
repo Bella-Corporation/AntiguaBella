@@ -61,15 +61,20 @@ const WellnessSection = () => {
           </p>
         </div>
 
-        <div className="relative mb-16">
-          <AnimatePresence mode="wait" initial={false} custom={direction}>
+        <div className="relative overflow-hidden mb-16">
+          <AnimatePresence initial={false} mode="popLayout" custom={direction}>
             <motion.div
               key={page}
               custom={direction}
-              initial={{ opacity: 0, x: direction * 80 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction * -80 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={{
+                initial: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+                animate: { x: 0, opacity: 1 },
+                exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
+              }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
             >
               {visible.map((item) => (
