@@ -48,11 +48,8 @@ const ConciergeSection = () => {
 
         <div className="grid md:grid-cols-3 gap-16 lg:gap-20">
           {pillars.map((pillar, i) => (
-            <motion.div
+            <div
               key={pillar.title}
-              initial={{ opacity: 0, x: i === 0 ? -30 : i === 2 ? 30 : 0, y: i === 1 ? 20 : 0 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 * i }}
               className="text-center lg:text-left"
               data-reveal={i === 0 ? "slide-left" : i === 1 ? "slide-up" : "slide-right"}
             >
@@ -65,7 +62,7 @@ const ConciergeSection = () => {
               <p className="luxury-body text-muted-foreground text-[13px] max-w-[260px] mx-auto lg:mx-0">
                 {pillar.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
