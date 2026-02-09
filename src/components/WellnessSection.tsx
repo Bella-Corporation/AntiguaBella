@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import spaTreatment from "@/assets/spa-treatment.jpg";
 import yogaDeck from "@/assets/yoga-deck.jpg";
 import spaWellness from "@/assets/spa-wellness.jpg";
@@ -36,8 +37,14 @@ const PAGE_SIZE = 3;
 
 const WellnessSection = () => {
   const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(0);
   const totalPages = Math.ceil(offerings.length / PAGE_SIZE);
   const visible = offerings.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+
+  const goToPage = (newPage: number) => {
+    setDirection(newPage > page ? 1 : -1);
+    setPage(newPage);
+  };
 
   return (
     <section id="wellness" className="section-padding bg-background">
@@ -54,39 +61,50 @@ const WellnessSection = () => {
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-          {visible.map((item) => (
-            <div key={item.title} className="group cursor-pointer rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" style={{ background: 'hsl(0 0% 7%)', border: '1px solid hsl(41 54% 54% / 0.2)', boxShadow: 'none' }} onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 20px -4px hsl(41 54% 54% / 0.25), 0 0 40px -8px hsl(41 54% 54% / 0.1)'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.45)'; }} onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.2)'; }}>
-              <div className="relative overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-[260px] lg:h-[300px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)' }}>
-                    Explore →
-                  </span>
+        <div className="relative overflow-hidden mb-16">
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
+            <motion.div
+              key={page}
+              custom={direction}
+              initial={{ opacity: 0, x: direction * 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction * -80 }}
+              transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+            >
+              {visible.map((item) => (
+                <div key={item.title} className="group cursor-pointer rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" style={{ background: 'hsl(0 0% 7%)', border: '1px solid hsl(41 54% 54% / 0.2)', boxShadow: 'none' }} onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 20px -4px hsl(41 54% 54% / 0.25), 0 0 40px -8px hsl(41 54% 54% / 0.1)'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.45)'; }} onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.2)'; }}>
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-[260px] lg:h-[300px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)' }}>
+                        Explore →
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6 lg:p-7">
+                    <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 lg:p-7">
-                <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-3">
-                  {item.title}
-                </h3>
-                <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Pagination dots & arrows */}
         <div className="flex items-center justify-center gap-4">
           <button
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            onClick={() => goToPage(Math.max(0, page - 1))}
             disabled={page === 0}
             className="w-9 h-9 rounded-full border border-border/30 flex items-center justify-center text-foreground/50 hover:text-foreground disabled:opacity-30 transition-all"
             aria-label="Previous"
@@ -97,7 +115,7 @@ const WellnessSection = () => {
             {Array.from({ length: totalPages }).map((_, i) => (
               <button
                 key={i}
-                onClick={() => setPage(i)}
+                onClick={() => goToPage(i)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   i === page ? "bg-primary w-3" : "bg-foreground/20"
                 }`}
@@ -106,7 +124,7 @@ const WellnessSection = () => {
             ))}
           </div>
           <button
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            onClick={() => goToPage(Math.min(totalPages - 1, page + 1))}
             disabled={page === totalPages - 1}
             className="w-9 h-9 rounded-full border border-border/30 flex items-center justify-center text-foreground/50 hover:text-foreground disabled:opacity-30 transition-all"
             aria-label="Next"
