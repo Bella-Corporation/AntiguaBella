@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import spaTreatment from "@/assets/spa-treatment.jpg";
@@ -50,18 +50,18 @@ const WellnessSection = () => {
     <section id="wellness" className="section-padding bg-card">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-14 lg:mb-20">
-          <p className="luxury-subheading text-primary/60 mb-4">Wellness & Spa</p>
-          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+          <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-4">Wellness & Spa</p>
+          <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
             Restore Your <span className="italic">Soul</span>
           </h2>
-          <div className="luxury-divider mb-7" />
-          <p className="luxury-body text-muted-foreground max-w-lg mx-auto">
+          <div data-reveal="fade" data-reveal-delay="160" className="luxury-divider mb-7" />
+          <p data-reveal="slide-up" data-reveal-delay="200" className="luxury-body text-muted-foreground max-w-lg mx-auto">
             Surrender to serenity in our award-winning spa, where ancient healing traditions
             meet modern wellness in a setting of unparalleled natural beauty.
           </p>
         </div>
 
-        <div className="relative overflow-hidden mb-16">
+        <div data-reveal="slide-up" data-reveal-delay="250" className="relative overflow-hidden mb-16">
           <AnimatePresence initial={false} mode="popLayout" custom={direction}>
             <motion.div
               key={page}

@@ -1,3 +1,4 @@
+import useScrollReveal from "@/hooks/useScrollReveal";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import StaysSection from "@/components/StaysSection";
@@ -8,6 +9,8 @@ import AwardsSection from "@/components/AwardsSection";
 import ResortFooter from "@/components/ResortFooter";
 
 const Index = () => {
+  useScrollReveal();
+
   return (
     <div className="min-h-screen bg-background">
       <main>
