@@ -66,9 +66,9 @@ const WellnessSection = () => {
             <motion.div
               key={page}
               custom={direction}
-              initial={{ opacity: 0, x: direction * -80 }}
+              initial={{ opacity: 0, x: direction * 80 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction * 80 }}
+              exit={{ opacity: 0, x: direction * -80 }}
               transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
             >
@@ -82,7 +82,7 @@ const WellnessSection = () => {
                     />
                     <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
                     <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)' }}>
+                      <span className="luxury-subheading text-[11px] font-bold px-3 py-1.5 rounded border border-foreground/80" style={{ color: 'hsl(41 54% 54%)' }}>
                         Explore →
                       </span>
                     </div>
