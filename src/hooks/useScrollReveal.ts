@@ -34,7 +34,7 @@ const useScrollReveal = () => {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.08 }
     );
 
     elements.forEach((el) => revealObserver.observe(el));

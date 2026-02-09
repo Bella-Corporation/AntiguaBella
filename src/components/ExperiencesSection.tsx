@@ -52,7 +52,7 @@ const ExperiencesSection = () => {
             <div
               key={exp.title}
               data-reveal="scale-subtle"
-              data-reveal-delay={String(520 + i * 90)}
+              data-reveal-delay={String(520 + i * 50)}
               className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
             >
               <img
