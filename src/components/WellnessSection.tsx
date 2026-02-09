@@ -48,20 +48,20 @@ const WellnessSection = () => {
 
   return (
     <section id="wellness" className="section-padding bg-card">
-      <div className="mx-auto max-w-7xl">
+      <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="text-center mb-14 lg:mb-20">
-          <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-4">Wellness & Spa</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+          <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">Wellness & Spa</p>
+          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
             Restore Your <span className="italic">Soul</span>
           </h2>
-          <div data-reveal="fade" data-reveal-delay="160" className="luxury-divider mb-7" />
-          <p data-reveal="slide-up" data-reveal-delay="200" className="luxury-body text-muted-foreground max-w-lg mx-auto">
+          <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mb-7" />
+          <p data-reveal="slide-up" data-reveal-delay="420" className="luxury-body text-muted-foreground max-w-lg mx-auto">
             Surrender to serenity in our award-winning spa, where ancient healing traditions
             meet modern wellness in a setting of unparalleled natural beauty.
           </p>
         </div>
 
-        <div data-reveal="slide-up" data-reveal-delay="250" className="relative overflow-hidden mb-16">
+        <div data-reveal="slide-up" data-reveal-delay="520" className="relative overflow-hidden mb-16">
           <AnimatePresence initial={false} mode="popLayout" custom={direction}>
             <motion.div
               key={page}
@@ -106,8 +106,7 @@ const WellnessSection = () => {
           </AnimatePresence>
         </div>
 
-        {/* Pagination dots & arrows */}
-        <div id="wellness-pagination" className="flex items-center justify-center gap-4">
+        <div id="wellness-pagination" data-reveal="fade" data-reveal-delay="620" className="flex items-center justify-center gap-4">
           <button
             onClick={() => goToPage(Math.max(0, page - 1))}
             disabled={page === 0}

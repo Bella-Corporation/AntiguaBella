@@ -21,16 +21,16 @@ const pillars = [
 const ConciergeSection = () => {
   return (
     <section id="concierge" className="section-padding bg-background">
-      <div className="mx-auto max-w-7xl">
+      <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="text-center mb-14 lg:mb-20">
-          <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-4">The Concierge</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+          <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">The Concierge</p>
+          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
             Your Antigua,
             <br />
             <span className="italic">Designed</span>
           </h2>
-          <div data-reveal="fade" data-reveal-delay="160" className="luxury-divider mb-7" />
-          <p data-reveal="slide-up" data-reveal-delay="200" className="luxury-body text-muted-foreground max-w-md mx-auto">
+          <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mb-7" />
+          <p data-reveal="slide-up" data-reveal-delay="420" className="luxury-body text-muted-foreground max-w-md mx-auto">
             Every journey through AntiguaBella begins with understanding.
             We design around you.
           </p>
@@ -38,7 +38,7 @@ const ConciergeSection = () => {
 
         <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
           {pillars.map((pillar, i) => (
-            <div key={pillar.title} data-reveal="slide-up" data-reveal-delay={String(i * 120)} className="text-center">
+            <div key={pillar.title} data-reveal="slide-up" data-reveal-delay={String(520 + i * 100)} className="text-center">
               <div className="w-16 h-16 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">
                 <pillar.icon className="w-7 h-7 text-primary/60" strokeWidth={1.2} />
               </div>
