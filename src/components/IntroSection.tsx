@@ -3,31 +3,22 @@ import resortAerial from "@/assets/resort-aerial.jpg";
 
 const IntroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState(-100); // starts off-screen left (%)
-  const [anchored, setAnchored] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || anchored) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
-
-      // progress: 0 when section top enters viewport bottom, 1 when top reaches ~40% from top
-      const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.6)));
-      const x = -100 + progress * 100;
-
-      if (progress >= 1) {
-        setAnchored(true);
-        setOffset(0);
-      } else {
-        setOffset(x);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [anchored]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Delay slightly so the slide feels intentional
+          setTimeout(() => setVisible(true), 200);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="about" ref={sectionRef} className="section-padding bg-background">
@@ -55,8 +46,8 @@ const IntroSection = () => {
             <div
               className="rounded-2xl overflow-hidden border border-border/15"
               style={{
-                transform: `translateX(${offset}%)`,
-                transition: anchored ? "none" : "transform 0.05s linear",
+                transform: visible ? "translateX(0)" : "translateX(100%)",
+                transition: "transform 1s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
               <img
