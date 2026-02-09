@@ -30,15 +30,15 @@ const ExperiencesSection = () => {
   return (
     <section id="experiences" className="section-padding bg-background">
       <div className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-28 items-start mb-20 lg:mb-28">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start mb-14 lg:mb-20">
           <div className="lg:col-span-5">
-            <p className="luxury-subheading text-primary/60 mb-6">Experiences</p>
-            <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
+            <p className="luxury-subheading text-primary/60 mb-4">Experiences</p>
+            <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
               Beyond the
               <br />
               <span className="italic">Expected</span>
             </h2>
-            <div className="luxury-divider mx-0 mb-10" />
+            <div className="luxury-divider mx-0 mb-7" />
             <p className="luxury-body text-muted-foreground max-w-sm">
               Every experience on the platform is vetted, private, and
               designed for travelers who prefer depth over spectacle.
@@ -72,7 +72,7 @@ const ExperiencesSection = () => {
           ))}
         </div>
 
-        <div className="mt-20 lg:mt-24">
+        <div className="mt-14 lg:mt-16">
           <a href="#begin" className="luxury-btn-outline">
             Browse Experiences
           </a>

@@ -121,7 +121,7 @@
 
   .luxury-body {
     font-family: 'Inter', sans-serif;
-    @apply font-light leading-[1.95] text-[15px];
+    @apply font-light leading-[1.85] text-[16px];
   }
 
   .luxury-divider {
@@ -131,7 +131,7 @@
   /* ── Buttons ───────────────────────────────── */
   .luxury-btn {
     font-family: 'Inter', sans-serif;
-    @apply inline-block px-10 py-4 text-[10px] font-normal uppercase tracking-[0.28em] border rounded-none transition-all duration-500;
+    @apply inline-block px-10 py-4 text-[11px] font-normal uppercase tracking-[0.25em] border rounded-none transition-all duration-500;
   }
 
   .luxury-btn:hover {
@@ -209,11 +209,11 @@
 
   /* ── Section spacing rhythm ────────────────── */
   .section-padding {
-    @apply py-36 lg:py-48 px-6 lg:px-12;
+    @apply py-20 lg:py-28 px-6 lg:px-12;
   }
 
   .section-header {
-    @apply text-center mb-24 lg:mb-32;
+    @apply text-center mb-14 lg:mb-20;
   }
 
   /* ── Gold accent utilities ─────────────────── */
