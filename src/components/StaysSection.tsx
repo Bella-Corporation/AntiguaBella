@@ -1,5 +1,3 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import villaBeachfront from "@/assets/villa-beachfront.jpg";
 import villaBeachPool from "@/assets/villa-beach-pool.jpg";
 import villaHillside from "@/assets/villa-hillside.jpg";
@@ -26,20 +24,11 @@ const villas = [
 ];
 
 const StaysSection = () => {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-
   return (
     <section id="stays" className="section-padding">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <motion.div
-          ref={headerRef}
-          initial={{ opacity: 0, y: 20 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="section-header"
-        >
+        <div className="section-header">
           <p className="luxury-subheading text-primary mb-6">Accommodations</p>
           <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             Your Private <span className="italic">Sanctuary</span>
@@ -49,76 +38,50 @@ const StaysSection = () => {
             Each villa is thoughtfully designed to harmonize with the natural beauty of the
             island, offering an unparalleled sense of place and privacy.
           </p>
-        </motion.div>
+        </div>
 
         {/* Villa Cards Grid */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {villas.map((villa, i) => (
-            <VillaCard key={villa.name} villa={villa} index={i} />
+          {villas.map((villa) => (
+            <div key={villa.name} className="group cursor-pointer">
+              {/* Image */}
+              <div className="relative rounded-2xl overflow-hidden mb-5 image-card-hover">
+                <img
+                  src={villa.image}
+                  alt={`${villa.name} at AntiguaBella resort`}
+                  className="w-full h-[320px] lg:h-[380px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-background/20 group-hover:bg-background/10 transition-all duration-700" />
+
+                {/* Explore overlay on hover */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="luxury-subheading text-[10px] text-primary">
+                    Explore →
+                  </span>
+                </div>
+              </div>
+
+              {/* Card body */}
+              <div className="px-1">
+                <h3 className="luxury-heading text-xl lg:text-[1.35rem] text-foreground mb-3">
+                  {villa.name}
+                </h3>
+                <p className="luxury-body text-muted-foreground/60 text-[13px] leading-[1.7]">
+                  {villa.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 lg:mt-24 text-center"
-        >
+        <div className="mt-20 lg:mt-24 text-center">
           <a href="#begin" className="luxury-btn-outline">
             View All Villas
           </a>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-const VillaCard = ({
-  villa,
-  index,
-}: {
-  villa: (typeof villas)[number];
-  index: number;
-}) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.55, ease: "easeOut", delay: index * 0.12 }}
-      className="group cursor-pointer"
-    >
-      {/* Image */}
-      <div className="relative rounded-2xl overflow-hidden mb-5 image-card-hover">
-        <img
-          src={villa.image}
-          alt={`${villa.name} at AntiguaBella resort`}
-          className="w-full h-[320px] lg:h-[380px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
-        />
-        <div className="absolute inset-0 bg-background/20 group-hover:bg-background/10 transition-all duration-700" />
-
-        {/* Explore overlay on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-          <span className="luxury-subheading text-[10px] text-primary">
-            Explore →
-          </span>
         </div>
       </div>
-
-      {/* Card body */}
-      <div className="px-1">
-        <h3 className="luxury-heading text-xl lg:text-[1.35rem] text-foreground mb-3">
-          {villa.name}
-        </h3>
-        <p className="luxury-body text-muted-foreground/60 text-[13px] leading-[1.7]">
-          {villa.description}
-        </p>
-      </div>
-    </motion.div>
+    </section>
   );
 };
 

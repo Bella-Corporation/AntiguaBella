@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import HeaderSearch from "@/components/HeaderSearch";
@@ -37,7 +37,6 @@ const HeroSection = () => {
           playsInline
           className="h-full w-full object-cover"
         />
-        {/* Dark overlay with very subtle gold warmth */}
         <div
           className="absolute inset-0"
           style={{
@@ -47,10 +46,7 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* ── Single consolidated overlay ──────────── */}
       <div className="relative z-10 flex h-full flex-col">
-
-        {/* Top bar — sticky header that transitions on scroll */}
         <header
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
             scrolled
@@ -60,7 +56,6 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
-            {/* Book — left */}
             <Link
               to="/book"
               className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
@@ -68,7 +63,6 @@ const HeroSection = () => {
               Book
             </Link>
 
-            {/* Brand — center */}
             <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide">
               <span className={`transition-all duration-700 ${
                 scrolled ? "text-[1.4rem] lg:text-[1.6rem]" : "text-[1.6rem] lg:text-[2rem]"
@@ -79,7 +73,6 @@ const HeroSection = () => {
               </span>
             </a>
 
-            {/* Right icons */}
             <div className="flex items-center gap-4">
               <HeaderSearch />
               <Link
@@ -111,7 +104,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Mobile / menu drawer */}
+          {/* Mobile / menu drawer — kept as interactive UI animation */}
           <AnimatePresence>
             {menuOpen && (
               <motion.div
@@ -145,26 +138,21 @@ const HeroSection = () => {
           </AnimatePresence>
         </header>
 
-        {/* Spacer */}
         <div className="flex-1" />
       </div>
 
-      {/* Fixed Explore CTA — bottom center, persists on scroll */}
-      <motion.div
+      {/* Fixed Explore CTA — scroll-driven visibility is functional UI, not reveal animation */}
+      <div
         className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
-        style={{ paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)" }}
-        animate={{
-          scale: exploreHidden ? 0.8 : exploreCompact ? 0.88 : 1,
+        style={{
+          paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)",
           opacity: exploreHidden ? 0 : 1,
-          y: exploreHidden ? 20 : 0,
+          transform: exploreHidden ? "translateY(20px)" : "translateY(0)",
+          transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
       >
-        <motion.a
+        <a
           href="#about"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, delay: 1.6, ease: "easeOut" }}
           className={`hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border-0 rounded-md backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 ${
             exploreCompact ? "py-2.5 px-10" : "py-3.5 px-14"
           }`}
@@ -176,8 +164,8 @@ const HeroSection = () => {
           }}
         >
           Explore
-        </motion.a>
-      </motion.div>
+        </a>
+      </div>
     </section>
   );
 };
