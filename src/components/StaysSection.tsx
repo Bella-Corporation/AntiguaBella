@@ -51,11 +51,11 @@ const StaysSection = () => {
                   alt={`${villa.name} at AntiguaBella resort`}
                   className="w-full h-[320px] lg:h-[380px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
                 />
-                <div className="absolute inset-0 bg-background/20 group-hover:bg-background/10 transition-all duration-700" />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
 
                 {/* Explore overlay on hover */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="luxury-subheading text-[10px] text-primary">
+                  <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)' }}>
                     Explore →
                   </span>
                 </div>
