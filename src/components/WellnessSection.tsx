@@ -61,14 +61,14 @@ const WellnessSection = () => {
           </p>
         </div>
 
-        <div className="relative overflow-hidden mb-16">
+        <div className="relative mb-16">
           <AnimatePresence mode="wait" initial={false} custom={direction}>
             <motion.div
               key={page}
               custom={direction}
-              initial={{ opacity: 0, x: direction * 80 }}
+              initial={{ opacity: 0, x: direction * -80 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction * -80 }}
+              exit={{ opacity: 0, x: direction * 80 }}
               transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
             >
