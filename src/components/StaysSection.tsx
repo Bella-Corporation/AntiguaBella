@@ -43,9 +43,9 @@ const StaysSection = () => {
         {/* Villa Cards Grid */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {villas.map((villa) => (
-            <div key={villa.name} className="group cursor-pointer">
+            <div key={villa.name} className="group cursor-pointer rounded-2xl overflow-hidden border border-border/15 image-card-hover" style={{ background: 'hsl(0 0% 7%)' }}>
               {/* Image */}
-              <div className="relative rounded-2xl overflow-hidden mb-5 image-card-hover">
+              <div className="relative overflow-hidden">
                 <img
                   src={villa.image}
                   alt={`${villa.name} at AntiguaBella resort`}
@@ -62,7 +62,7 @@ const StaysSection = () => {
               </div>
 
               {/* Card body */}
-              <div className="px-1">
+              <div className="p-6 lg:p-7">
                 <h3 className="luxury-heading text-xl lg:text-[1.35rem] text-foreground mb-3">
                   {villa.name}
                 </h3>
