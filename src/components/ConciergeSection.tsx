@@ -1,5 +1,3 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import { Compass, MessageSquare, Map } from "lucide-react";
 
 const pillars = [
@@ -21,18 +19,10 @@ const pillars = [
 ];
 
 const ConciergeSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section id="concierge" className="section-padding">
-      <div ref={ref} className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="text-center mb-28 lg:mb-36"
-        >
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center mb-28 lg:mb-36">
           <p className="luxury-subheading text-primary/60 mb-6">The Concierge</p>
           <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
             Your Antigua,
@@ -44,15 +34,11 @@ const ConciergeSection = () => {
             Every journey through AntiguaBella begins with understanding.
             We design around you.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
-          {pillars.map((pillar, i) => (
-            <div
-              key={pillar.title}
-              className="text-center"
-              data-reveal={i === 0 ? "slide-left" : i === 1 ? "slide-up" : "slide-right"}
-            >
+          {pillars.map((pillar) => (
+            <div key={pillar.title} className="text-center">
               <div className="w-11 h-11 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">
                 <pillar.icon className="w-[18px] h-[18px] text-primary/60" strokeWidth={1.2} />
               </div>

@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import spaTreatment from "@/assets/spa-treatment.jpg";
 import yogaDeck from "@/assets/yoga-deck.jpg";
@@ -40,18 +39,10 @@ const WellnessSection = () => {
   const totalPages = Math.ceil(offerings.length / PAGE_SIZE);
   const visible = offerings.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section id="wellness" className="section-padding bg-background">
-      <div ref={ref} className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="text-center mb-20 lg:mb-28"
-        >
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center mb-20 lg:mb-28">
           <p className="luxury-subheading text-primary/60 mb-6">Wellness & Spa</p>
           <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
             Restore Your <span className="italic">Soul</span>
@@ -61,18 +52,12 @@ const WellnessSection = () => {
             Surrender to serenity in our award-winning spa, where ancient healing traditions
             meet modern wellness in a setting of unparalleled natural beauty.
           </p>
-        </motion.div>
+        </div>
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {visible.map((item) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="group"
-            >
+            <div key={item.title} className="group">
               <div className="rounded-2xl overflow-hidden border border-border/15 mb-6">
                 <img
                   src={item.image}
@@ -86,7 +71,7 @@ const WellnessSection = () => {
               <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
                 {item.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 

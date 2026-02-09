@@ -6,10 +6,8 @@ import WellnessSection from "@/components/WellnessSection";
 import ConciergeSection from "@/components/ConciergeSection";
 import AwardsSection from "@/components/AwardsSection";
 import ResortFooter from "@/components/ResortFooter";
-import useScrollReveal from "@/hooks/useScrollReveal";
 
 const Index = () => {
-  useScrollReveal();
   return (
     <div className="min-h-screen bg-background">
       <main>

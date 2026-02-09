@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Instagram, Facebook, Twitter } from "lucide-react";
 
 const socialLinks = [
@@ -13,12 +12,7 @@ const ResortFooter = () => {
       {/* Newsletter / Begin section */}
       <div className="section-padding">
         <div className="mx-auto max-w-7xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
+          <div>
             <p className="luxury-subheading text-primary/60 mb-6">Begin</p>
             <h2 className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground mb-10 leading-[1.2]">
               Ready When <span className="italic">You Are</span>
@@ -36,7 +30,7 @@ const ResortFooter = () => {
                 Get in Touch
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -44,7 +38,7 @@ const ResortFooter = () => {
       <div className="border-t border-border/8 py-16 lg:py-20 px-6 lg:px-12 mx-auto">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Left — Brand + Contact */}
-          <div className="text-center md:text-left" data-reveal="slide-left">
+          <div className="text-center md:text-left">
             <p className="luxury-heading text-lg mb-2">
               Antigua<span className="gold-text">Bella</span>
             </p>
@@ -60,7 +54,7 @@ const ResortFooter = () => {
           </div>
 
           {/* Center — Social */}
-          <div className="flex flex-col items-center gap-4" data-reveal="slide-up">
+          <div className="flex flex-col items-center gap-4">
             <p className="luxury-subheading text-primary/50 text-[10px]">Follow</p>
             <div className="flex gap-5">
               {socialLinks.map((social) => (
@@ -77,7 +71,7 @@ const ResortFooter = () => {
           </div>
 
           {/* Right — Legal */}
-          <div className="flex gap-8" data-reveal="slide-right">
+          <div className="flex gap-8">
             {["Privacy", "Terms"].map((link) => (
               <a
                 key={link}
