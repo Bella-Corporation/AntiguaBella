@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from "react";
 import expBoat from "@/assets/exp-boat.jpg";
 import expCooking from "@/assets/exp-cooking.jpg";
 import expFarm from "@/assets/exp-farm.jpg";
@@ -26,9 +27,63 @@ const experiences = [
   },
 ];
 
+const SlideRow = ({ children, direction }: { children: React.ReactNode; direction: "left" | "right" }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setVisible(true), 150);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6"
+      style={{
+        transform: visible ? "translateX(0)" : direction === "left" ? "translateX(-100%)" : "translateX(100%)",
+        opacity: visible ? 1 : 0,
+        transition: "transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease-out",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const ExperienceCard = ({ exp }: { exp: (typeof experiences)[number] }) => (
+  <div
+    className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
+  >
+    <img
+      src={exp.image}
+      alt={exp.title}
+      className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-black/10 transition-all duration-700" />
+    <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+      <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+        {exp.title}
+      </h3>
+      <p className="luxury-body text-foreground/60 text-[13px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+        {exp.tagline}
+      </p>
+    </div>
+  </div>
+);
+
 const ExperiencesSection = () => {
   return (
-    <section id="experiences" className="section-padding bg-background">
+    <section id="experiences" className="section-padding bg-background overflow-hidden">
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start mb-14 lg:mb-20">
           <div className="lg:col-span-5">
@@ -46,32 +101,21 @@ const ExperiencesSection = () => {
           </div>
         </div>
 
-        {/* 2×2 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-          {experiences.map((exp) => (
-            <div
-              key={exp.title}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
-            >
-              <img
-                src={exp.image}
-                alt={exp.title}
-                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
-              />
-              {/* Bottom-up gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-black/10 transition-all duration-700" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
-                  {exp.title}
-                </h3>
-                <p className="luxury-body text-foreground/60 text-[13px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
-                  {exp.tagline}
-                </p>
-              </div>
-            </div>
+        {/* Top row — slides from left */}
+        <SlideRow direction="left">
+          {experiences.slice(0, 2).map((exp) => (
+            <ExperienceCard key={exp.title} exp={exp} />
           ))}
-        </div>
+        </SlideRow>
 
+        {/* Bottom row — slides from right */}
+        <div className="mt-5 lg:mt-6">
+          <SlideRow direction="right">
+            {experiences.slice(2, 4).map((exp) => (
+              <ExperienceCard key={exp.title} exp={exp} />
+            ))}
+          </SlideRow>
+        </div>
         <div className="mt-14 lg:mt-16">
           <a href="#begin" className="luxury-btn-outline">
             Browse Experiences
