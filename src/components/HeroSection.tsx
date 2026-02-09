@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
 import heroVideo from "@/assets/hero-video.mp4";
 
 const heroNavLinks = ["Stays", "Experiences", "Concierge"];
@@ -77,26 +78,35 @@ const HeroSection = () => {
               </span>
             </a>
 
-            {/* Hamburger — right */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="hero-glow-hover flex flex-col items-end gap-[5px] p-1 transition-all duration-300"
-              aria-label="Toggle menu"
-            >
-              <span
-                className={`block h-px bg-foreground/50 transition-all duration-300 ${
-                  menuOpen ? "w-5 rotate-45 translate-y-[3px]" : "w-5"
-                }`}
-              />
-              <span
-                className={`block h-px bg-foreground/50 transition-all duration-300 ${
-                  menuOpen ? "w-5 -rotate-45 -translate-y-[3px]" : "w-4"
-                }`}
-              />
-              {!menuOpen && (
-                <span className="block h-px w-3 bg-foreground/50 transition-all duration-300" />
-              )}
-            </button>
+            {/* Right icons */}
+            <div className="flex items-center gap-5">
+              <Link
+                to="/book"
+                className="hero-glow-hover text-foreground/50 transition-all duration-300"
+                aria-label="Shopping bag"
+              >
+                <ShoppingBag size={18} strokeWidth={1.5} />
+              </Link>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="hero-glow-hover flex flex-col items-end gap-[5px] p-1 transition-all duration-300"
+                aria-label="Toggle menu"
+              >
+                <span
+                  className={`block h-px bg-foreground/50 transition-all duration-300 ${
+                    menuOpen ? "w-5 rotate-45 translate-y-[3px]" : "w-5"
+                  }`}
+                />
+                <span
+                  className={`block h-px bg-foreground/50 transition-all duration-300 ${
+                    menuOpen ? "w-5 -rotate-45 -translate-y-[3px]" : "w-4"
+                  }`}
+                />
+                {!menuOpen && (
+                  <span className="block h-px w-3 bg-foreground/50 transition-all duration-300" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Mobile / menu drawer */}
