@@ -267,14 +267,14 @@
 
   [data-reveal="slide-left"] {
     opacity: 0;
-    transform: translateX(-22px);
-    transition: transform 520ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 520ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateX(-14px);
+    transition: transform 850ms cubic-bezier(0.22, 0.6, 0.36, 1), opacity 850ms cubic-bezier(0.22, 0.6, 0.36, 1);
   }
 
   [data-reveal="slide-right"] {
     opacity: 0;
-    transform: translateX(22px);
-    transition: transform 520ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 520ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateX(14px);
+    transition: transform 850ms cubic-bezier(0.22, 0.6, 0.36, 1), opacity 850ms cubic-bezier(0.22, 0.6, 0.36, 1);
   }
 
   [data-reveal="fade"] {
