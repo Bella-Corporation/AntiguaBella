@@ -65,11 +65,13 @@ const WellnessSection = () => {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-          {visible.map((item, i) => (
-            <div
+          {visible.map((item) => (
+            <motion.div
               key={item.title}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
               className="group"
-              data-reveal={i === 0 ? "slide-left" : i === 2 ? "slide-right" : "slide-up"}
             >
               <div className="rounded-2xl overflow-hidden border border-border/15 mb-6">
                 <img
@@ -84,7 +86,7 @@ const WellnessSection = () => {
               <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
                 {item.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
