@@ -54,6 +54,7 @@ const ConciergeSection = () => {
               animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 * i }}
               className="text-center lg:text-left"
+              data-reveal={i === 0 ? "slide-left" : i === 1 ? "slide-up" : "slide-right"}
             >
               <div className="w-11 h-11 mx-auto lg:mx-0 mb-7 rounded-full border border-border/30 flex items-center justify-center">
                 <pillar.icon className="w-[18px] h-[18px] text-primary/60" strokeWidth={1.2} />
