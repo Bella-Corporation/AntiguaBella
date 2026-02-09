@@ -57,20 +57,22 @@ const WellnessSection = () => {
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {visible.map((item) => (
-            <div key={item.title} className="group">
-              <div className="rounded-2xl overflow-hidden border border-border/15 mb-6">
+            <div key={item.title} className="group cursor-pointer rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" style={{ background: 'hsl(0 0% 7%)', border: '1px solid hsl(41 54% 54% / 0.2)', boxShadow: 'none' }} onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 20px -4px hsl(41 54% 54% / 0.25), 0 0 40px -8px hsl(41 54% 54% / 0.1)'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.45)'; }} onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'hsl(41 54% 54% / 0.2)'; }}>
+              <div className="relative overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-[260px] lg:h-[300px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
                 />
               </div>
-              <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-3">
-                {item.title}
-              </h3>
-              <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
-                {item.description}
-              </p>
+              <div className="p-6 lg:p-7">
+                <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-3">
+                  {item.title}
+                </h3>
+                <p className="luxury-body text-muted-foreground text-[13px] max-w-[300px]">
+                  {item.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>
