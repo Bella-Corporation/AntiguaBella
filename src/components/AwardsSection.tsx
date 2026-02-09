@@ -36,7 +36,7 @@ const AwardsSection = () => {
 
         <div className="text-center">
           <div className="luxury-divider mb-14" />
-          <p className="luxury-heading text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] text-foreground/70 italic leading-[1.6] mb-8 max-w-xl mx-auto">
+          <p className="font-light text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] text-foreground/50 italic leading-[1.7] mb-8 max-w-xl mx-auto" style={{ fontFamily: "'Playfair Display', serif" }}>
             "A rare platform that understands the difference between
             luxury and excess. Antigua, finally done right."
           </p>
