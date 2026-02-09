@@ -28,7 +28,7 @@ const AwardsSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20 max-w-5xl mx-auto">
           {accolades.map((award, i) => (
             <div
               key={award.name}

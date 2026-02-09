@@ -60,7 +60,7 @@ const StaysSection = () => {
           initial={{ opacity: 0, x: -25 }}
           animate={headerInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mb-24 lg:mb-32"
+          className="mb-24 lg:mb-32 text-center lg:text-left"
         >
           <p className="luxury-subheading text-primary/60 mb-6">Curated Stays</p>
           <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] max-w-md">

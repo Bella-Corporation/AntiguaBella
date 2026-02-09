@@ -9,7 +9,7 @@ const IntroSection = () => {
   return (
     <section id="about" className="section-padding">
       <div ref={ref} className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
