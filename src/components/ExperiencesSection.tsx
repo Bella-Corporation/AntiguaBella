@@ -32,14 +32,14 @@ const ExperiencesSection = () => {
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start mb-14 lg:mb-20">
           <div className="lg:col-span-5">
-            <p className="luxury-subheading text-primary/60 mb-4">Experiences</p>
-            <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+            <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-4">Experiences</p>
+            <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
               Beyond the
               <br />
               <span className="italic">Expected</span>
             </h2>
-            <div className="luxury-divider mx-0 mb-7" />
-            <p className="luxury-body text-muted-foreground max-w-sm">
+            <div data-reveal="fade" data-reveal-delay="160" className="luxury-divider mx-0 mb-7" />
+            <p data-reveal="slide-up" data-reveal-delay="200" className="luxury-body text-muted-foreground max-w-sm">
               Every experience on the platform is vetted, private, and
               designed for travelers who prefer depth over spectacle.
             </p>
@@ -48,9 +48,11 @@ const ExperiencesSection = () => {
 
         {/* 2×2 grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-          {experiences.map((exp) => (
+          {experiences.map((exp, i) => (
             <div
               key={exp.title}
+              data-reveal="scale-subtle"
+              data-reveal-delay={String(i * 100)}
               className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
             >
               <img
@@ -72,7 +74,7 @@ const ExperiencesSection = () => {
           ))}
         </div>
 
-        <div className="mt-14 lg:mt-16">
+        <div data-reveal="fade" data-reveal-delay="300" className="mt-14 lg:mt-16">
           <a href="#begin" className="luxury-btn-outline">
             Browse Experiences
           </a>

@@ -12,14 +12,14 @@ const ResortFooter = () => {
       <div className="section-padding">
         <div className="mx-auto max-w-7xl text-center">
           <div>
-            <p className="luxury-subheading text-primary/60 mb-5">Begin</p>
-            <h2 className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
+            <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-5">Begin</p>
+            <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
               Ready When <span className="italic">You Are</span>
             </h2>
-            <p className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">
+            <p data-reveal="slide-up" data-reveal-delay="160" className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">
               Leave your details. Our concierge will reach out personally.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <div data-reveal="fade" data-reveal-delay="240" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Your email"
