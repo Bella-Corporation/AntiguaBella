@@ -87,7 +87,7 @@ const WellnessSection = () => {
                     />
                     <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
                     <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="luxury-subheading text-[11px] font-bold px-3 py-1.5 rounded border border-foreground/80" style={{ color: 'hsl(41 54% 54%)' }}>
+                      <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)', textShadow: '0 0 4px hsl(0 0% 0% / 0.9), 0 0 8px hsl(0 0% 0% / 0.6)' }}>
                         Explore →
                       </span>
                     </div>
