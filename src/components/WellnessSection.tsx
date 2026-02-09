@@ -64,6 +64,12 @@ const WellnessSection = () => {
                   alt={item.title}
                   className="w-full h-[260px] lg:h-[300px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
                 />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="luxury-subheading text-[11px] font-bold" style={{ color: 'hsl(41 54% 54%)' }}>
+                    Explore →
+                  </span>
+                </div>
               </div>
               <div className="p-6 lg:p-7">
                 <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-3">
