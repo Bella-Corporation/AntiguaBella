@@ -29,12 +29,10 @@ const AwardsSection = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
           {accolades.map((award, i) => (
-            <motion.div
+            <div
               key={award.name}
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 + i * 0.12 }}
               className="text-center"
+              data-reveal={i === 0 ? "slide-left" : i === 3 ? "slide-right" : "slide-up"}
             >
               <div className="luxury-divider mb-6" />
               <h3 className="luxury-heading text-base lg:text-lg text-foreground mb-2">
@@ -43,7 +41,7 @@ const AwardsSection = () => {
               <p className="luxury-body text-muted-foreground/50 text-[12px]">
                 {award.detail}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
