@@ -1,12 +1,37 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import resortAerial from "@/assets/resort-aerial.jpg";
 
 const IntroSection = () => {
-  const ref = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [offset, setOffset] = useState(-100); // starts off-screen left (%)
+  const [anchored, setAnchored] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || anchored) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // progress: 0 when section top enters viewport bottom, 1 when top reaches ~40% from top
+      const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.6)));
+      const x = -100 + progress * 100;
+
+      if (progress >= 1) {
+        setAnchored(true);
+        setOffset(0);
+      } else {
+        setOffset(x);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [anchored]);
 
   return (
-    <section id="about" className="section-padding bg-background">
-      <div ref={ref} className="mx-auto max-w-7xl">
+    <section id="about" ref={sectionRef} className="section-padding bg-background">
+      <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <div>
             <p className="luxury-subheading text-primary/60 mb-4">The Platform</p>
@@ -26,8 +51,14 @@ const IntroSection = () => {
             </p>
           </div>
 
-          <div>
-            <div className="rounded-2xl overflow-hidden border border-border/15">
+          <div className="overflow-hidden">
+            <div
+              className="rounded-2xl overflow-hidden border border-border/15"
+              style={{
+                transform: `translateX(${offset}%)`,
+                transition: anchored ? "none" : "transform 0.05s linear",
+              }}
+            >
               <img
                 src={resortAerial}
                 alt="Aerial view of Antigua's coastline"
