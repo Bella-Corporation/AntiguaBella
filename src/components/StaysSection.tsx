@@ -29,11 +29,11 @@ const StaysSection = () => {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="section-header">
-          <p className="luxury-subheading text-primary mb-6">Accommodations</p>
-          <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+          <p className="luxury-subheading text-primary mb-4">Accommodations</p>
+          <h2 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
             Your Private <span className="italic">Sanctuary</span>
           </h2>
-          <div className="luxury-divider mb-8" />
+          <div className="luxury-divider mb-6" />
           <p className="luxury-body text-muted-foreground max-w-lg mx-auto">
             Each villa is thoughtfully designed to harmonize with the natural beauty of the
             island, offering an unparalleled sense of place and privacy.
@@ -75,7 +75,7 @@ const StaysSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-20 lg:mt-24 text-center">
+        <div className="mt-14 lg:mt-16 text-center">
           <a href="#begin" className="luxury-btn-outline">
             View All Villas
           </a>

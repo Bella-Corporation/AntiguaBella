@@ -11,14 +11,14 @@ const AwardsSection = () => {
   return (
     <section className="section-padding bg-card border-t border-border/10">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <p className="luxury-subheading text-primary/60 mb-6">Recognition</p>
           <h2 className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground leading-[1.2]">
             World-Class <span className="italic">Accolades</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14 max-w-5xl mx-auto">
           {accolades.map((award) => (
             <div key={award.name} className="text-center">
               <div className="w-10 h-10 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">

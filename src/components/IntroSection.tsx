@@ -7,16 +7,16 @@ const IntroSection = () => {
   return (
     <section id="about" className="section-padding bg-background">
       <div ref={ref} className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-20 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <div>
-            <p className="luxury-subheading text-primary/60 mb-6">The Platform</p>
-            <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
+            <p className="luxury-subheading text-primary/60 mb-4">The Platform</p>
+            <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
               Access Without
               <br />
               <span className="italic">Compromise</span>
             </h2>
-            <div className="luxury-divider mx-0 mb-10" />
-            <p className="luxury-body text-muted-foreground mb-8">
+            <div className="luxury-divider mx-0 mb-7" />
+            <p className="luxury-body text-muted-foreground mb-5">
               AntiguaBella connects discerning travelers to a handpicked
               collection of Antigua's most extraordinary stays, experiences,
               and private services.

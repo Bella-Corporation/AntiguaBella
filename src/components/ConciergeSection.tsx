@@ -22,14 +22,14 @@ const ConciergeSection = () => {
   return (
     <section id="concierge" className="section-padding bg-background">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-28 lg:mb-36">
-          <p className="luxury-subheading text-primary/60 mb-6">The Concierge</p>
-          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
+        <div className="text-center mb-14 lg:mb-20">
+          <p className="luxury-subheading text-primary/60 mb-4">The Concierge</p>
+          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
             Your Antigua,
             <br />
             <span className="italic">Designed</span>
           </h2>
-          <div className="luxury-divider mb-10" />
+          <div className="luxury-divider mb-7" />
           <p className="luxury-body text-muted-foreground max-w-md mx-auto">
             Every journey through AntiguaBella begins with understanding.
             We design around you.

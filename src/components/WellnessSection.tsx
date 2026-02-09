@@ -49,12 +49,12 @@ const WellnessSection = () => {
   return (
     <section id="wellness" className="section-padding bg-card">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-20 lg:mb-28">
-          <p className="luxury-subheading text-primary/60 mb-6">Wellness & Spa</p>
-          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-10">
+        <div className="text-center mb-14 lg:mb-20">
+          <p className="luxury-subheading text-primary/60 mb-4">Wellness & Spa</p>
+          <h2 className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
             Restore Your <span className="italic">Soul</span>
           </h2>
-          <div className="luxury-divider mb-10" />
+          <div className="luxury-divider mb-7" />
           <p className="luxury-body text-muted-foreground max-w-lg mx-auto">
             Surrender to serenity in our award-winning spa, where ancient healing traditions
             meet modern wellness in a setting of unparalleled natural beauty.
