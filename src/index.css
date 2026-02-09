@@ -293,6 +293,16 @@
     transform: none !important;
   }
 
+  /* ── Scroll Cue: chapter-like title emphasis ── */
+  [data-scroll-cue] {
+    transition: text-shadow 1.2s cubic-bezier(0.25, 0.1, 0.25, 1), color 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  [data-scroll-cue].cue-active {
+    color: hsl(var(--primary) / 0.85);
+    text-shadow: 0 0 18px hsl(var(--primary) / 0.12), 0 0 40px hsl(var(--primary) / 0.06);
+  }
+
   /* ── Interactive image card hover ────────── */
   .image-card-hover {
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, border-color 0.5s ease-out;
