@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import heroVideo from "@/assets/hero-video.mp4";
 
 const heroNavLinks = ["Stays", "Experiences", "Concierge"];
@@ -58,12 +59,12 @@ const HeroSection = () => {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
             {/* Book — left */}
-            <a
-              href="#book"
+            <Link
+              to="/book"
               className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
             >
               Book
-            </a>
+            </Link>
 
             {/* Brand — center */}
             <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide">
