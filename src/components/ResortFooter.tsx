@@ -1,8 +1,7 @@
-import { Instagram, Facebook, Twitter } from "lucide-react";
+import { Instagram, Twitter } from "lucide-react";
 
 const socialLinks = [
   { icon: Instagram, label: "Instagram" },
-  { icon: Facebook, label: "Facebook" },
   { icon: Twitter, label: "X / Twitter" },
 ];
 
@@ -54,7 +53,9 @@ const ResortFooter = () => {
             <Instagram size={16} strokeWidth={1.3} />
           </a>
           <a href="#" aria-label="Facebook" className="social-icon-gold p-2">
-            <Facebook size={16} strokeWidth={1.3} />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
           </a>
           <a href="#" aria-label="Twitter" className="social-icon-gold p-2">
             <Twitter size={16} strokeWidth={1.3} />
