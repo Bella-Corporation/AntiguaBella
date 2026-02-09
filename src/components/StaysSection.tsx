@@ -22,16 +22,43 @@ const stays = [
   },
 ];
 
-const StaysSection = () => {
+const SlideInCard = ({
+  children,
+  x = 0,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  x?: number;
+  delay?: number;
+  className?: string;
+}) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x }}
+      transition={{ duration: 0.45, ease: "easeOut", delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const StaysSection = () => {
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
   return (
     <section id="stays" className="section-padding">
-      <div ref={ref} className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <motion.div
+          ref={headerRef}
           initial={{ opacity: 0, x: -25 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
+          animate={headerInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-24 lg:mb-32"
         >
@@ -46,12 +73,7 @@ const StaysSection = () => {
         {/* Asymmetric editorial layout */}
         <div className="grid lg:grid-cols-12 gap-5 lg:gap-6">
           {/* Large featured stay */}
-          <motion.div
-            initial={{ opacity: 0, x: -25 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -25 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
-            className="lg:col-span-7 group cursor-pointer"
-          >
+          <SlideInCard x={-25} delay={0} className="lg:col-span-7 group cursor-pointer">
             <div className="relative rounded-2xl overflow-hidden border border-border/15">
               <img
                 src={stays[0].image}
@@ -68,16 +90,15 @@ const StaysSection = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </SlideInCard>
 
           {/* Stacked smaller stays */}
           <div className="lg:col-span-5 flex flex-col gap-5 lg:gap-6">
             {stays.slice(1).map((stay, i) => (
-              <motion.div
+              <SlideInCard
                 key={stay.name}
-                initial={{ opacity: 0, x: 25 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 25 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: 0.15 + i * 0.1 }}
+                x={25}
+                delay={i * 0.1}
                 className="group cursor-pointer flex-1"
               >
                 <div className="relative rounded-2xl overflow-hidden border border-border/15 h-full">
@@ -96,21 +117,16 @@ const StaysSection = () => {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </SlideInCard>
             ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-20 lg:mt-24"
-        >
+        <SlideInCard x={0} delay={0} className="mt-20 lg:mt-24">
           <a href="#begin" className="luxury-btn-outline">
             Discover All Stays
           </a>
-        </motion.div>
+        </SlideInCard>
       </div>
     </section>
   );
