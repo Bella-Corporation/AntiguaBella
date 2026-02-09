@@ -29,17 +29,17 @@ const experiences = [
 const ExperiencesSection = () => {
   return (
     <section id="experiences" className="section-padding bg-background">
-      <div className="mx-auto max-w-7xl">
+      <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start mb-14 lg:mb-20">
           <div className="lg:col-span-5">
-            <p data-reveal="slide-up" className="luxury-subheading text-primary/60 mb-4">Experiences</p>
-            <h2 data-reveal="slide-up" data-reveal-delay="80" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
+            <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">Experiences</p>
+            <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
               Beyond the
               <br />
               <span className="italic">Expected</span>
             </h2>
-            <div data-reveal="fade" data-reveal-delay="160" className="luxury-divider mx-0 mb-7" />
-            <p data-reveal="slide-up" data-reveal-delay="200" className="luxury-body text-muted-foreground max-w-sm">
+            <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mx-0 mb-7" />
+            <p data-reveal="slide-up" data-reveal-delay="420" className="luxury-body text-muted-foreground max-w-sm">
               Every experience on the platform is vetted, private, and
               designed for travelers who prefer depth over spectacle.
             </p>
@@ -52,7 +52,7 @@ const ExperiencesSection = () => {
             <div
               key={exp.title}
               data-reveal="scale-subtle"
-              data-reveal-delay={String(i * 100)}
+              data-reveal-delay={String(520 + i * 90)}
               className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
             >
               <img
@@ -60,7 +60,6 @@ const ExperiencesSection = () => {
                 alt={exp.title}
                 className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
               />
-              {/* Bottom-up gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-black/10 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                 <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
@@ -74,7 +73,7 @@ const ExperiencesSection = () => {
           ))}
         </div>
 
-        <div data-reveal="fade" data-reveal-delay="300" className="mt-14 lg:mt-16">
+        <div data-reveal="fade" data-reveal-delay="800" className="mt-14 lg:mt-16">
           <a href="#begin" className="luxury-btn-outline">
             Browse Experiences
           </a>
