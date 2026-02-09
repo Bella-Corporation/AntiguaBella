@@ -1,4 +1,11 @@
 import { motion } from "framer-motion";
+import { Instagram, Facebook, Twitter } from "lucide-react";
+
+const socialLinks = [
+  { icon: Instagram, label: "Instagram" },
+  { icon: Facebook, label: "Facebook" },
+  { icon: Twitter, label: "X / Twitter" },
+];
 
 const ResortFooter = () => {
   return (
@@ -30,6 +37,62 @@ const ResortFooter = () => {
               </button>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* Brand info, contact & social */}
+      <div className="border-t border-border/8 py-20 lg:py-28 px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-20">
+          {/* Brand description */}
+          <div>
+            <p className="luxury-heading text-lg mb-4">
+              Antigua<span className="gold-text">Bella</span>
+            </p>
+            <p className="luxury-body text-muted-foreground text-[13px] mb-2">
+              An elite luxury experiences platform on Antigua's most exclusive shores.
+            </p>
+            <p className="luxury-body text-muted-foreground/50 text-[12px]">
+              Where Caribbean luxury finds its finest expression.
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="luxury-subheading text-primary/50 mb-6">Contact</p>
+            <div className="luxury-body text-muted-foreground text-[13px] space-y-1.5">
+              <p>AntiguaBella, St. Mary's</p>
+              <p>Antigua, West Indies</p>
+              <a
+                href="tel:+12685625500"
+                className="block hover:text-primary/70 transition-colors duration-300"
+              >
+                +1 (268) 562-5500
+              </a>
+              <a
+                href="mailto:concierge@antiguabella.com"
+                className="block hover:text-primary/70 transition-colors duration-300"
+              >
+                concierge@antiguabella.com
+              </a>
+            </div>
+          </div>
+
+          {/* Social */}
+          <div>
+            <p className="luxury-subheading text-primary/50 mb-6">Follow</p>
+            <div className="flex gap-5">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href="#"
+                  aria-label={social.label}
+                  className="text-muted-foreground/30 hover:text-primary transition-colors duration-400"
+                >
+                  <social.icon size={18} strokeWidth={1.3} />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

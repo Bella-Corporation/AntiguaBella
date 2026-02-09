@@ -50,9 +50,9 @@ const ConciergeSection = () => {
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.15 * i }}
+              initial={{ opacity: 0, x: i === 0 ? -30 : i === 2 ? 30 : 0, y: i === 1 ? 20 : 0 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 * i }}
               className="text-center lg:text-left"
             >
               <div className="w-11 h-11 mx-auto lg:mx-0 mb-7 rounded-full border border-border/30 flex items-center justify-center">
