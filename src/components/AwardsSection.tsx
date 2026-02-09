@@ -21,13 +21,13 @@ const AwardsSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14 max-w-5xl mx-auto">
           {accolades.map((award) => (
             <div key={award.name} className="text-center">
-              <div className="w-10 h-10 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">
-                <award.icon className="w-[17px] h-[17px] text-primary/60" strokeWidth={1.2} />
+              <div className="w-14 h-14 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">
+                <award.icon className="w-6 h-6 text-primary/60" strokeWidth={1.2} />
               </div>
-              <h3 className="luxury-heading text-base lg:text-lg text-foreground mb-2">
+              <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-2">
                 {award.name}
               </h3>
-              <p className="luxury-body text-muted-foreground/50 text-[12px]">
+              <p className="font-light text-muted-foreground/50 text-[13px]">
                 {award.detail}
               </p>
             </div>
@@ -36,7 +36,7 @@ const AwardsSection = () => {
 
         <div className="text-center">
           <div className="luxury-divider mb-14" />
-          <p className="luxury-heading text-[1.2rem] md:text-[1.5rem] lg:text-[1.7rem] text-foreground/70 italic leading-[1.6] mb-8 max-w-xl mx-auto">
+          <p className="luxury-heading text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] text-foreground/70 italic leading-[1.6] mb-8 max-w-xl mx-auto">
             "A rare platform that understands the difference between
             luxury and excess. Antigua, finally done right."
           </p>
