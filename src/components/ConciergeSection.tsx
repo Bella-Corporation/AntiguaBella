@@ -39,13 +39,13 @@ const ConciergeSection = () => {
         <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
           {pillars.map((pillar) => (
             <div key={pillar.title} className="text-center">
-              <div className="w-11 h-11 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">
-                <pillar.icon className="w-[18px] h-[18px] text-primary/60" strokeWidth={1.2} />
+              <div className="w-16 h-16 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">
+                <pillar.icon className="w-7 h-7 text-primary/60" strokeWidth={1.2} />
               </div>
-              <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-4">
+              <h3 className="luxury-heading text-xl lg:text-2xl text-foreground mb-4">
                 {pillar.title}
               </h3>
-              <p className="luxury-body text-muted-foreground text-[13px] max-w-[260px] mx-auto">
+              <p className="font-light text-muted-foreground/60 text-[14px] leading-[1.7] max-w-[280px] mx-auto">
                 {pillar.description}
               </p>
             </div>
