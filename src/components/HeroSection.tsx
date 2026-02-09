@@ -19,7 +19,17 @@ const HeroSection = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(y > 60);
       setExploreCompact(y > 40);
-      setExploreHidden(maxScroll > 0 && y >= maxScroll - 80);
+
+      // Hide when near footer OR when overlapping wellness pagination
+      let hideForPagination = false;
+      const paginationEl = document.getElementById("wellness-pagination");
+      if (paginationEl) {
+        const rect = paginationEl.getBoundingClientRect();
+        const viewportBottom = window.innerHeight;
+        hideForPagination = rect.bottom > viewportBottom - 120 && rect.top < viewportBottom;
+      }
+
+      setExploreHidden((maxScroll > 0 && y >= maxScroll - 80) || hideForPagination);
     };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
@@ -147,8 +157,8 @@ const HeroSection = () => {
         style={{
           paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)",
           opacity: exploreHidden ? 0 : 1,
-          transform: exploreHidden ? "translateY(20px)" : "translateY(0)",
-          transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+          transform: exploreHidden ? "translateY(20px) scale(0.85)" : "translateY(0) scale(1)",
+          transition: "opacity 0.4s ease-out, transform 0.4s ease-out",
         }}
       >
         <a
