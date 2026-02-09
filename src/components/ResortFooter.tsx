@@ -54,30 +54,30 @@ const ResortFooter = () => {
             <a
               href="#"
               aria-label="Instagram"
-              className="transition-all duration-300 rounded-full p-2"
+              className="transition-colors duration-300 p-2"
               style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; e.currentTarget.style.boxShadow = '0 0 12px 2px hsl(41 54% 54% / 0.4)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; e.currentTarget.style.boxShadow = 'none'; }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
             >
               <Instagram size={16} strokeWidth={1.3} />
             </a>
             <a
               href="#"
               aria-label="Facebook"
-              className="transition-all duration-300 rounded-full p-2"
+              className="transition-colors duration-300 p-2"
               style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; e.currentTarget.style.boxShadow = '0 0 12px 2px hsl(41 54% 54% / 0.4)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; e.currentTarget.style.boxShadow = 'none'; }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
             >
               <Facebook size={16} strokeWidth={1.3} />
             </a>
             <a
               href="#"
               aria-label="Twitter"
-              className="transition-all duration-300 rounded-full p-2"
+              className="transition-colors duration-300 p-2"
               style={{ color: 'hsl(38 15% 92% / 0.3)' }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; e.currentTarget.style.boxShadow = '0 0 12px 2px hsl(41 54% 54% / 0.4)'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; e.currentTarget.style.boxShadow = 'none'; }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'hsl(41 54% 54%)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'hsl(38 15% 92% / 0.3)'; }}
             >
               <Twitter size={16} strokeWidth={1.3} />
             </a>
