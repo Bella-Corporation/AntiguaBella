@@ -26,7 +26,7 @@ const ConciergeSection = () => {
 
   return (
     <section id="concierge" className="section-padding">
-      <div ref={ref} className="mx-auto max-w-5xl">
+      <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

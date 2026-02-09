@@ -14,8 +14,8 @@ const AwardsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-36 lg:py-48 px-6 lg:px-12 border-t border-border/10">
-      <div ref={ref} className="mx-auto max-w-4xl">
+    <section className="section-padding border-t border-border/10">
+      <div ref={ref} className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
