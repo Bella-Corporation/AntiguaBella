@@ -22,7 +22,7 @@ const pillars = [
 
 const ConciergeSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <section id="concierge" className="section-padding">

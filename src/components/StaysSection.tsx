@@ -24,7 +24,7 @@ const stays = [
 
 const StaysSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <section id="stays" className="section-padding">

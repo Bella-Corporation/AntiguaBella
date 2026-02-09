@@ -10,7 +10,7 @@ const accolades = [
 
 const AwardsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <section className="py-36 lg:py-48 px-6 lg:px-12 border-t border-border/10">
