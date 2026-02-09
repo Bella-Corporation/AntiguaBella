@@ -56,9 +56,9 @@ const ExperiencesSection = () => {
               <img
                 src={exp.image}
                 alt={exp.title}
-                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.03]"
+                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.06]"
               />
-              <div className="absolute inset-0 bg-background/35 group-hover:bg-background/25 transition-all duration-700" />
+              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-all duration-700" />
               <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                 <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1">
                   {exp.title}
