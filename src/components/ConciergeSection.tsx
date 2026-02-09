@@ -46,20 +46,20 @@ const ConciergeSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-16 lg:gap-20">
+        <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
           {pillars.map((pillar, i) => (
             <div
               key={pillar.title}
-              className="text-center lg:text-left"
+              className="text-center"
               data-reveal={i === 0 ? "slide-left" : i === 1 ? "slide-up" : "slide-right"}
             >
-              <div className="w-11 h-11 mx-auto lg:mx-0 mb-7 rounded-full border border-border/30 flex items-center justify-center">
+              <div className="w-11 h-11 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">
                 <pillar.icon className="w-[18px] h-[18px] text-primary/60" strokeWidth={1.2} />
               </div>
               <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-4">
                 {pillar.title}
               </h3>
-              <p className="luxury-body text-muted-foreground text-[13px] max-w-[260px] mx-auto lg:mx-0">
+              <p className="luxury-body text-muted-foreground text-[13px] max-w-[260px] mx-auto">
                 {pillar.description}
               </p>
             </div>

@@ -59,7 +59,7 @@ const HeroSection = () => {
           }`}
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
         >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
             {/* Book — left */}
             <Link
               to="/book"
