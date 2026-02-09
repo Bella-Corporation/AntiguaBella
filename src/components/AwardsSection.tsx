@@ -1,11 +1,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Award, KeyRound, Globe, Star } from "lucide-react";
 
 const accolades = [
-  { name: "Condé Nast Gold List", detail: "2024 & 2025" },
-  { name: "Michelin Keys", detail: "Two Keys Distinction" },
-  { name: "TripAdvisor", detail: "Travelers' Choice 2025" },
-  { name: "Forbes Travel Guide", detail: "Five-Star Rating" },
+  { name: "Condé Nast Gold List", detail: "2024 & 2025", icon: Award },
+  { name: "Michelin Keys", detail: "Two Keys Distinction", icon: KeyRound },
+  { name: "TripAdvisor", detail: "Travelers' Choice 2025", icon: Globe },
+  { name: "Forbes Travel Guide", detail: "Five-Star Rating", icon: Star },
 ];
 
 const AwardsSection = () => {
@@ -34,7 +35,9 @@ const AwardsSection = () => {
               className="text-center"
               data-reveal={i === 0 ? "slide-left" : i === 3 ? "slide-right" : "slide-up"}
             >
-              <div className="luxury-divider mb-6" />
+              <div className="w-10 h-10 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">
+                <award.icon className="w-[17px] h-[17px] text-primary/60" strokeWidth={1.2} />
+              </div>
               <h3 className="luxury-heading text-base lg:text-lg text-foreground mb-2">
                 {award.name}
               </h3>
