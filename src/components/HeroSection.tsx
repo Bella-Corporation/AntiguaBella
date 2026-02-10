@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Search, User } from "lucide-react";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
 import heroVideo from "@/assets/hero-video.mp4";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const heroNavLinks = ["Stays", "Experiences", "Concierge", "Dining", "Weddings", "Parties", "Blogs"];
 
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isMobile = useIsMobile();
   const [exploreCompact, setExploreCompact] = useState(false);
   const [exploreHidden, setExploreHidden] = useState(false);
   const [exploreVisible, setExploreVisible] = useState(false);
@@ -73,14 +75,17 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 2rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12 min-h-[44px] md:min-h-[40px]">
-            <div className="flex items-center h-11 md:h-8" style={{ minWidth: '80px' }}>
+            {/* Book link — hidden on mobile, shown on md+ */}
+            <div className="hidden md:flex items-center h-8" style={{ minWidth: '80px' }}>
               <Link
                 to="/book"
-                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-11 md:h-8 px-1"
+                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-8 px-1"
               >
                 Book
               </Link>
             </div>
+            {/* Mobile: empty spacer to balance burger on right */}
+            <div className="md:hidden" style={{ minWidth: '44px' }} />
 
             <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide flex items-center">
               <span className={`transition-all duration-700 ${
@@ -92,16 +97,21 @@ const HeroSection = () => {
               </span>
             </a>
 
-            <div className="flex items-center justify-end gap-2 sm:gap-4" style={{ minWidth: '80px' }}>
-              <HeaderSearch />
-              <HeaderAccount />
-              <Link
-                to="/book"
-                className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50 transition-all duration-300"
-                aria-label="Shopping bag"
-              >
-                <ShoppingBag size={18} strokeWidth={1.5} />
-              </Link>
+            <div className="flex items-center justify-end gap-2 sm:gap-4" style={{ minWidth: isMobile ? '44px' : '80px' }}>
+              {/* Desktop-only icons */}
+              {!isMobile && (
+                <>
+                  <HeaderSearch />
+                  <HeaderAccount />
+                  <Link
+                    to="/book"
+                    className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300"
+                    aria-label="Shopping bag"
+                  >
+                    <ShoppingBag size={18} strokeWidth={1.5} />
+                  </Link>
+                </>
+              )}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="hero-glow-hover flex flex-col items-center justify-center h-11 w-11 md:h-8 md:w-8 gap-[5px] transition-all duration-300"
@@ -125,7 +135,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Mobile / menu drawer — kept as interactive UI animation */}
+          {/* Menu drawer */}
           <AnimatePresence>
             {menuOpen && (
               <motion.div
@@ -136,6 +146,34 @@ const HeroSection = () => {
                 className="fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
               >
                 <nav className="flex flex-col items-center gap-6 py-12 pt-24">
+                  {/* Mobile-only action links */}
+                  {isMobile && (
+                    <>
+                      <button
+                        onClick={() => setMenuOpen(false)}
+                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                      >
+                        <Search size={15} strokeWidth={1.4} />
+                        Search
+                      </button>
+                      <button
+                        onClick={() => setMenuOpen(false)}
+                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                      >
+                        <User size={15} strokeWidth={1.4} />
+                        Account
+                      </button>
+                      <Link
+                        to="/book"
+                        onClick={() => setMenuOpen(false)}
+                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                      >
+                        <ShoppingBag size={15} strokeWidth={1.4} />
+                        Book
+                      </Link>
+                      <div className="w-8 border-t border-foreground/10" />
+                    </>
+                  )}
                   {heroNavLinks.map((link) => (
                     <a
                       key={link}
