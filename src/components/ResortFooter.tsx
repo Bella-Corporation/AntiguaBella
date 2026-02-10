@@ -16,7 +16,7 @@ const ResortFooter = () => {
             <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
               ​Good Things Come to Those Who Go Beyond   
             </h2>
-            <p data-reveal="slide-up" data-reveal-delay="340" className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">~ AtiguaBella for the Curious Few ~</p>
+            <p data-reveal="slide-up" data-reveal-delay="340" className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">~ AntiguaBella for the Curious Few ~</p>
             <div data-reveal="fade" data-reveal-delay="460" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input type="email" placeholder="Your email" className="flex-1 bg-transparent border border-border/30 rounded-none px-5 py-4 text-[15px] text-foreground placeholder:text-muted-foreground/35 focus:border-primary/25 focus:outline-none transition-all duration-300" />
               <button className="luxury-btn-outline py-4 px-10 whitespace-nowrap press-feedback text-[12px]">
