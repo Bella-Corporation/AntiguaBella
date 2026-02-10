@@ -52,7 +52,7 @@ const ExperiencesSection = () => {
             <div
               key={exp.title}
               data-reveal={i % 2 === 0 ? "slide-left" : "slide-right"}
-              data-reveal-delay={String(520 + i * 50)}
+              data-reveal-delay={i < 2 ? "500" : "620"}
               className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
             >
               <img
