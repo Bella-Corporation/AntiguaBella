@@ -5,7 +5,7 @@ import { ShoppingBag } from "lucide-react";
 import HeaderSearch from "@/components/HeaderSearch";
 import heroVideo from "@/assets/hero-video.mp4";
 
-const heroNavLinks = ["Stays", "Experiences", "Concierge"];
+const heroNavLinks = ["Stays", "Experiences", "Concierge", "Dining", "Weddings", "Parties", "Blogs"];
 
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,26 +130,19 @@ const HeroSection = () => {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="fixed top-0 left-0 right-0 bg-background/50 backdrop-blur-xl overflow-hidden z-[-1]"
+                className="fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
               >
-                <nav className="flex flex-col items-center gap-7 py-12 pt-24">
+                <nav className="flex flex-col items-center gap-6 py-12 pt-24">
                   {heroNavLinks.map((link) => (
                     <a
                       key={link}
                       href={`#${link.toLowerCase()}`}
                       onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover font-aguero text-[10px] tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground/70 transition-colors duration-400"
+                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       {link}
                     </a>
                   ))}
-                  <a
-                    href="#begin"
-                    onClick={() => setMenuOpen(false)}
-                    className="hero-glow-hover font-aguero text-[10px] tracking-[0.22em] uppercase text-foreground/35 hover:text-foreground/60 transition-colors duration-500 mt-4"
-                  >
-                    Sign In
-                  </a>
                 </nav>
               </motion.div>
             )}
