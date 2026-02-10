@@ -72,12 +72,14 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
-            <Link
-              to="/book"
-              className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
-            >
-              Book
-            </Link>
+            <div className="flex items-center" style={{ minWidth: '120px' }}>
+              <Link
+                to="/book"
+                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
+              >
+                Book
+              </Link>
+            </div>
 
             <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide">
               <span className={`transition-all duration-700 ${
@@ -89,7 +91,7 @@ const HeroSection = () => {
               </span>
             </a>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-end gap-4" style={{ minWidth: '120px' }}>
               <HeaderSearch />
               <Link
                 to="/book"
