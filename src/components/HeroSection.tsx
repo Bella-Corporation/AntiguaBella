@@ -69,7 +69,7 @@ const HeroSection = () => {
               ? "bg-background/95 backdrop-blur-md py-3"
               : "bg-transparent py-5 lg:py-6"
           }`}
-          style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
+          style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.75rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
             <div className="flex items-center" style={{ minWidth: '120px' }}>
@@ -126,13 +126,13 @@ const HeroSection = () => {
           <AnimatePresence>
             {menuOpen && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="overflow-hidden bg-background/98 backdrop-blur-lg border-t border-border/10"
+                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-background/85 backdrop-blur-xl z-[-1]"
               >
-                <nav className="flex flex-col items-center gap-7 py-12">
+                <nav className="flex flex-col items-center justify-center gap-7 h-full pb-20">
                   {heroNavLinks.map((link) => (
                     <a
                       key={link}
