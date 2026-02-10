@@ -93,12 +93,8 @@ const HeroSection = () => {
             </a>
 
             <div className="flex items-center justify-end gap-4" style={{ minWidth: '120px' }}>
-              <span className="flex items-center justify-center h-8 w-8">
-                <HeaderSearch />
-              </span>
-              <span className="flex items-center justify-center h-8 w-8">
-                <HeaderAccount />
-              </span>
+              <HeaderSearch />
+              <HeaderAccount />
               <Link
                 to="/book"
                 className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300"
@@ -109,6 +105,7 @@ const HeroSection = () => {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="hero-glow-hover flex flex-col items-center justify-center h-8 w-8 gap-[5px] transition-all duration-300"
+                style={{ marginTop: '-1px' }}
                 aria-label="Toggle menu"
               >
                 <span
