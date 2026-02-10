@@ -67,8 +67,9 @@ const HeroSection = () => {
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
             scrolled
               ? "bg-background/95 backdrop-blur-md py-3"
-              : "bg-transparent py-0"
+              : "bg-transparent py-5 lg:py-6"
           }`}
+          style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.25rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
             <div className="flex items-center" style={{ minWidth: '120px' }}>
