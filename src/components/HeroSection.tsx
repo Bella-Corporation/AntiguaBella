@@ -198,8 +198,8 @@ const HeroSection = () => {
         className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
         style={{
           paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)",
-          opacity: !exploreVisible ? 0 : exploreHidden ? 0 : 1,
-          transform: !exploreVisible ? "translateY(20px) scale(0.85)" : exploreHidden ? "translateY(20px) scale(0.85)" : "translateY(0) scale(1)",
+          opacity: !exploreVisible ? 0 : (exploreHidden || menuOpen) ? 0 : 1,
+          transform: !exploreVisible ? "translateY(20px) scale(0.85)" : (exploreHidden || menuOpen) ? "translateY(20px) scale(0.85)" : "translateY(0) scale(1)",
           transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
         }}
       >
