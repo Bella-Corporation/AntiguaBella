@@ -1,30 +1,27 @@
 import { Instagram, Twitter } from "lucide-react";
-
-const socialLinks = [
-  { icon: Instagram, label: "Instagram" },
-  { icon: Twitter, label: "X / Twitter" },
-];
-
+const socialLinks = [{
+  icon: Instagram,
+  label: "Instagram"
+}, {
+  icon: Twitter,
+  label: "X / Twitter"
+}];
 const ResortFooter = () => {
-  return (
-    <footer id="begin" className="border-t border-border/10 text-foreground">
+  return <footer id="begin" className="border-t border-border/10 text-foreground">
       {/* Newsletter / Begin section */}
       <div className="section-padding">
         <div data-reveal="slide-up" className="mx-auto max-w-7xl text-center">
           <div>
             <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-5">Begin</p>
             <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
-              Ready When <span className="italic">You Are</span>
+              ​Good Things Come to Those Who Go Beyond   <span className="italic">You Are</span>
             </h2>
             <p data-reveal="slide-up" data-reveal-delay="340" className="luxury-body text-muted-foreground mb-10 max-w-md mx-auto text-[18px]">
-              Leave your details. Our concierge will reach out personally.
+              ~ AtiguaBella~
+For the Curious Few.
             </p>
             <div data-reveal="fade" data-reveal-delay="460" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 bg-transparent border border-border/30 rounded-none px-5 py-4 text-[15px] text-foreground placeholder:text-muted-foreground/35 focus:border-primary/25 focus:outline-none transition-all duration-300"
-              />
+              <input type="email" placeholder="Your email" className="flex-1 bg-transparent border border-border/30 rounded-none px-5 py-4 text-[15px] text-foreground placeholder:text-muted-foreground/35 focus:border-primary/25 focus:outline-none transition-all duration-300" />
               <button className="luxury-btn-outline py-4 px-10 whitespace-nowrap press-feedback text-[12px]">
                 Get in Touch
               </button>
@@ -41,10 +38,7 @@ const ResortFooter = () => {
               Antigua<span className="gold-text">Bella</span>
             </p>
             <span className="text-muted-foreground/30 text-[11px]">© 2021</span>
-            <a
-              href="mailto:concierge@antiguabella.com"
-              className="text-muted-foreground/40 hover:text-primary text-[10px] uppercase tracking-[0.2em] transition-colors duration-300"
-            >
+            <a href="mailto:concierge@antiguabella.com" className="text-muted-foreground/40 hover:text-primary text-[10px] uppercase tracking-[0.2em] transition-colors duration-300">
               Contact
             </a>
           </div>
@@ -62,20 +56,12 @@ const ResortFooter = () => {
           </a>
 
           <div className="flex gap-6">
-            {["Privacy", "Sitemap", "Terms"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/30 hover:text-primary/40 transition-colors duration-300"
-              >
+            {["Privacy", "Sitemap", "Terms"].map(link => <a key={link} href="#" className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/30 hover:text-primary/40 transition-colors duration-300">
                 {link}
-              </a>
-            ))}
+              </a>)}
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default ResortFooter;
