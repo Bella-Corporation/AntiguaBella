@@ -73,10 +73,10 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 1.75rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12">
-            <div className="flex items-center" style={{ minWidth: '120px' }}>
+            <div className="flex items-center h-8" style={{ minWidth: '120px' }}>
               <Link
                 to="/book"
-                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300"
+                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none"
               >
                 Book
               </Link>
@@ -93,18 +93,22 @@ const HeroSection = () => {
             </a>
 
             <div className="flex items-center justify-end gap-4" style={{ minWidth: '120px' }}>
-              <HeaderSearch />
-              <HeaderAccount />
+              <span className="flex items-center justify-center h-8 w-8">
+                <HeaderSearch />
+              </span>
+              <span className="flex items-center justify-center h-8 w-8">
+                <HeaderAccount />
+              </span>
               <Link
                 to="/book"
-                className="hero-glow-hover text-foreground/50 transition-all duration-300"
+                className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300"
                 aria-label="Shopping bag"
               >
                 <ShoppingBag size={18} strokeWidth={1.5} />
               </Link>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="hero-glow-hover flex flex-col items-end gap-[5px] p-1 transition-all duration-300"
+                className="hero-glow-hover flex flex-col items-center justify-center h-8 w-8 gap-[5px] transition-all duration-300"
                 aria-label="Toggle menu"
               >
                 <span
