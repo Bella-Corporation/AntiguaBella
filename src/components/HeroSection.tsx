@@ -130,9 +130,9 @@ const HeroSection = () => {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="absolute top-full left-0 right-0 bg-background/85 backdrop-blur-xl overflow-hidden"
+                className="fixed top-0 left-0 right-0 bg-background/50 backdrop-blur-xl overflow-hidden z-[-1]"
               >
-                <nav className="flex flex-col items-center gap-7 py-12">
+                <nav className="flex flex-col items-center gap-7 py-12 pt-24">
                   {heroNavLinks.map((link) => (
                     <a
                       key={link}
