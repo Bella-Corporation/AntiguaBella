@@ -135,60 +135,61 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Menu drawer */}
-          <AnimatePresence>
-            {menuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="fixed top-0 left-0 right-0 bottom-0 md:bottom-auto bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
-              >
-                <nav className="flex flex-col items-center gap-6 py-12 pt-24 md:pb-12 h-full md:h-auto justify-center md:justify-start">
-                  {/* Mobile-only action links */}
-                  {isMobile && (
-                    <>
-                      <button
-                        onClick={() => setMenuOpen(false)}
-                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                      >
-                        <Search size={15} strokeWidth={1.4} />
-                        Search
-                      </button>
-                      <button
-                        onClick={() => setMenuOpen(false)}
-                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                      >
-                        <User size={15} strokeWidth={1.4} />
-                        Account
-                      </button>
-                      <Link
-                        to="/book"
-                        onClick={() => setMenuOpen(false)}
-                        className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                      >
-                        <ShoppingBag size={15} strokeWidth={1.4} />
-                        Book
-                      </Link>
-                      <div className="w-8 border-t border-foreground/10" />
-                    </>
-                  )}
-                  {heroNavLinks.map((link) => (
-                    <a
-                      key={link}
-                      href={`#${link.toLowerCase()}`}
-                      onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                    >
-                      {link}
-                    </a>
-                  ))}
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </header>
+
+        {/* Menu drawer — outside header for proper z-index stacking */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed inset-0 bg-background/30 backdrop-blur-xl z-40"
+            >
+              <nav className="flex flex-col items-center gap-6 h-full justify-center">
+                {/* Mobile-only action links */}
+                {isMobile && (
+                  <>
+                    <button
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      <Search size={15} strokeWidth={1.4} />
+                      Search
+                    </button>
+                    <button
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      <User size={15} strokeWidth={1.4} />
+                      Account
+                    </button>
+                    <Link
+                      to="/book"
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      <ShoppingBag size={15} strokeWidth={1.4} />
+                      Book
+                    </Link>
+                    <div className="w-8 border-t border-foreground/10" />
+                  </>
+                )}
+                {heroNavLinks.map((link) => (
+                  <a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                  >
+                    {link}
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="flex-1" />
       </div>
