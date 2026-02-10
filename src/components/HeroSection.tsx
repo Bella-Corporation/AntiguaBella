@@ -67,24 +67,24 @@ const HeroSection = () => {
         <header
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
             scrolled
-              ? "bg-background/95 backdrop-blur-md py-4"
-              : "bg-transparent py-6 lg:py-8"
+              ? "bg-background/95 backdrop-blur-md py-3 md:py-4"
+              : "bg-transparent py-5 md:py-6 lg:py-8"
           }`}
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 2rem)" }}
         >
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-12 min-h-[40px]">
-            <div className="flex items-center h-8" style={{ minWidth: '120px' }}>
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12 min-h-[44px] md:min-h-[40px]">
+            <div className="flex items-center h-11 md:h-8" style={{ minWidth: '80px' }}>
               <Link
                 to="/book"
-                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none"
+                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-11 md:h-8 px-1"
               >
                 Book
               </Link>
             </div>
 
-            <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide">
+            <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide flex items-center">
               <span className={`transition-all duration-700 ${
-                scrolled ? "text-[1.4rem] lg:text-[1.6rem]" : "text-[1.6rem] lg:text-[2rem]"
+                scrolled ? "text-[1.25rem] md:text-[1.4rem] lg:text-[1.6rem]" : "text-[1.4rem] md:text-[1.6rem] lg:text-[2rem]"
               }`}>
                 <span className="text-foreground/90">
                   Antigua<span className="gold-text">Bella</span>
@@ -92,19 +92,19 @@ const HeroSection = () => {
               </span>
             </a>
 
-            <div className="flex items-center justify-end gap-4" style={{ minWidth: '120px' }}>
+            <div className="flex items-center justify-end gap-2 sm:gap-4" style={{ minWidth: '80px' }}>
               <HeaderSearch />
               <HeaderAccount />
               <Link
                 to="/book"
-                className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300"
+                className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50 transition-all duration-300"
                 aria-label="Shopping bag"
               >
                 <ShoppingBag size={18} strokeWidth={1.5} />
               </Link>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="hero-glow-hover flex flex-col items-center justify-center h-8 w-8 gap-[5px] transition-all duration-300"
+                className="hero-glow-hover flex flex-col items-center justify-center h-11 w-11 md:h-8 md:w-8 gap-[5px] transition-all duration-300"
                 style={{ marginTop: '-1px' }}
                 aria-label="Toggle menu"
               >

@@ -65,7 +65,7 @@ const HeaderSearch = () => {
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.2 }}
             onClick={() => setOpen(true)}
-            className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300 hover:scale-110"
+            className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50 transition-all duration-300 hover:scale-110"
             aria-label="Open search"
           >
             <Search size={17} strokeWidth={1.4} />

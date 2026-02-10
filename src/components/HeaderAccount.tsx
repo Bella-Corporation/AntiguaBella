@@ -35,7 +35,7 @@ const HeaderAccount = () => {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300 hover:scale-110"
+        className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50 transition-all duration-300 hover:scale-110"
         aria-label="Account menu"
       >
         <User size={18} strokeWidth={1.4} />
