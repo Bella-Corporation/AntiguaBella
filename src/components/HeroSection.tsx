@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import HeaderSearch from "@/components/HeaderSearch";
+import HeaderAccount from "@/components/HeaderAccount";
 import heroVideo from "@/assets/hero-video.mp4";
 
 const heroNavLinks = ["Stays", "Experiences", "Concierge", "Dining", "Weddings", "Parties", "Blogs"];
@@ -93,6 +94,7 @@ const HeroSection = () => {
 
             <div className="flex items-center justify-end gap-4" style={{ minWidth: '120px' }}>
               <HeaderSearch />
+              <HeaderAccount />
               <Link
                 to="/book"
                 className="hero-glow-hover text-foreground/50 transition-all duration-300"
