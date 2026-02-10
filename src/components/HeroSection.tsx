@@ -143,9 +143,9 @@ const HeroSection = () => {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
+                className="fixed top-0 left-0 right-0 bottom-0 md:bottom-auto bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
               >
-                <nav className="flex flex-col items-center gap-6 py-12 pt-24">
+                <nav className="flex flex-col items-center gap-6 py-12 pt-24 md:pb-12 h-full md:h-auto justify-center md:justify-start">
                   {/* Mobile-only action links */}
                   {isMobile && (
                     <>
