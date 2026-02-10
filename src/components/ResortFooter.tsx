@@ -20,7 +20,7 @@ const ResortFooter = () => {
             <div data-reveal="fade" data-reveal-delay="460" className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input type="email" placeholder="Your email" className="flex-1 bg-transparent border border-border/30 rounded-none px-5 py-4 text-[15px] text-foreground placeholder:text-muted-foreground/35 focus:border-primary/25 focus:outline-none transition-all duration-300" />
               <button className="luxury-btn-outline py-4 px-10 whitespace-nowrap press-feedback text-[12px]">
-                Get in Touch
+                Sign Up
               </button>
             </div>
           </div>
