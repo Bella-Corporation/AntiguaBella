@@ -126,13 +126,13 @@ const HeroSection = () => {
           <AnimatePresence>
             {menuOpen && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-background/85 backdrop-blur-xl z-[-1]"
+                className="absolute top-full left-0 right-0 bg-background/85 backdrop-blur-xl overflow-hidden"
               >
-                <nav className="flex flex-col items-center justify-center gap-7 h-full pb-20">
+                <nav className="flex flex-col items-center gap-7 py-12">
                   {heroNavLinks.map((link) => (
                     <a
                       key={link}
