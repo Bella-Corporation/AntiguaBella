@@ -49,11 +49,11 @@ const currencies = [
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const villaOptions = [
-  { name: "AntiguaBella", price: "From $3,100 / night" },
-  { name: "AntiguaSoleil", price: "From $2,200 / night" },
-  { name: "Sugar Moon", price: "From $1,650 / night" },
-  { name: "NewMoon", price: "From $1,200 / night" },
-  { name: "MoonBreeze", price: "From $1,450 / night" },
+  { name: "AntiguaBella", price: "From $3,100 / night", image: villaBeachfront, tagline: "Where elegance meets the Caribbean shore" },
+  { name: "AntiguaSoleil", price: "From $2,200 / night", image: villaBeachPool, tagline: "Sun-drenched luxury with panoramic views" },
+  { name: "Sugar Moon", price: "From $1,650 / night", image: villaHillside, tagline: "Romantic seclusion under Caribbean skies" },
+  { name: "NewMoon", price: "From $1,200 / night", image: suiteOcean, tagline: "Contemporary design in a timeless setting" },
+  { name: "MoonBreeze", price: "From $1,450 / night", image: poolView, tagline: "Effortless island living with a gentle breeze" },
 ];
 
 const BookPage = () => {
