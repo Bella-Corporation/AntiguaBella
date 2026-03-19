@@ -271,7 +271,7 @@ const Stays = () => {
                     </div>
 
                     <Link
-                      to="/book"
+                      to={`/book?villa=${encodeURIComponent(villa.name)}`}
                       className="luxury-btn-outline self-start"
                     >
                       Reserve

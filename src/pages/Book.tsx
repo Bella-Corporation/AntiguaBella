@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Minus, Plus, ChevronDown, MessageCircle, X } from "lucide-react";
 import {
   addMonths,
@@ -52,6 +52,10 @@ const villaOptions = [
 ];
 
 const BookPage = () => {
+  const [searchParams] = useSearchParams();
+  const villaParam = searchParams.get("villa");
+  const initialVilla = villaOptions.find((v) => v.name === villaParam) || villaOptions[0];
+
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(today));
   const [checkIn, setCheckIn] = useState<Date | null>(null);
@@ -60,7 +64,7 @@ const BookPage = () => {
   const [currency, setCurrency] = useState(currencies[0]);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-  const [selectedVilla, setSelectedVilla] = useState(villaOptions[0]);
+  const [selectedVilla, setSelectedVilla] = useState(initialVilla);
   const [villaOpen, setVillaOpen] = useState(false);
 
   /* Prices for current displayed month */
