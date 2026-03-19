@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const Auth = () => {
   const [searchParamsInit] = useSearchParams();
   const [isLogin, setIsLogin] = useState(searchParamsInit.get("mode") !== "signup");
+  const [isForgot, setIsForgot] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,6 +32,17 @@ const Auth = () => {
     setError("");
     setMessage("");
     setLoading(true);
+
+    if (isForgot) {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) setError(error.message);
+      else setMessage("Check your email for a password reset link.");
+      setLoading(false);
+      return;
+    }
+
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
@@ -72,25 +84,31 @@ const Auth = () => {
         <div className="bg-card rounded-2xl p-8 border border-foreground/5">
           <div className="flex gap-4 mb-8">
             <button
-              onClick={() => { setIsLogin(true); setError(""); setMessage(""); }}
+              onClick={() => { setIsLogin(true); setIsForgot(false); setError(""); setMessage(""); }}
               className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
-                isLogin ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
+                isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >
               Login
             </button>
             <button
-              onClick={() => { setIsLogin(false); setError(""); setMessage(""); }}
+              onClick={() => { setIsLogin(false); setIsForgot(false); setError(""); setMessage(""); }}
               className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
-                !isLogin ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
+                !isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >
               Sign Up
             </button>
           </div>
 
+          {isForgot && (
+            <p className="font-aguero text-[12px] tracking-[0.2em] uppercase text-foreground/60 text-center mb-6">
+              Reset Password
+            </p>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-5">
-            {!isLogin && (
+            {!isLogin && !isForgot && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
@@ -133,29 +151,51 @@ const Auth = () => {
                 placeholder="your@email.com"
               />
             </div>
-            <div>
-              <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 pr-12 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                  placeholder="Enter password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/30 hover:text-foreground/60 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
+            {!isForgot && (
+              <div>
+                <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 pr-12 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                    placeholder="Enter password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/30 hover:text-foreground/60 transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
+
+            {isLogin && !isForgot && (
+              <button
+                type="button"
+                onClick={() => { setIsForgot(true); setError(""); setMessage(""); }}
+                className="text-primary/70 hover:text-primary text-xs transition-colors duration-300"
+              >
+                Forgot password?
+              </button>
+            )}
+
+            {isForgot && (
+              <button
+                type="button"
+                onClick={() => { setIsForgot(false); setError(""); setMessage(""); }}
+                className="text-primary/70 hover:text-primary text-xs transition-colors duration-300"
+              >
+                ← Back to login
+              </button>
+            )}
 
             {error && (
               <p className="text-destructive text-sm text-center">{error}</p>
@@ -169,7 +209,7 @@ const Auth = () => {
               disabled={loading}
               className="w-full py-3 rounded-lg font-aguero text-[11px] tracking-[0.2em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300 disabled:opacity-50"
             >
-              {loading ? "..." : isLogin ? "Login" : "Create Account"}
+              {loading ? "..." : isForgot ? "Send Reset Link" : isLogin ? "Login" : "Create Account"}
             </button>
           </form>
         </div>
