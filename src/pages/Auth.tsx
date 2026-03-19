@@ -109,8 +109,23 @@ const Auth = () => {
                 placeholder="••••••••"
               />
             </div>
+            {!isLogin && (
+              <div>
+                <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+            )}
 
-            {error && (
               <p className="text-red-400 text-sm text-center">{error}</p>
             )}
             {message && (
