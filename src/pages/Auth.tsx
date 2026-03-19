@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 
@@ -17,10 +17,12 @@ const Auth = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useAuth();
+  const returnTo = searchParams.get("returnTo") || "/";
 
   useEffect(() => {
-    if (user) navigate("/");
+    if (user) navigate(returnTo);
   }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +33,7 @@ const Auth = () => {
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-      else navigate("/");
+      else navigate(returnTo);
     } else {
       if (!firstName.trim() || !lastName.trim()) {
         setError("First and last name are required.");

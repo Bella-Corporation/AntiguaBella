@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Settings, CalendarCheck, Compass, LogIn, UserPlus, LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 const menuItems = [
@@ -15,6 +15,8 @@ const HeaderAccount = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { user, signOut } = useAuth();
+  const location = useLocation();
+  const returnTo = encodeURIComponent(location.pathname + location.search);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -78,7 +80,7 @@ const HeaderAccount = () => {
               ) : (
                 <>
                   <Link
-                    to="/auth"
+                    to={`/auth?returnTo=${returnTo}`}
                     onClick={() => setOpen(false)}
                     className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                   >
@@ -86,7 +88,7 @@ const HeaderAccount = () => {
                     Login
                   </Link>
                   <Link
-                    to="/auth?mode=signup"
+                    to={`/auth?mode=signup&returnTo=${returnTo}`}
                     onClick={() => setOpen(false)}
                     className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                   >
