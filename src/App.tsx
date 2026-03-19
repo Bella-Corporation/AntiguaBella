@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Book from "./pages/Book";
 import Stays from "./pages/Stays";
 import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 
