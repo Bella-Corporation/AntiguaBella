@@ -141,9 +141,9 @@ const Stays = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="luxury-subheading text-primary mb-4 border border-foreground px-4 py-1.5 inline-block"
+            className="luxury-subheading text-primary mb-4"
           >
-            Accommodations
+            <span className="border border-foreground px-4 py-1.5 inline-block">Accommodations</span>
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
