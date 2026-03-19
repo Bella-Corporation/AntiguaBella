@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Settings, CalendarCheck, Compass } from "lucide-react";
+import { User, Settings, CalendarCheck, Compass, LogIn, UserPlus, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const menuItems = [
   { label: "My Account", icon: User },
@@ -12,6 +14,7 @@ const menuItems = [
 const HeaderAccount = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -51,15 +54,47 @@ const HeaderAccount = () => {
             className="fixed top-0 left-0 right-0 bg-background/30 backdrop-blur-xl overflow-hidden z-[-1]"
           >
             <nav className="flex flex-col items-center gap-6 py-12 pt-24">
-              {menuItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => setOpen(false)}
-                  className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {user ? (
+                <>
+                  {menuItems.map((item) => (
+                    <button
+                      key={item.label}
+                      onClick={() => setOpen(false)}
+                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      <item.icon size={15} strokeWidth={1.4} />
+                      {item.label}
+                    </button>
+                  ))}
+                  <div className="w-8 border-t border-foreground/10" />
+                  <button
+                    onClick={() => { signOut(); setOpen(false); }}
+                    className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                  >
+                    <LogOut size={15} strokeWidth={1.4} />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    onClick={() => setOpen(false)}
+                    className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                  >
+                    <LogIn size={15} strokeWidth={1.4} />
+                    Login
+                  </Link>
+                  <Link
+                    to="/auth?mode=signup"
+                    onClick={() => setOpen(false)}
+                    className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                  >
+                    <UserPlus size={15} strokeWidth={1.4} />
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </nav>
           </motion.div>
         )}
