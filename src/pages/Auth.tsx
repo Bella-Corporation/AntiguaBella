@@ -7,7 +7,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [searchParamsInit] = useSearchParams();
+  const [isLogin, setIsLogin] = useState(searchParamsInit.get("mode") !== "signup");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
