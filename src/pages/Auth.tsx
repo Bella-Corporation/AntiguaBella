@@ -33,7 +33,7 @@ const Auth = () => {
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-      else navigate("/");
+      else navigate(returnTo);
     } else {
       if (!firstName.trim() || !lastName.trim()) {
         setError("First and last name are required.");
