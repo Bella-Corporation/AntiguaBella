@@ -84,22 +84,28 @@ const Auth = () => {
         <div className="bg-card rounded-2xl p-8 border border-foreground/5">
           <div className="flex gap-4 mb-8">
             <button
-              onClick={() => { setIsLogin(true); setError(""); setMessage(""); }}
+              onClick={() => { setIsLogin(true); setIsForgot(false); setError(""); setMessage(""); }}
               className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
-                isLogin ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
+                isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >
               Login
             </button>
             <button
-              onClick={() => { setIsLogin(false); setError(""); setMessage(""); }}
+              onClick={() => { setIsLogin(false); setIsForgot(false); setError(""); setMessage(""); }}
               className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
-                !isLogin ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
+                !isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >
               Sign Up
             </button>
           </div>
+
+          {isForgot && (
+            <p className="font-aguero text-[12px] tracking-[0.2em] uppercase text-foreground/60 text-center mb-6">
+              Reset Password
+            </p>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
