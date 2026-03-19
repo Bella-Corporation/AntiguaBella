@@ -17,7 +17,9 @@ const Auth = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useAuth();
+  const returnTo = searchParams.get("returnTo") || "/";
 
   useEffect(() => {
     if (user) navigate("/");
