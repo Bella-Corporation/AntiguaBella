@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Book from "./pages/Book";
 import Stays from "./pages/Stays";
+import Bag from "./pages/Bag";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -22,6 +23,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/bag" element={<Bag />} />
             <Route path="/stays" element={<Stays />} />
             <Route path="/book" element={<Book />} />
             <Route path="/auth" element={<Auth />} />
