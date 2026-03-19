@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,9 +8,11 @@ import { useEffect } from "react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,21 +28,23 @@ const Auth = () => {
     setError("");
     setMessage("");
     setLoading(true);
-    if (!isLogin && password !== confirmPassword) {
-      setError("Passwords do not match.");
-      setLoading(false);
-      return;
-    }
-
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
       else navigate("/");
     } else {
+      if (!firstName.trim() || !lastName.trim()) {
+        setError("First and last name are required.");
+        setLoading(false);
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: window.location.origin },
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: { first_name: firstName, last_name: lastName },
+        },
       });
       if (error) setError(error.message);
       else setMessage("Check your email to confirm your account.");
@@ -82,6 +87,36 @@ const Auth = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {!isLogin && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                    placeholder="Doe"
+                  />
+                </div>
+              </div>
+            )}
             <div>
               <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
                 Email
@@ -99,32 +134,25 @@ const Auth = () => {
               <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                placeholder="••••••••"
-              />
-            </div>
-            {!isLogin && (
-              <div>
-                <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
-                  Confirm Password
-                </label>
+              <div className="relative">
                 <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                  placeholder="••••••••"
+                  className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 pr-12 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                  placeholder="Enter password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/30 hover:text-foreground/60 transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
-            )}
+            </div>
 
             {error && (
               <p className="text-destructive text-sm text-center">{error}</p>
