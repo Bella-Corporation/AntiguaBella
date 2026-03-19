@@ -2,6 +2,11 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Minus, Plus, ChevronDown, MessageCircle, X } from "lucide-react";
+import villaBeachfront from "@/assets/villa-beachfront.jpg";
+import villaBeachPool from "@/assets/villa-beach-pool.jpg";
+import villaHillside from "@/assets/villa-hillside.jpg";
+import suiteOcean from "@/assets/suite-ocean.jpg";
+import poolView from "@/assets/pool-view.jpg";
 import {
   addMonths,
   subMonths,
@@ -44,11 +49,11 @@ const currencies = [
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const villaOptions = [
-  { name: "AntiguaBella", price: "From $3,100 / night" },
-  { name: "AntiguaSoleil", price: "From $2,200 / night" },
-  { name: "Sugar Moon", price: "From $1,650 / night" },
-  { name: "NewMoon", price: "From $1,200 / night" },
-  { name: "MoonBreeze", price: "From $1,450 / night" },
+  { name: "AntiguaBella", price: "From $3,100 / night", image: villaBeachfront, tagline: "Where elegance meets the Caribbean shore" },
+  { name: "AntiguaSoleil", price: "From $2,200 / night", image: villaBeachPool, tagline: "Sun-drenched luxury with panoramic views" },
+  { name: "Sugar Moon", price: "From $1,650 / night", image: villaHillside, tagline: "Romantic seclusion under Caribbean skies" },
+  { name: "NewMoon", price: "From $1,200 / night", image: suiteOcean, tagline: "Contemporary design in a timeless setting" },
+  { name: "MoonBreeze", price: "From $1,450 / night", image: poolView, tagline: "Effortless island living with a gentle breeze" },
 ];
 
 const BookPage = () => {
@@ -130,9 +135,33 @@ const BookPage = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-xl rounded-2xl border border-border/40 bg-card p-6 lg:p-10"
+          className="w-full max-w-xl rounded-2xl border border-border/40 bg-card overflow-hidden"
           style={{ boxShadow: "var(--shadow-card)" }}
         >
+          {/* Villa Image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedVilla.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full h-44 lg:h-56 overflow-hidden"
+            >
+              <img
+                src={selectedVilla.image}
+                alt={`${selectedVilla.name} villa`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+              <div className="absolute bottom-4 left-6 lg:left-10">
+                <h2 className="luxury-heading text-xl lg:text-2xl text-foreground/90">{selectedVilla.name}</h2>
+                <p className="text-[11px] text-muted-foreground/60 font-sans mt-1">{selectedVilla.tagline}</p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="p-6 lg:p-10">
           {/* Calendar header */}
           <div className="flex items-center justify-between mb-6">
             <button
@@ -340,6 +369,7 @@ const BookPage = () => {
           >
             Book Now
           </motion.button>
+          </div>
         </motion.div>
       </main>
 
