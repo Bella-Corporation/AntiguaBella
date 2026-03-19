@@ -209,7 +209,7 @@ const Auth = () => {
               disabled={loading}
               className="w-full py-3 rounded-lg font-aguero text-[11px] tracking-[0.2em] uppercase bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300 disabled:opacity-50"
             >
-              {loading ? "..." : isLogin ? "Login" : "Create Account"}
+              {loading ? "..." : isForgot ? "Send Reset Link" : isLogin ? "Login" : "Create Account"}
             </button>
           </form>
         </div>

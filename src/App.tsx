@@ -25,6 +25,7 @@ const App = () => (
             <Route path="/stays" element={<Stays />} />
             <Route path="/book" element={<Book />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
