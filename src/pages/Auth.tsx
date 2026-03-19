@@ -27,21 +27,23 @@ const Auth = () => {
     setError("");
     setMessage("");
     setLoading(true);
-    if (!isLogin && password !== confirmPassword) {
-      setError("Passwords do not match.");
-      setLoading(false);
-      return;
-    }
-
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
       else navigate("/");
     } else {
+      if (!firstName.trim() || !lastName.trim()) {
+        setError("First and last name are required.");
+        setLoading(false);
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: window.location.origin },
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: { first_name: firstName, last_name: lastName },
+        },
       });
       if (error) setError(error.message);
       else setMessage("Check your email to confirm your account.");
