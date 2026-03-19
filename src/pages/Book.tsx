@@ -135,9 +135,33 @@ const BookPage = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-xl rounded-2xl border border-border/40 bg-card p-6 lg:p-10"
+          className="w-full max-w-xl rounded-2xl border border-border/40 bg-card overflow-hidden"
           style={{ boxShadow: "var(--shadow-card)" }}
         >
+          {/* Villa Image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedVilla.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full h-44 lg:h-56 overflow-hidden"
+            >
+              <img
+                src={selectedVilla.image}
+                alt={`${selectedVilla.name} villa`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+              <div className="absolute bottom-4 left-6 lg:left-10">
+                <h2 className="luxury-heading text-xl lg:text-2xl text-foreground/90">{selectedVilla.name}</h2>
+                <p className="text-[11px] text-muted-foreground/60 font-sans mt-1">{selectedVilla.tagline}</p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="p-6 lg:p-10">
           {/* Calendar header */}
           <div className="flex items-center justify-between mb-6">
             <button
