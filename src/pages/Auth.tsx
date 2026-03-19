@@ -22,7 +22,7 @@ const Auth = () => {
   const returnTo = searchParams.get("returnTo") || "/";
 
   useEffect(() => {
-    if (user) navigate("/");
+    if (user) navigate(returnTo);
   }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
