@@ -25,6 +25,11 @@ const Auth = () => {
     setError("");
     setMessage("");
     setLoading(true);
+    if (!isLogin && password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
 
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
