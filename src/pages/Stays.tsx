@@ -13,48 +13,59 @@ import resortAerial from "@/assets/resort-aerial.jpg";
 
 const villas = [
   {
-    name: "Beachfront Villas",
-    tagline: "Where the ocean becomes your backyard",
+    name: "AntiguaBella",
+    tagline: "Where elegance meets the Caribbean shore",
     description:
-      "Steps from the shore with uninterrupted sea views and private terraces opening directly onto pristine white sand. Floor-to-ceiling windows frame the Caribbean horizon, while natural stone and hardwood interiors evoke timeless island elegance.",
+      "Our flagship villa collection offering the pinnacle of island luxury. Expansive open-plan living with floor-to-ceiling glass, private infinity pools, and direct beach access — every detail curated for an unforgettable stay.",
     image: villaBeachfront,
-    features: ["Direct beach access", "Private terrace", "Outdoor rain shower", "King bed with ocean view"],
-    size: "1,200 sq ft",
-    guests: "2–4 Guests",
-    price: "From $1,450 / night",
-  },
-  {
-    name: "Beach Pool Villas",
-    tagline: "Your private infinity, steps from the sea",
-    description:
-      "Oceanfront living with your own private plunge pool, a seamless blend of indoor-outdoor Caribbean luxury. Expansive living spaces open to sun-drenched decks where the pool edge seems to merge with the turquoise waters beyond.",
-    image: villaBeachPool,
-    features: ["Private plunge pool", "Indoor-outdoor living", "Butler service", "Sunset deck"],
-    size: "1,800 sq ft",
-    guests: "2–6 Guests",
-    price: "From $2,200 / night",
-  },
-  {
-    name: "Hillside Garden Pool Villas",
-    tagline: "Elevated serenity in tropical splendour",
-    description:
-      "Nestled among lush tropical gardens with panoramic ocean vistas, private pools, and enchanting natural surroundings. A secluded retreat where hummingbirds visit the bougainvillea and every sunset paints the sky from your elevated vantage.",
-    image: villaHillside,
-    features: ["Panoramic ocean views", "Private infinity pool", "Garden terrace", "Yoga deck"],
+    features: ["Private infinity pool", "Direct beach access", "Butler service", "Outdoor rain shower"],
     size: "2,400 sq ft",
     guests: "2–8 Guests",
     price: "From $3,100 / night",
   },
   {
-    name: "Ocean Suites",
-    tagline: "Refined comfort with every modern luxury",
+    name: "AntiguaSoleil",
+    tagline: "Sun-drenched luxury with panoramic views",
     description:
-      "Thoughtfully appointed suites offering generous living space and captivating sea views. Italian marble bathrooms, curated art, and bespoke furnishings create an atmosphere of understated sophistication.",
+      "Perched above the coastline to capture golden light from dawn to dusk. Warm natural materials, sweeping terraces, and a private plunge pool frame panoramic ocean vistas that stretch to the horizon.",
+    image: villaBeachPool,
+    features: ["Panoramic ocean views", "Private plunge pool", "Sunset terrace", "King bed suite"],
+    size: "1,800 sq ft",
+    guests: "2–6 Guests",
+    price: "From $2,200 / night",
+  },
+  {
+    name: "Sugar Moon",
+    tagline: "Romantic seclusion under Caribbean skies",
+    description:
+      "An intimate retreat nestled among lush tropical gardens, designed for tranquillity and romance. Moonlit dining on your private terrace, open-air bathing, and the gentle rhythm of the sea as your soundtrack.",
+    image: villaHillside,
+    features: ["Garden terrace", "Open-air bath", "Private dining", "Yoga deck"],
+    size: "1,400 sq ft",
+    guests: "2–4 Guests",
+    price: "From $1,650 / night",
+  },
+  {
+    name: "NewMoon",
+    tagline: "Contemporary design in a timeless setting",
+    description:
+      "A modern architectural gem with clean lines and luxurious finishes. Italian marble, curated art, and bespoke furnishings create an atmosphere of understated sophistication with captivating sea views.",
     image: suiteOcean,
     features: ["Sea-view balcony", "Italian marble bath", "Lounge area", "Evening turndown"],
-    size: "850 sq ft",
-    guests: "2 Guests",
-    price: "From $950 / night",
+    size: "1,000 sq ft",
+    guests: "2–3 Guests",
+    price: "From $1,200 / night",
+  },
+  {
+    name: "MoonBreeze",
+    tagline: "Effortless island living with a gentle breeze",
+    description:
+      "Light-filled interiors open to breezy verandas with views of swaying palms and turquoise waters. A relaxed yet refined villa perfect for families or friends seeking the authentic Caribbean experience.",
+    image: poolView,
+    features: ["Wraparound veranda", "Pool access", "Family-friendly", "Kitchenette"],
+    size: "1,600 sq ft",
+    guests: "2–6 Guests",
+    price: "From $1,450 / night",
   },
 ];
 
