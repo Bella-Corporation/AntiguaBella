@@ -15,6 +15,8 @@ const HeaderAccount = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { user, signOut } = useAuth();
+  const location = useLocation();
+  const returnTo = encodeURIComponent(location.pathname + location.search);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
