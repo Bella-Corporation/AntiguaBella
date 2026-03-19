@@ -143,7 +143,7 @@ const Stays = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="luxury-subheading text-primary mb-4"
           >
-            <span className="border border-foreground px-4 py-1.5 inline-block">Accommodations</span>
+            <span className="px-4 py-1.5 inline-block" style={{ border: '1px solid black' }}>Accommodations</span>
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
