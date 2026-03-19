@@ -369,6 +369,7 @@ const BookPage = () => {
           >
             Book Now
           </motion.button>
+          </div>
         </motion.div>
       </main>
 
