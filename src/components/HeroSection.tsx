@@ -176,16 +176,28 @@ const HeroSection = () => {
                     <div className="w-8 border-t border-foreground/10" />
                   </>
                 )}
-                {heroNavLinks.map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
-                    onClick={() => setMenuOpen(false)}
-                    className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                  >
-                    {link}
-                  </a>
-                ))}
+                {heroNavLinks.map((link) => {
+                  const isStays = link === "Stays";
+                  return isStays ? (
+                    <Link
+                      key={link}
+                      to="/stays"
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      {link}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link}
+                      href={`#${link.toLowerCase()}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    >
+                      {link}
+                    </a>
+                  );
+                })}
               </nav>
             </motion.div>
           )}
