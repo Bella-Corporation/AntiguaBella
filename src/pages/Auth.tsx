@@ -9,6 +9,7 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,11 @@ const Auth = () => {
     setError("");
     setMessage("");
     setLoading(true);
+    if (!isLogin && password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
 
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -103,9 +109,25 @@ const Auth = () => {
                 placeholder="••••••••"
               />
             </div>
+            {!isLogin && (
+              <div>
+                <label className="block font-aguero text-[10px] tracking-[0.2em] uppercase text-foreground/40 mb-2">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+            )}
 
             {error && (
-              <p className="text-red-400 text-sm text-center">{error}</p>
+              <p className="text-destructive text-sm text-center">{error}</p>
             )}
             {message && (
               <p className="text-primary text-sm text-center">{message}</p>
