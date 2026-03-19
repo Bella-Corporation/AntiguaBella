@@ -2,6 +2,11 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Minus, Plus, ChevronDown, MessageCircle, X } from "lucide-react";
+import villaBeachfront from "@/assets/villa-beachfront.jpg";
+import villaBeachPool from "@/assets/villa-beach-pool.jpg";
+import villaHillside from "@/assets/villa-hillside.jpg";
+import suiteOcean from "@/assets/suite-ocean.jpg";
+import poolView from "@/assets/pool-view.jpg";
 import {
   addMonths,
   subMonths,
