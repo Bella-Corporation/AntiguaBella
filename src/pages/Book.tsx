@@ -43,6 +43,14 @@ const currencies = [
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+const villaOptions = [
+  { name: "AntiguaBella", price: "From $3,100 / night" },
+  { name: "AntiguaSoleil", price: "From $2,200 / night" },
+  { name: "Sugar Moon", price: "From $1,650 / night" },
+  { name: "NewMoon", price: "From $1,200 / night" },
+  { name: "MoonBreeze", price: "From $1,450 / night" },
+];
+
 const BookPage = () => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(today));
@@ -52,6 +60,8 @@ const BookPage = () => {
   const [currency, setCurrency] = useState(currencies[0]);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [selectedVilla, setSelectedVilla] = useState(villaOptions[0]);
+  const [villaOpen, setVillaOpen] = useState(false);
 
   /* Prices for current displayed month */
   const prices = useMemo(() => generatePrices(currentMonth), [currentMonth.getTime()]);
@@ -191,6 +201,44 @@ const BookPage = () => {
 
           {/* ── Gold divider ───────────────────── */}
           <div className="my-8 h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent)" }} />
+
+          {/* ── Villa Selector ─────────────────── */}
+          <div className="flex items-center justify-between mb-6 relative">
+            <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-sans">Villa</span>
+            <button
+              onClick={() => setVillaOpen(!villaOpen)}
+              className="flex items-center gap-2 text-sm font-sans text-foreground/70 hover:text-primary transition-colors duration-300 border-b border-transparent hover:border-primary/30"
+            >
+              {selectedVilla.name}
+              <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${villaOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {villaOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 top-8 z-20 rounded-xl border border-border/50 bg-card shadow-lg overflow-hidden min-w-[200px]"
+                >
+                  {villaOptions.map((v) => (
+                    <button
+                      key={v.name}
+                      onClick={() => { setSelectedVilla(v); setVillaOpen(false); }}
+                      className={`block w-full px-5 py-2.5 text-left text-sm font-sans transition-colors duration-200 ${
+                        v.name === selectedVilla.name
+                          ? "text-primary bg-primary/5"
+                          : "text-foreground/60 hover:text-primary hover:bg-primary/5"
+                      }`}
+                    >
+                      <span className="block">{v.name}</span>
+                      <span className="block text-[10px] text-muted-foreground/50">{v.price}</span>
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* ── Guest Selector ─────────────────── */}
           <div className="flex items-center justify-between mb-6">
