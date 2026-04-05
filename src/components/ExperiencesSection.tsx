@@ -1,47 +1,27 @@
-import expBoat from "@/assets/exp-boat.jpg";
-import expCooking from "@/assets/exp-cooking.jpg";
-import expFarm from "@/assets/exp-farm.jpg";
-import expSnorkel from "@/assets/exp-snorkel.jpg";
-
-const experiences = [
-  {
-    title: "Private Charters",
-    tagline: "Your own vessel. Your own horizon.",
-    image: expBoat,
-  },
-  {
-    title: "Culinary Journeys",
-    tagline: "Island flavors, chef-led.",
-    image: expCooking,
-  },
-  {
-    title: "Island Discovery",
-    tagline: "Beyond the shoreline.",
-    image: expFarm,
-  },
-  {
-    title: "Ocean & Reef",
-    tagline: "Caribbean waters, explored.",
-    image: expSnorkel,
-  },
-];
+import { Link } from "react-router-dom";
+import { useListings } from "@/hooks/useListings";
+import { useLanguage } from "@/contexts/LanguageContext";
+import OverlayListingCard from "@/components/listings/OverlayListingCard";
+import { getListingEyebrow } from "@/lib/listingPresentation";
 
 const ExperiencesSection = () => {
+  const { experiences } = useListings();
+  const { t } = useLanguage();
+
   return (
     <section id="experiences" className="section-padding bg-background">
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start mb-14 lg:mb-20">
           <div className="lg:col-span-5">
-            <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">Experiences</p>
+            <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-4">{t("experiences_eyebrow")}</p>
             <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7">
-              Beyond the
+              {t("experiences_title_main")}
               <br />
-              <span className="italic">Expected</span>
+              <span className="italic">{t("experiences_title_accent")}</span>
             </h2>
             <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mx-0 mb-7" />
             <p data-reveal="slide-up" data-reveal-delay="420" className="luxury-body text-muted-foreground max-w-sm">
-              Every experience on the platform is vetted, private, and
-              designed for travelers who prefer depth over spectacle.
+              {t("experiences_copy")}
             </p>
           </div>
         </div>
@@ -49,34 +29,21 @@ const ExperiencesSection = () => {
         {/* 2×2 grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
           {experiences.map((exp, i) => (
-            <div
-              key={exp.title}
-              data-reveal={i % 2 === 0 ? "slide-left" : "slide-right"}
-              data-reveal-delay={i < 2 ? "500" : "620"}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/15 image-card-hover"
-            >
-              <img
-                src={exp.image}
-                alt={exp.title}
-                className="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent group-hover:from-black/80 group-hover:via-black/40 group-hover:to-black/10 transition-all duration-700" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <h3 className="luxury-heading text-lg lg:text-[1.35rem] text-foreground mb-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
-                  {exp.title}
-                </h3>
-                <p className="luxury-body text-foreground/60 text-[13px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
-                  {exp.tagline}
-                </p>
-              </div>
-            </div>
+            <OverlayListingCard
+              key={exp.id}
+              listing={exp}
+              to={`/experiences/${encodeURIComponent(exp.id)}`}
+              reveal={i % 2 === 0 ? "slide-left" : "slide-right"}
+              revealDelay={i < 2 ? "500" : "620"}
+              eyebrow={getListingEyebrow(exp, t("common_experience"))}
+            />
           ))}
         </div>
 
         <div data-reveal="fade" data-reveal-delay="800" className="mt-14 lg:mt-16">
-          <a href="#begin" className="luxury-btn-outline">
-            Browse Experiences
-          </a>
+          <Link to="/experiences" className="luxury-btn-outline">
+            {t("common_explore_experiences")}
+          </Link>
         </div>
       </div>
     </section>

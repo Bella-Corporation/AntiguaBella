@@ -1,32 +1,44 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-type ResultType = "villa" | "experience";
+import { useListings } from "@/hooks/useListings";
+import type { BaseListing, ListingType } from "@/types/index";
 
-interface SearchResult {
+type SearchItem = {
+  id: string;
+  type: ListingType;
   name: string;
-  type: ResultType;
-}
+};
 
-const allResults: SearchResult[] = [
-  { name: "Beachfront Villa", type: "villa" },
-  { name: "Hillside Villa", type: "villa" },
-  { name: "Ocean Suite", type: "villa" },
-  { name: "Beach Pool Villa", type: "villa" },
-  { name: "Sunset Cooking Class", type: "experience" },
-  { name: "Snorkeling Adventure", type: "experience" },
-  { name: "Farm-to-Table Tour", type: "experience" },
-  { name: "Private Boat Charter", type: "experience" },
-  { name: "Spa & Wellness Retreat", type: "experience" },
-  { name: "Yoga at Sunrise", type: "experience" },
-];
+const routeByType: Record<ListingType, string> = {
+  villa: "/stays",
+  experience: "/experiences",
+  charter: "/charters",
+};
+
+const labelByType: Record<ListingType, string> = {
+  villa: "Villas",
+  experience: "Experiences",
+  charter: "Charters",
+};
+
+const toSearchItem = (listing: BaseListing): SearchItem => ({
+  id: listing.id,
+  type: listing.type,
+  name: listing.title,
+});
 
 const HeaderSearch = () => {
+  const { all } = useListings();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<"all" | ResultType>("all");
+  const [filter, setFilter] = useState<"all" | ListingType>("all");
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  const allResults = useMemo(() => all.map(toSearchItem), [all]);
 
   useEffect(() => {
     if (open) {
@@ -110,7 +122,8 @@ const HeaderSearch = () => {
                     ref={inputRef}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search villas & experiences…"
+                    aria-label="Search stays, experiences, and charters"
+                    placeholder="Search stays, experiences, and charters..."
                     className="flex-1 bg-transparent text-sm font-light text-foreground/90 placeholder:text-foreground/25 outline-none"
                   />
                   <button
@@ -124,10 +137,12 @@ const HeaderSearch = () => {
 
                 {/* Filter pills */}
                 <div className="mt-3 flex gap-2 px-1">
-                  {(["all", "villa", "experience"] as const).map((f) => (
+                  {(["all", "villa", "experience", "charter"] as const).map((f) => (
                     <button
                       key={f}
+                      type="button"
                       onClick={() => setFilter(f)}
+                      aria-pressed={filter === f}
                       className={`rounded-md px-3.5 py-1.5 text-[10px] font-light uppercase tracking-[0.2em] transition-all duration-300 ${
                         filter === f
                           ? "text-primary/90"
@@ -138,7 +153,7 @@ const HeaderSearch = () => {
                         border: `1px solid ${filter === f ? "hsl(var(--primary) / 0.2)" : "hsl(var(--foreground) / 0.06)"}`,
                       }}
                     >
-                      {f === "all" ? "All" : f === "villa" ? "Villas" : "Experiences"}
+                      {f === "all" ? "All" : labelByType[f]}
                     </button>
                   ))}
                 </div>
@@ -166,7 +181,8 @@ const HeaderSearch = () => {
                         ) : (
                           filtered.map((result, i) => (
                             <button
-                              key={result.name}
+                              key={`${result.type}-${result.id}`}
+                              type="button"
                               className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors duration-200 hover:bg-primary/[0.04]"
                               style={{
                                 borderBottom:
@@ -174,7 +190,12 @@ const HeaderSearch = () => {
                                     ? "1px solid hsl(var(--primary) / 0.06)"
                                     : "none",
                               }}
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                navigate(
+                                  `${routeByType[result.type]}/${encodeURIComponent(result.id)}`
+                                );
+                                setOpen(false);
+                              }}
                             >
                               <span className="text-sm font-light text-foreground/70">
                                 {result.name}

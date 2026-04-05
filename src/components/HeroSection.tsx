@@ -2,20 +2,26 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Search, User } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
 import heroVideo from "@/assets/hero-video.mp4";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const heroNavLinks = ["Stays", "Experiences", "Concierge", "Dining", "Weddings", "Parties", "Blogs"];
-
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
+  const { t } = useLanguage();
   const [exploreCompact, setExploreCompact] = useState(false);
   const [exploreHidden, setExploreHidden] = useState(false);
   const [exploreVisible, setExploreVisible] = useState(false);
+  const heroNavLinks = [
+    { label: t("nav_stays"), route: "/stays" },
+    { label: t("nav_experiences"), route: "/experiences" },
+    { label: t("nav_charters"), route: "/charters" },
+    { label: t("nav_concierge"), route: "/concierge" },
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => setExploreVisible(true), 2000);
@@ -54,6 +60,9 @@ const HeroSection = () => {
           muted
           loop
           playsInline
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
           className="h-full w-full object-cover"
         />
         <div
@@ -75,13 +84,13 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 2rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12 min-h-[44px] md:min-h-[40px]">
-            {/* Book link — hidden on mobile, shown on md+ */}
+            {/* Request link — hidden on mobile, shown on md+ */}
             <div className="hidden md:flex items-center h-8" style={{ minWidth: '80px' }}>
               <Link
-                to="/book"
+                to="/request"
                 className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-8 px-1"
               >
-                Book
+                {t("common_request")}
               </Link>
             </div>
             {/* Mobile: empty spacer to balance burger on right */}
@@ -104,9 +113,9 @@ const HeroSection = () => {
                   <HeaderSearch />
                   <HeaderAccount />
                   <Link
-                    to="/book"
+                    to="/bag"
                     className="hero-glow-hover flex items-center justify-center h-8 w-8 text-foreground/50 transition-all duration-300"
-                    aria-label="Shopping bag"
+                    aria-label="View bag itinerary"
                   >
                     <ShoppingBag size={18} strokeWidth={1.5} />
                   </Link>
@@ -156,45 +165,44 @@ const HeroSection = () => {
                       className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       <Search size={15} strokeWidth={1.4} />
-                      Search
+                      {t("common_search")}
                     </button>
                     <button
                       onClick={() => setMenuOpen(false)}
                       className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       <User size={15} strokeWidth={1.4} />
-                      Account
+                      {t("common_account")}
                     </button>
                     <Link
-                      to="/book"
+                      to="/request"
                       onClick={() => setMenuOpen(false)}
                       className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       <ShoppingBag size={15} strokeWidth={1.4} />
-                      Book
+                      {t("common_request")}
                     </Link>
                     <div className="w-8 border-t border-foreground/10" />
                   </>
                 )}
                 {heroNavLinks.map((link) => {
-                  const isStays = link === "Stays";
-                  return isStays ? (
+                  return link.route ? (
                     <Link
-                      key={link}
-                      to="/stays"
+                      key={link.route}
+                      to={link.route}
                       onClick={() => setMenuOpen(false)}
                       className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
-                      {link}
+                      {link.label}
                     </Link>
                   ) : (
                     <a
-                      key={link}
-                      href={`#${link.toLowerCase()}`}
+                      key={link.label}
+                      href={`#${link.label.toLowerCase()}`}
                       onClick={() => setMenuOpen(false)}
                       className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   );
                 })}

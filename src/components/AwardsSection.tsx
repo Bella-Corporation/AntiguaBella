@@ -1,10 +1,10 @@
 import { Award, KeyRound, Globe, Star } from "lucide-react";
 
 const accolades = [
-  { name: "Condé Nast Gold List", detail: "2024 & 2025", icon: Award },
-  { name: "Michelin Keys", detail: "Two Keys Distinction", icon: KeyRound },
-  { name: "TripAdvisor", detail: "Travelers' Choice 2025", icon: Globe },
-  { name: "Forbes Travel Guide", detail: "Five-Star Rating", icon: Star },
+  { name: "Private Selection", detail: "Curated stays, experiences, and charters", icon: Award },
+  { name: "Inquiry-Led Model", detail: "Manual review before availability is confirmed", icon: KeyRound },
+  { name: "Concierge Coordination", detail: "Next steps are guided personally", icon: Globe },
+  { name: "Calm Route Clarity", detail: "Public surfaces prioritize accurate intent", icon: Star },
 ];
 
 const AwardsSection = () => {
@@ -12,9 +12,9 @@ const AwardsSection = () => {
     <section className="section-padding bg-card border-t border-border/10">
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-6">Recognition</p>
+          <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-6">Principles</p>
           <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground leading-[1.2]">
-            World-Class <span className="italic">Accolades</span>
+            What Guides <span className="italic">AntiguaBella</span>
           </h2>
         </div>
 
@@ -37,11 +37,10 @@ const AwardsSection = () => {
         <div data-reveal="fade" data-reveal-delay="700" className="text-center">
           <div className="luxury-divider mb-14" />
           <p className="font-light text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] text-foreground/50 italic leading-[1.7] mb-8 max-w-xl mx-auto" style={{ fontFamily: "'Playfair Display', serif" }}>
-            "A rare platform that understands the difference between
-            luxury and excess. Antigua, finally done right."
+            "Deliberate curation, calm communication, and concierge-led follow-through."
           </p>
           <p className="luxury-subheading text-[10px] text-primary/40">
-            — Condé Nast Traveler
+            — AntiguaBella v0.0.1
           </p>
         </div>
       </div>

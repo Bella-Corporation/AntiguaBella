@@ -3,104 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, X, Calendar, Users, Trash2, ShoppingBag } from "lucide-react";
 import { format } from "date-fns";
-
-import villaBeachfront from "@/assets/villa-beachfront.jpg";
-import villaBeachPool from "@/assets/villa-beach-pool.jpg";
-import villaHillside from "@/assets/villa-hillside.jpg";
-import expBoat from "@/assets/exp-boat.jpg";
-import expCooking from "@/assets/exp-cooking.jpg";
-import expSnorkel from "@/assets/exp-snorkel.jpg";
-import spaWellness from "@/assets/spa-wellness.jpg";
-
-type CartItemType = "villa" | "experience" | "car";
-
-interface CartItem {
-  id: string;
-  type: CartItemType;
-  name: string;
-  description: string;
-  image: string;
-  price: number;
-  dates: { from: Date; to: Date };
-  guests?: number;
-  selected: boolean;
-}
-
-const initialItems: CartItem[] = [
-  {
-    id: "v1",
-    type: "villa",
-    name: "AntiguaBella",
-    description: "Beachfront villa with private infinity pool & butler service",
-    image: villaBeachfront,
-    price: 3100,
-    dates: { from: new Date(2026, 3, 10), to: new Date(2026, 3, 17) },
-    guests: 4,
-    selected: true,
-  },
-  {
-    id: "v2",
-    type: "villa",
-    name: "Sugar Moon",
-    description: "Romantic seclusion among lush tropical gardens",
-    image: villaHillside,
-    price: 1650,
-    dates: { from: new Date(2026, 3, 10), to: new Date(2026, 3, 14) },
-    guests: 2,
-    selected: true,
-  },
-  {
-    id: "e1",
-    type: "experience",
-    name: "Private Charter",
-    description: "Full-day yacht charter through the Antiguan coastline",
-    image: expBoat,
-    price: 2800,
-    dates: { from: new Date(2026, 3, 12), to: new Date(2026, 3, 12) },
-    guests: 4,
-    selected: true,
-  },
-  {
-    id: "e2",
-    type: "experience",
-    name: "Culinary Journey",
-    description: "Chef-led island cooking experience with local ingredients",
-    image: expCooking,
-    price: 450,
-    dates: { from: new Date(2026, 3, 13), to: new Date(2026, 3, 13) },
-    guests: 2,
-    selected: true,
-  },
-  {
-    id: "e3",
-    type: "experience",
-    name: "Reef Snorkeling",
-    description: "Guided coral reef exploration with professional divers",
-    image: expSnorkel,
-    price: 320,
-    dates: { from: new Date(2026, 3, 15), to: new Date(2026, 3, 15) },
-    guests: 4,
-    selected: false,
-  },
-  {
-    id: "c1",
-    type: "car",
-    name: "Range Rover Sport",
-    description: "Luxury SUV with GPS, AC & full insurance included",
-    image: spaWellness,
-    price: 280,
-    dates: { from: new Date(2026, 3, 10), to: new Date(2026, 3, 17) },
-    selected: true,
-  },
-];
-
-const categoryLabels: Record<CartItemType, string> = {
-  villa: "Villas",
-  experience: "Experiences",
-  car: "Car Rentals",
-};
-
-const categoryOrder: CartItemType[] = ["villa", "experience", "car"];
+import { initialCartItems, categoryLabels, categoryOrder, type CartItem } from "@/data/cart";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -118,7 +21,7 @@ const getNights = (from: Date, to: Date) => {
 };
 
 const Bag = () => {
-  const [items, setItems] = useState<CartItem[]>(initialItems);
+  const [items, setItems] = useState<CartItem[]>(initialCartItems);
 
   const toggleItem = (id: string) => {
     setItems((prev) =>
@@ -173,13 +76,16 @@ const Bag = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="luxury-subheading text-primary mb-4">Your Selection</p>
+          <p className="luxury-subheading text-primary mb-4">Saved Selections</p>
           <h1 className="luxury-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-3">
-            Shopping <span className="italic">Bag</span>
+            Your Curated <span className="italic">Journey</span>
           </h1>
           <div className="luxury-divider mb-4" />
-          <p className="text-sm text-muted-foreground/60 font-sans">
-            {selectedItems.length} of {items.length} items selected
+          <p className="text-sm text-muted-foreground/60 font-sans max-w-2xl mx-auto">
+            Select the elements you want included in your request. Your concierge will confirm availability and tailor the details.
+          </p>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/40 font-sans mt-4">
+            {selectedItems.length} of {items.length} selected
           </p>
         </motion.div>
 
@@ -190,13 +96,21 @@ const Bag = () => {
             className="text-center py-20"
           >
             <ShoppingBag className="w-12 h-12 text-muted-foreground/20 mx-auto mb-6" />
-            <p className="luxury-heading text-xl text-foreground/50 mb-3">Your bag is empty</p>
+            <p className="luxury-heading text-xl text-foreground/50 mb-3">No selections yet</p>
             <p className="text-sm text-muted-foreground/40 font-sans mb-8">
-              Explore our villas, experiences, and rentals to begin curating your stay.
+              Begin with a residence, then layer in experiences and charters—your itinerary will take shape naturally.
             </p>
-            <Link to="/stays" className="luxury-btn-outline">
-              Browse Stays
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/stays" className="luxury-btn-outline text-center">
+                Browse Stays
+              </Link>
+              <Link to="/experiences" className="luxury-btn-outline text-center">
+                Browse Experiences
+              </Link>
+              <Link to="/charters" className="luxury-btn-outline text-center">
+                Browse Charters
+              </Link>
+            </div>
           </motion.div>
         ) : (
           <div className="grid lg:grid-cols-[1fr_340px] gap-8 lg:gap-10 items-start">
@@ -238,7 +152,7 @@ const Bag = () => {
                                 <img
                                   src={item.image}
                                   alt={item.name}
-                                  className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+                                  className="w-full h-full object-cover transition-transform duration-1200 ease-out group-hover:scale-[1.04]"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/30 hidden sm:block" />
                               </div>
@@ -337,7 +251,7 @@ const Bag = () => {
                 style={{ boxShadow: "var(--shadow-card)" }}
               >
                 <p className="luxury-subheading text-[10px] text-muted-foreground/50 mb-6">
-                  Booking Summary
+                  Itinerary Summary
                 </p>
 
                 {/* Selected items summary */}
@@ -405,28 +319,48 @@ const Bag = () => {
                 )}
 
                 {/* Checkout button */}
-                <motion.button
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  disabled={selectedItems.length === 0}
+                <Link
+                  to="/request"
                   className={`
-                    w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.25em] font-sans font-medium
+                    block w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.25em] font-sans font-medium text-center
                     border transition-all duration-500
                     ${selectedItems.length > 0
-                      ? "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] cursor-pointer"
-                      : "border-border/30 text-muted-foreground/40 cursor-not-allowed"
+                      ? "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)]"
+                      : "pointer-events-none border-border/30 text-muted-foreground/40"
                     }
                   `}
                 >
-                  Proceed to Checkout
-                </motion.button>
+                  Request with Concierge
+                </Link>
+
+                <Link
+                  to="/concierge"
+                  className="block text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground/40 hover:text-primary font-sans mt-4 transition-colors duration-300"
+                >
+                  Speak to Concierge
+                </Link>
 
                 <Link
                   to="/stays"
                   className="block text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground/40 hover:text-primary font-sans mt-4 transition-colors duration-300"
                 >
-                  Continue Browsing
+                  Continue Browsing Stays
                 </Link>
+
+                <div className="mt-4 flex justify-center gap-6">
+                  <Link
+                    to="/experiences"
+                    className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/30 hover:text-primary/50 transition-colors duration-300"
+                  >
+                    Experiences
+                  </Link>
+                  <Link
+                    to="/charters"
+                    className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/30 hover:text-primary/50 transition-colors duration-300"
+                  >
+                    Charters
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>

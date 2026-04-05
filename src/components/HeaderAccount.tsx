@@ -3,18 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { User, Settings, CalendarCheck, Compass, LogIn, UserPlus, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const menuItems = [
-  { label: "My Account", icon: User },
-  { label: "Account Settings", icon: Settings },
-  { label: "My Appointments", icon: CalendarCheck },
-  { label: "My Journeys", icon: Compass },
+  { labelKey: "account_my_account", icon: User, to: "/account" },
+  { labelKey: "account_settings", icon: Settings, to: "/account/settings" },
+  { labelKey: "account_my_appointments", icon: CalendarCheck, to: "/account/appointments" },
+  { labelKey: "account_my_journey", icon: Compass, to: "/account/journey" },
 ];
 
 const HeaderAccount = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
   const location = useLocation();
   const returnTo = encodeURIComponent(location.pathname + location.search);
 
@@ -59,14 +61,15 @@ const HeaderAccount = () => {
               {user ? (
                 <>
                   {menuItems.map((item) => (
-                    <button
-                      key={item.label}
+                    <Link
+                      key={item.labelKey}
+                      to={item.to}
                       onClick={() => setOpen(false)}
                       className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       <item.icon size={15} strokeWidth={1.4} />
-                      {item.label}
-                    </button>
+                      {t(item.labelKey)}
+                    </Link>
                   ))}
                   <div className="w-8 border-t border-foreground/10" />
                   <button
@@ -74,7 +77,7 @@ const HeaderAccount = () => {
                     className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                   >
                     <LogOut size={15} strokeWidth={1.4} />
-                    Sign Out
+                    {t("auth_sign_out")}
                   </button>
                 </>
               ) : (
@@ -85,7 +88,7 @@ const HeaderAccount = () => {
                     className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                   >
                     <LogIn size={15} strokeWidth={1.4} />
-                    Login
+                    {t("auth_login")}
                   </Link>
                   <Link
                     to={`/auth?mode=signup&returnTo=${returnTo}`}
@@ -93,7 +96,7 @@ const HeaderAccount = () => {
                     className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                   >
                     <UserPlus size={15} strokeWidth={1.4} />
-                    Sign Up
+                    {t("auth_sign_up")}
                   </Link>
                 </>
               )}

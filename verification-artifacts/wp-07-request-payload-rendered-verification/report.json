@@ -1,0 +1,589 @@
+{
+  "baseUrl": "http://localhost:8080",
+  "generatedAt": "2026-04-04T15:51:32.809Z",
+  "scenarioCount": 6,
+  "results": [
+    {
+      "scenario": "Stay request",
+      "scenarioId": "stay",
+      "viewport": "desktop-1440x900",
+      "sourcePath": "/stays/AntiguaBella -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\stay-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Check-out must be after Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Check-out",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Preferred Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "scenario": "Experience request",
+      "scenarioId": "experience",
+      "viewport": "desktop-1440x900",
+      "sourcePath": "/experiences/culinary_journeys -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\experience-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Preferred Date",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Preferred Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Group Size",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Check-out",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "scenario": "Charter request (duration fixed by selected item)",
+      "scenarioId": "charter-fixed-duration",
+      "viewport": "desktop-1440x900",
+      "sourcePath": "/charters/coastline_private_day -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\charter-fixed-duration-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Preferred Date",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Group Size",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter duration hidden when item defines duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "scenario": "Stay request",
+      "scenarioId": "stay",
+      "viewport": "mobile-390x844",
+      "sourcePath": "/stays/AntiguaBella -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\stay-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Check-out must be after Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Check-out",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay shows Guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Preferred Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay hides Duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "scenario": "Experience request",
+      "scenarioId": "experience",
+      "viewport": "mobile-390x844",
+      "sourcePath": "/experiences/culinary_journeys -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\experience-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Preferred Date",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Preferred Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience shows Group Size",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Check-in",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Check-out",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience hides Duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "scenario": "Charter request (duration fixed by selected item)",
+      "scenarioId": "charter-fixed-duration",
+      "viewport": "mobile-390x844",
+      "sourcePath": "/charters/coastline_private_day -> /request",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-07-request-payload-rendered-verification\\charter-fixed-duration-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "Selected-item summary visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Selected-item summary identifies requested item",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Contact fields ordered Full Name > Email > Phone or WhatsApp",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Phone or WhatsApp optional helper present",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Notes present and last field block",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No duplicate editable item/category fields",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Trust layer remains visible",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Required fields block submit when empty",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Invalid email blocks submit",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Preferred Date",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Preferred Departure Time",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter shows Group Size",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter duration hidden when item defines duration",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Guests/group size remains positive integer",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Optional fields do not block submit when empty",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    }
+  ],
+  "charterDataAvailability": "Only fixed-duration charter branch is present in current public data; duration-required branch is not renderable with existing public charter items.",
+  "overallStatus": "PASS"
+}

@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { Compass, MessageSquare, Map } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const pillars = [
   {
@@ -19,6 +21,8 @@ const pillars = [
 ];
 
 const ConciergeSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="concierge" className="section-padding bg-background">
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
@@ -50,6 +54,15 @@ const ConciergeSection = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div data-reveal="fade" data-reveal-delay="860" className="mt-16 flex flex-col sm:flex-row gap-4 justify-center">
+          <Link to="/concierge" className="luxury-btn-outline text-center">
+            {t("common_explore_concierge")}
+          </Link>
+          <Link to="/request" className="luxury-btn-bold text-center">
+            {t("common_request_with_concierge")}
+          </Link>
         </div>
       </div>
     </section>

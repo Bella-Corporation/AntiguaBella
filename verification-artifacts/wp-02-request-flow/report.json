@@ -1,0 +1,75 @@
+[
+  {
+    "name": "desktop stays listing -> request",
+    "status": "PASS",
+    "route": "/stays",
+    "finalUrl": "http://127.0.0.1:4173/request?type=villa&item=AntiguaBella&name=AntiguaBella&tagline=Where+elegance+meets+the+Caribbean+shore&category=Villas",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-stays-list-request.png"
+  },
+  {
+    "name": "desktop stays detail -> request + confirmation",
+    "status": "PASS",
+    "route": "/stays/AntiguaBella",
+    "finalUrl": "http://127.0.0.1:4173/request?type=villa&item=AntiguaBella&name=AntiguaBella&tagline=Where+elegance+meets+the+Caribbean+shore&category=Villas",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-stays-detail-request.png",
+    "confirmationScreenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-stays-confirmation.png"
+  },
+  {
+    "name": "desktop experiences listing -> request",
+    "status": "PASS",
+    "route": "/experiences",
+    "finalUrl": "http://127.0.0.1:4173/request?type=experience&item=culinary_journeys&name=Culinary+Journeys&tagline=Island+flavors%2C+chef-led&category=Culinary",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-experiences-list-request.png"
+  },
+  {
+    "name": "desktop experiences detail -> request + confirmation",
+    "status": "PASS",
+    "route": "/experiences/culinary_journeys",
+    "finalUrl": "http://127.0.0.1:4173/request?type=experience&item=culinary_journeys&name=Culinary+Journeys&tagline=Island+flavors%2C+chef-led&category=Culinary",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-experiences-detail-request.png",
+    "confirmationScreenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-experiences-confirmation.png"
+  },
+  {
+    "name": "desktop charters listing -> request",
+    "status": "PASS",
+    "route": "/charters",
+    "finalUrl": "http://127.0.0.1:4173/request?type=charter&item=coastline_private_day&name=Private+Coastline+Day+Charter&tagline=Unhurried+hours+on+your+own+horizon&category=Charters",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-charters-list-request.png"
+  },
+  {
+    "name": "desktop charters detail -> request + confirmation",
+    "status": "PASS",
+    "route": "/charters/coastline_private_day",
+    "finalUrl": "http://127.0.0.1:4173/request?type=charter&item=coastline_private_day&name=Private+Coastline+Day+Charter&tagline=Unhurried+hours+on+your+own+horizon&category=Charters",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-charters-detail-request.png",
+    "confirmationScreenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-charters-confirmation.png"
+  },
+  {
+    "name": "desktop /book compatibility redirect",
+    "status": "PASS",
+    "route": "/book?charterId=coastline_private_day",
+    "finalUrl": "http://127.0.0.1:4173/request?type=charter&item=coastline_private_day&name=Private+Coastline+Day+Charter&tagline=Unhurried+hours+on+your+own+horizon&category=Charters",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\desktop-book-redirect.png"
+  },
+  {
+    "name": "mobile stays detail -> request",
+    "status": "PASS",
+    "route": "/stays/AntiguaBella",
+    "finalUrl": "http://127.0.0.1:4173/request?type=villa&item=AntiguaBella&name=AntiguaBella&tagline=Where+elegance+meets+the+Caribbean+shore&category=Villas",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\mobile-stays-detail-request.png"
+  },
+  {
+    "name": "mobile experiences detail -> request",
+    "status": "PASS",
+    "route": "/experiences/culinary_journeys",
+    "finalUrl": "http://127.0.0.1:4173/request?type=experience&item=culinary_journeys&name=Culinary+Journeys&tagline=Island+flavors%2C+chef-led&category=Culinary",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\mobile-experiences-detail-request.png"
+  },
+  {
+    "name": "mobile charters detail -> request",
+    "status": "PASS",
+    "route": "/charters/coastline_private_day",
+    "finalUrl": "http://127.0.0.1:4173/request?type=charter&item=coastline_private_day&name=Private+Coastline+Day+Charter&tagline=Unhurried+hours+on+your+own+horizon&category=Charters",
+    "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-02-request-flow\\mobile-charters-detail-request.png"
+  }
+]

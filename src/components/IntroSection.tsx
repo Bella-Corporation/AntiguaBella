@@ -28,6 +28,8 @@ const IntroSection = () => {
               <img
                 src={resortAerial}
                 alt="Aerial view of Antigua's coastline"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[460px] lg:h-[560px] object-cover"
               />
             </div>

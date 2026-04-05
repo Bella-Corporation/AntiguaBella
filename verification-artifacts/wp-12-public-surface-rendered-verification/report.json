@@ -1,0 +1,1093 @@
+{
+  "baseUrl": "http://localhost:8080",
+  "generatedAt": "2026-04-04T21:36:13.248Z",
+  "totalChecks": 18,
+  "overallStatus": "PASS",
+  "results": [
+    {
+      "route": "Homepage",
+      "routeId": "homepage",
+      "path": "/",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\homepage-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Stays",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Stays",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Desktop header Start Inquiry fits cleanly",
+          "pass": true,
+          "details": "height=32.0"
+        }
+      ]
+    },
+    {
+      "route": "Stays index",
+      "routeId": "stays-index",
+      "path": "/stays",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\stays-index-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/stays"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Accommodations",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Your Private",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Stay",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 8 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: 4 Bedrooms",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay card CTA fits cleanly",
+          "pass": true,
+          "details": "height=50.5"
+        }
+      ]
+    },
+    {
+      "route": "Experiences index",
+      "routeId": "experiences-index",
+      "path": "/experiences",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\experiences-index-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/experiences"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Beyond the",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: View Details",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: St. John's, Antigua",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 6 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience card CTA fits cleanly",
+          "pass": true,
+          "details": "height=41.0"
+        }
+      ]
+    },
+    {
+      "route": "Charters index",
+      "routeId": "charters-index",
+      "path": "/charters",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\charters-index-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/charters"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Private on the",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: North Sound, Antigua",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 8 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: From $2,800 / charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter card CTA fits cleanly",
+          "pass": true,
+          "details": "height=41.0"
+        }
+      ]
+    },
+    {
+      "route": "Stay detail",
+      "routeId": "stay-detail",
+      "path": "/stays/AntiguaBella",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\stay-detail-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/stays/AntiguaBella"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Villa",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Nightly",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Stay Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Amenities",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Stay",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability is confirmed after review.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay detail primary CTA fits cleanly",
+          "pass": true,
+          "details": "height=49.0"
+        }
+      ]
+    },
+    {
+      "route": "Experience detail",
+      "routeId": "experience-detail",
+      "path": "/experiences/culinary_journeys",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\experience-detail-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/experiences/culinary_journeys"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience Type",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: What you can expect",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability and pricing are confirmed after review where relevant.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience fact label fits cleanly",
+          "pass": true,
+          "details": "height=18.0"
+        }
+      ]
+    },
+    {
+      "route": "Charter detail",
+      "routeId": "charter-detail",
+      "path": "/charters/coastline_private_day",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\charter-detail-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/charters/coastline_private_day"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Starting",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charter Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: What you can expect",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability and pricing are confirmed after review where relevant.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter detail primary CTA fits cleanly",
+          "pass": true,
+          "details": "height=49.0"
+        }
+      ]
+    },
+    {
+      "route": "Concierge",
+      "routeId": "concierge",
+      "path": "/concierge",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\concierge-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/concierge"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Custom Planning,",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Support Beyond",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Planning Paths",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Concierge CTA fits cleanly",
+          "pass": true,
+          "details": "height=15.0"
+        }
+      ]
+    },
+    {
+      "route": "Sitemap / global labels",
+      "routeId": "sitemap-global-labels",
+      "path": "/sitemap",
+      "viewport": "desktop-1440x900",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\sitemap-global-labels-desktop-1440x900.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/sitemap"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Start Inquiry",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Contact Support",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Privacy Policy",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Terms of Service",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Global Start Inquiry label fits cleanly",
+          "pass": true,
+          "details": "height=15.0"
+        },
+        {
+          "label": "Privacy Policy label fits cleanly",
+          "pass": true,
+          "details": "height=27.8"
+        },
+        {
+          "label": "Terms of Service label fits cleanly",
+          "pass": true,
+          "details": "height=27.8"
+        }
+      ]
+    },
+    {
+      "route": "Homepage",
+      "routeId": "homepage",
+      "path": "/",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\homepage-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Stays",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Stays",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        }
+      ]
+    },
+    {
+      "route": "Stays index",
+      "routeId": "stays-index",
+      "path": "/stays",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\stays-index-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/stays"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Accommodations",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Your Private",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Stay",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 8 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: 4 Bedrooms",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay card CTA fits cleanly",
+          "pass": true,
+          "details": "height=50.5"
+        }
+      ]
+    },
+    {
+      "route": "Experiences index",
+      "routeId": "experiences-index",
+      "path": "/experiences",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\experiences-index-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/experiences"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experiences",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Beyond the",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: View Details",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: St. John's, Antigua",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 6 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience card CTA fits cleanly",
+          "pass": true,
+          "details": "height=41.0"
+        }
+      ]
+    },
+    {
+      "route": "Charters index",
+      "routeId": "charters-index",
+      "path": "/charters",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\charters-index-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/charters"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Private on the",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: North Sound, Antigua",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Up to 8 guests",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: From $2,800 / charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter card CTA fits cleanly",
+          "pass": true,
+          "details": "height=41.0"
+        }
+      ]
+    },
+    {
+      "route": "Stay detail",
+      "routeId": "stay-detail",
+      "path": "/stays/AntiguaBella",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\stay-detail-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/stays/AntiguaBella"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Villa",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Nightly",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Stay Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Amenities",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Stay",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability is confirmed after review.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Stay detail primary CTA fits cleanly",
+          "pass": true,
+          "details": "height=49.0"
+        }
+      ]
+    },
+    {
+      "route": "Experience detail",
+      "routeId": "experience-detail",
+      "path": "/experiences/culinary_journeys",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\experience-detail-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/experiences/culinary_journeys"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience Type",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Experience Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: What you can expect",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Experience",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability and pricing are confirmed after review where relevant.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Experience fact label fits cleanly",
+          "pass": true,
+          "details": "height=18.0"
+        }
+      ]
+    },
+    {
+      "route": "Charter detail",
+      "routeId": "charter-detail",
+      "path": "/charters/coastline_private_day",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\charter-detail-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/charters/coastline_private_day"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Starting",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Charter Overview",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: What you can expect",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request This Charter",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Inquiry only. Availability and pricing are confirmed after review where relevant.",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Charter detail primary CTA fits cleanly",
+          "pass": true,
+          "details": "height=49.0"
+        }
+      ]
+    },
+    {
+      "route": "Concierge",
+      "routeId": "concierge",
+      "path": "/concierge",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\concierge-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/concierge"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Custom Planning,",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Support Beyond",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Planning Paths",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Request with Concierge",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Explore Charters",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Concierge CTA fits cleanly",
+          "pass": true,
+          "details": "height=15.0"
+        }
+      ]
+    },
+    {
+      "route": "Sitemap / global labels",
+      "routeId": "sitemap-global-labels",
+      "path": "/sitemap",
+      "viewport": "mobile-390x844",
+      "status": "PASS",
+      "screenshot": "C:\\Users\\Oldvi\\OneDrive\\Documents\\AntiguaBella\\bellacorporationcom\\verification-artifacts\\wp-12-public-surface-rendered-verification\\sitemap-global-labels-mobile-390x844.png",
+      "checks": [
+        {
+          "label": "No broken navigation on tested path",
+          "pass": true,
+          "details": "/sitemap"
+        },
+        {
+          "label": "No horizontal overflow",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "No accidental booking-like interpretation introduced",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Start Inquiry",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Contact Support",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Privacy Policy",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Visible: Terms of Service",
+          "pass": true,
+          "details": ""
+        },
+        {
+          "label": "Global Start Inquiry label fits cleanly",
+          "pass": true,
+          "details": "height=15.0"
+        },
+        {
+          "label": "Privacy Policy label fits cleanly",
+          "pass": true,
+          "details": "height=27.8"
+        },
+        {
+          "label": "Terms of Service label fits cleanly",
+          "pass": true,
+          "details": "height=27.8"
+        }
+      ]
+    }
+  ]
+}
