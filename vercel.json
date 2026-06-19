@@ -1,4 +1,12 @@
 {
+  "functions": {
+    "api/create-checkout.ts": {
+      "includeFiles": "node_modules/stripe/**"
+    },
+    "api/notify.ts": {
+      "includeFiles": "node_modules/resend/**"
+    }
+  },
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
