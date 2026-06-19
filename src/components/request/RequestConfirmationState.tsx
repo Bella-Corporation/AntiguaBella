@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -18,40 +17,11 @@ const RequestConfirmationState = ({
   isVillaRequest,
 }: RequestConfirmationStateProps) => {
   const { t } = useLanguage();
-  const [depositLoading, setDepositLoading] = useState(false);
-  const [depositError, setDepositError] = useState<string | null>(null);
   const requestedTypeLabel = context
     ? t(getRequestTypeLabelKey(context.type))
     : null;
 
-  const handleDepositClick = async () => {
-    if (!inquiryId || depositLoading) return;
-    setDepositLoading(true);
-    setDepositError(null);
-
-    try {
-      const res = await fetch("/api/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          inquiry_id: inquiryId,
-          listing_name: context?.name ?? "AntiguaBella",
-        }),
-      });
-
-      const json = await res.json();
-
-      if (!res.ok || !json.url) {
-        throw new Error(json.error ?? "Could not create checkout session");
-      }
-
-      window.location.href = json.url;
-    } catch (err) {
-      console.error("Deposit checkout error:", err);
-      setDepositError("Could not start payment. Please try again or contact us directly.");
-      setDepositLoading(false);
-    }
-  };
+  const DEPOSIT_PAYMENT_LINK = "https://buy.stripe.com/test_28E14p2x70fj2wNefc0Fi00";
 
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 pb-32">
@@ -94,25 +64,14 @@ const RequestConfirmationState = ({
               Pay a $500 deposit to hold your requested dates while we confirm availability.
               Applied to your total balance upon confirmation.
             </p>
-            {depositError ? (
-              <p className="text-sm text-red-400/80 text-center mb-3">{depositError}</p>
-            ) : null}
-            <button
-              type="button"
-              disabled={depositLoading}
-              onClick={handleDepositClick}
-              className={`
-                w-full sm:w-auto mx-auto block px-10 py-4 rounded-lg
-                text-[11px] uppercase tracking-[0.25em] font-sans font-medium
-                border transition-all duration-500
-                ${depositLoading
-                  ? "border-border/30 text-muted-foreground/40 cursor-not-allowed"
-                  : "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] cursor-pointer"
-                }
-              `}
+            <a
+              href={DEPOSIT_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto mx-auto block px-10 py-4 rounded-lg text-[11px] uppercase tracking-[0.25em] font-sans font-medium border border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-500 text-center"
             >
-              {depositLoading ? "Redirecting to payment…" : "Pay $500 Deposit — Stripe Checkout"}
-            </button>
+              Pay $500 Deposit — Stripe Checkout
+            </a>
             <p className="mt-3 text-[10px] uppercase tracking-[0.15em] text-muted-foreground/30 font-sans">
               Secure checkout · SSL encrypted · Powered by Stripe
             </p>
