@@ -136,7 +136,7 @@ const RequestPage = () => {
     if (dbError) {
       console.error("Supabase insert error:", dbError);
       setSubmitError(
-        "We couldn't save your request. Please try again, or email us directly at hello@antiguabella.com"
+        "We couldn't save your request. Please try again, or email us directly at victor.tazewell@bellacorporation.com"
       );
       setIsSubmitting(false);
       return;

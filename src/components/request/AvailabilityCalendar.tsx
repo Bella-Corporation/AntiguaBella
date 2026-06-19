@@ -55,7 +55,7 @@ const AvailabilityCalendar = ({
           numberOfMonths={isMobile ? 1 : 2}
           fromDate={today}
           showOutsideDays={false}
-          disabled={[{ before: today }, ...blockedDates]}
+          disabled={[{ before: today }]}
           modifiers={{ blocked: blockedDates }}
           modifiersClassNames={{
             blocked:
