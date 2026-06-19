@@ -100,7 +100,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       : "New Enquiry — AntiguaBella";
 
     const { error } = await resend.emails.send({
-      from: "AntiguaBella Enquiries <noreply@bellacorporation.com>",
+      from: "AntiguaBella Enquiries <onboarding@resend.dev>",
       to: ownerEmail,
       replyTo: payload.email,
       subject,

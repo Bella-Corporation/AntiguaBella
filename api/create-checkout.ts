@@ -28,7 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const origin =
     (req.headers.origin as string) ||
     (req.headers.referer as string)?.replace(/\/$/, "") ||
-    "https://antiguabella.com";
+    "https://antigua-bella.vercel.app";
 
   const stripe = new Stripe(secretKey);
 
