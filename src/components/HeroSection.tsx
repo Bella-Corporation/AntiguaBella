@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ShoppingBag, Search, User } from "lucide-react";
+import { ShoppingBag, User } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
 import heroVideo from "@/assets/hero-video.mp4";
+import heroBeach from "@/assets/hero-beach.jpg";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
+  // Determine at mount whether to skip the 37 MB video on narrow viewports.
+  // useState initializer runs synchronously before the first paint, so the
+  // video element is never created on mobile devices.
+  const [skipVideo] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth < 768
+  );
   const { t } = useLanguage();
   const [exploreCompact, setExploreCompact] = useState(false);
   const [exploreHidden, setExploreHidden] = useState(false);
@@ -52,19 +59,30 @@ const HeroSection = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Fullscreen cinematic video */}
+      {/* Hero background — static image on mobile, cinematic video on desktop */}
       <div className="absolute inset-0">
-        <video
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          tabIndex={-1}
-          className="h-full w-full object-cover"
-        />
+        {skipVideo ? (
+          <img
+            src={heroBeach}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <video
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="h-full w-full object-cover"
+          />
+        )}
         <div
           className="absolute inset-0"
           style={{
@@ -84,8 +102,8 @@ const HeroSection = () => {
           style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 2rem)" }}
         >
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12 min-h-[44px] md:min-h-[40px]">
-            {/* Request link — hidden on mobile, shown on md+ */}
-            <div className="hidden md:flex items-center h-8" style={{ minWidth: '80px' }}>
+            {/* Request — canonical inquiry path, visible on all breakpoints */}
+            <div className="flex items-center h-8 min-w-[44px] md:min-w-[80px]">
               <Link
                 to="/request"
                 className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-8 px-1"
@@ -93,8 +111,6 @@ const HeroSection = () => {
                 {t("common_request")}
               </Link>
             </div>
-            {/* Mobile: empty spacer to balance burger on right */}
-            <div className="md:hidden" style={{ minWidth: '44px' }} />
 
             <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide flex items-center">
               <span className={`transition-all duration-700 ${
@@ -160,20 +176,14 @@ const HeroSection = () => {
                 {/* Mobile-only action links */}
                 {isMobile && (
                   <>
-                    <button
-                      onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                    >
-                      <Search size={15} strokeWidth={1.4} />
-                      {t("common_search")}
-                    </button>
-                    <button
+                    <Link
+                      to="/account"
                       onClick={() => setMenuOpen(false)}
                       className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
                     >
                       <User size={15} strokeWidth={1.4} />
                       {t("common_account")}
-                    </button>
+                    </Link>
                     <Link
                       to="/request"
                       onClick={() => setMenuOpen(false)}

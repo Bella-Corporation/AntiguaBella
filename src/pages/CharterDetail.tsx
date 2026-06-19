@@ -141,7 +141,7 @@ const CharterDetail = () => {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
-              className="lg:justify-self-end"
+              className="hidden lg:block lg:justify-self-end"
             >
               <div className="rounded-2xl border border-border/40 bg-background/40 backdrop-blur-md p-6">
                 <p className="luxury-subheading text-primary/60 mb-2">{t("common_starting")}</p>
@@ -164,7 +164,7 @@ const CharterDetail = () => {
         <div className="grid lg:grid-cols-[1.5fr_0.5fr] gap-10 lg:gap-12 items-start">
           <section>
             <div
-              className="rounded-2xl border border-border/40 bg-card p-8 lg:p-10"
+              className="rounded-2xl border border-border/40 bg-card p-5 sm:p-8 lg:p-10"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <p className="luxury-subheading text-primary mb-4">{t("detail_charter_overview_heading")}</p>
@@ -194,7 +194,7 @@ const CharterDetail = () => {
 
           <aside className="lg:sticky lg:top-24">
             <div
-              className="rounded-2xl border border-border/40 bg-card p-6 lg:p-8"
+              className="rounded-2xl border border-border/40 bg-card p-4 sm:p-6 lg:p-8"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <p className="luxury-subheading text-primary/60 mb-6">{t("common_next_steps")}</p>

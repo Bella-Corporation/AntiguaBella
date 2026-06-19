@@ -26,6 +26,7 @@ import AccountAppointments from "./pages/AccountAppointments";
 import AccountJourney from "./pages/AccountJourney";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
+import PaymentSuccess from "./pages/PaymentSuccess";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
@@ -62,6 +63,7 @@ const App = () => (
 
                 {/* Backward compatibility for legacy links */}
                 <Route path="/book" element={<Book />} />
+                <Route path="/payment-success" element={<PaymentSuccess />} />
 
                 {/* Account */}
                 <Route

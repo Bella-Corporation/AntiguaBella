@@ -40,7 +40,7 @@ const ConciergeSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-16 lg:gap-20 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-10 md:gap-16 lg:gap-20 max-w-5xl mx-auto">
           {pillars.map((pillar, i) => (
             <div key={pillar.title} data-reveal="slide-up" data-reveal-delay={String(520 + i * 100)} className="text-center">
               <div className="w-16 h-16 mx-auto mb-7 rounded-full border border-border/30 flex items-center justify-center">

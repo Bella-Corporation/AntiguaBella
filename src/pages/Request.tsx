@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
 import { format } from "date-fns";
 import { Link, useSearchParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
+import AvailabilityCalendar from "@/components/request/AvailabilityCalendar";
 import RequestConfirmationState from "@/components/request/RequestConfirmationState";
 import RequestInquiryFraming from "@/components/request/RequestInquiryFraming";
 import RequestSelectedItemSummary from "@/components/request/RequestSelectedItemSummary";
@@ -70,6 +72,9 @@ const RequestPage = () => {
   const [notes, setNotes] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [inquiryId, setInquiryId] = useState<string | null>(null);
 
   const isStayRequest = requestContext?.type === "villa";
   const isExperienceRequest = requestContext?.type === "experience";
@@ -105,6 +110,56 @@ const RequestPage = () => {
         : preferredDate.length > 0 && hasValidGuestCount;
   const submitDisabled = !hasValidContact || !hasValidRequestDetails;
 
+  const handleSubmit = async () => {
+    if (submitDisabled || isSubmitting) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const payload = {
+      name: fullName.trim(),
+      email: email.trim(),
+      phone: phoneOrWhatsApp.trim() || null,
+      listing_name: requestContext?.name ?? null,
+      listing_type: requestContext?.type ?? null,
+      check_in: checkIn ? format(checkIn, "yyyy-MM-dd") : null,
+      check_out: checkOut ? format(checkOut, "yyyy-MM-dd") : null,
+      guests,
+      notes: notes.trim() || null,
+    };
+
+    const { data: insertedRow, error: dbError } = await supabase
+      .from("inquiries")
+      .insert(payload)
+      .select("id")
+      .single();
+
+    if (dbError) {
+      console.error("Supabase insert error:", dbError);
+      setSubmitError(
+        "We couldn't save your request. Please try again, or email us directly at hello@antiguabella.com"
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (insertedRow?.id) {
+      setInquiryId(insertedRow.id);
+    }
+
+    try {
+      await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (emailErr) {
+      console.error("Email notification failed (non-blocking):", emailErr);
+    }
+
+    setIsSubmitting(false);
+    setRequestSubmitted(true);
+  };
+
   const formatDateInput = (value: string) =>
     value ? new Date(`${value}T00:00:00`) : null;
   const checkInValue = checkIn ? format(checkIn, "yyyy-MM-dd") : "";
@@ -136,7 +191,11 @@ const RequestPage = () => {
           </Link>
         </header>
 
-        <RequestConfirmationState context={requestContext} />
+        <RequestConfirmationState
+          context={requestContext}
+          inquiryId={inquiryId}
+          isVillaRequest={isStayRequest}
+        />
       </div>
     );
   }
@@ -226,45 +285,15 @@ const RequestPage = () => {
               </p>
 
               {isStayRequest ? (
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <p className="luxury-subheading text-primary/60 mb-0">
-                      {t("request_label_check_in")}
-                    </p>
-                    <input
-                      type="date"
-                      min={todayInputValue}
-                      value={checkInValue}
-                      aria-label={t("request_label_check_in")}
-                      onChange={(event) => {
-                        const nextDate = formatDateInput(event.target.value);
-                        setCheckIn(nextDate);
-
-                        if (checkOut && nextDate && checkOut < nextDate) {
-                          setCheckOut(null);
-                        }
-                      }}
-                      required
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <p className="luxury-subheading text-primary/60 mb-0">
-                      {t("request_label_check_out")}
-                    </p>
-                    <input
-                      type="date"
-                      min={checkInValue || todayInputValue}
-                      value={checkOutValue}
-                      aria-label={t("request_label_check_out")}
-                      onChange={(event) =>
-                        setCheckOut(formatDateInput(event.target.value))
-                      }
-                      required
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                    />
-                  </div>
-                </div>
+                <AvailabilityCalendar
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  onRangeChange={(from, to) => {
+                    setCheckIn(from);
+                    setCheckOut(to);
+                  }}
+                  listingId={requestContext?.id ?? null}
+                />
               ) : (
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -426,22 +455,28 @@ const RequestPage = () => {
               {t("request_availability_note")}
             </p>
 
+            {submitError ? (
+              <p className="text-sm text-red-400/80 text-center px-2 -mb-2">
+                {submitError}
+              </p>
+            ) : null}
+
             <motion.button
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              disabled={submitDisabled}
-              onClick={() => setRequestSubmitted(true)}
+              disabled={submitDisabled || isSubmitting}
+              onClick={handleSubmit}
               className={`
                 w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.25em] font-sans font-medium
                 border transition-all duration-500
                 ${
-                  submitDisabled
+                  submitDisabled || isSubmitting
                     ? "border-border/30 text-muted-foreground/40 cursor-not-allowed"
                     : "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] cursor-pointer"
                 }
               `}
             >
-              {t("request_submit")}
+              {isSubmitting ? "Sending…" : t("request_submit")}
             </motion.button>
 
             <Link

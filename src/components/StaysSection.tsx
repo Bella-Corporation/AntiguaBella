@@ -49,7 +49,7 @@ const StaysSection = () => {
                   aria-hidden="true"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[320px] lg:h-[380px] object-cover transition-transform duration-1400 ease-out group-hover:scale-[1.04]"
+                  className="w-full h-[220px] md:h-[300px] lg:h-[380px] object-cover transition-transform duration-1400 ease-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-700" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
@@ -76,9 +76,12 @@ const StaysSection = () => {
         </div>
 
         {/* CTA */}
-        <div data-reveal="fade" data-reveal-delay="750" className="mt-14 lg:mt-16 text-center">
-          <Link to="/stays" className="luxury-btn-outline">
+        <div data-reveal="fade" data-reveal-delay="750" className="mt-14 lg:mt-16 flex flex-col sm:flex-row gap-4 justify-center">
+          <Link to="/stays" className="luxury-btn-outline text-center">
             {t("common_explore_stays")}
+          </Link>
+          <Link to="/request" className="luxury-btn-bold text-center">
+            {t("common_request_stay")}
           </Link>
         </div>
       </div>

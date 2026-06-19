@@ -116,7 +116,7 @@ const Charters = () => {
       </section>
 
       {/* Listings */}
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <div
             className="mb-12 flex flex-wrap items-center gap-4 rounded-2xl border border-border/30 bg-card/50 px-5 py-4"
@@ -137,7 +137,7 @@ const Charters = () => {
               <option value="8">8+ {t("common_guest_plural")}</option>
             </select>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredCharters.length === 0 ? (
               <p className="luxury-body text-muted-foreground/70 text-center py-12 lg:col-span-3">
                 {t("charters_no_match")}

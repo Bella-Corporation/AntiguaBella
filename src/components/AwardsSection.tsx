@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Award, KeyRound, Globe, Star } from "lucide-react";
 
 const accolades = [
@@ -18,7 +19,7 @@ const AwardsSection = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8 mb-14 max-w-5xl mx-auto">
           {accolades.map((award, i) => (
             <div key={award.name} data-reveal="slide-up" data-reveal-delay={String(380 + i * 90)} className="text-center">
               <div className="w-14 h-14 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">
@@ -39,9 +40,12 @@ const AwardsSection = () => {
           <p className="font-light text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] text-foreground/50 italic leading-[1.7] mb-8 max-w-xl mx-auto" style={{ fontFamily: "'Playfair Display', serif" }}>
             "Deliberate curation, calm communication, and concierge-led follow-through."
           </p>
-          <p className="luxury-subheading text-[10px] text-primary/40">
+          <p className="luxury-subheading text-[10px] text-primary/40 mb-10">
             — AntiguaBella v0.0.1
           </p>
+          <Link to="/request" className="luxury-btn-bold inline-block">
+            Begin Your Enquiry
+          </Link>
         </div>
       </div>
     </section>

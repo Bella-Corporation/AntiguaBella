@@ -40,9 +40,12 @@ const ExperiencesSection = () => {
           ))}
         </div>
 
-        <div data-reveal="fade" data-reveal-delay="800" className="mt-14 lg:mt-16">
-          <Link to="/experiences" className="luxury-btn-outline">
+        <div data-reveal="fade" data-reveal-delay="800" className="mt-14 lg:mt-16 flex flex-col sm:flex-row gap-4">
+          <Link to="/experiences" className="luxury-btn-outline text-center">
             {t("common_explore_experiences")}
+          </Link>
+          <Link to="/request" className="luxury-btn-bold text-center">
+            {t("common_request_with_concierge")}
           </Link>
         </div>
       </div>

@@ -177,7 +177,7 @@ const Stays = () => {
 
       {/* Highlights strip */}
       <section className="bg-card border-y border-border/20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 py-10 md:py-16 lg:py-20">
           <div className="grid md:grid-cols-3 gap-10 md:gap-14">
             {highlights.map((item, i) => (
               <motion.div
@@ -200,7 +200,7 @@ const Stays = () => {
       </section>
 
       {/* Villa Listings */}
-      <section className="py-20 md:py-28">
+      <section className="py-12 md:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <div
             className="mb-12 flex flex-wrap items-center gap-4 rounded-2xl border border-border/30 bg-card/50 px-5 py-4"
@@ -236,7 +236,7 @@ const Stays = () => {
               <option value="4k+">{t("common_amount_plus", { amount: formatCurrencyAmount(priceThresholds.upper, currency) })}</option>
             </select>
           </div>
-          <div className="space-y-24 md:space-y-32">
+          <div className="space-y-14 md:space-y-24 lg:space-y-32">
             {filteredVillas.length === 0 ? (
               <p className="luxury-body text-muted-foreground/70 text-center py-12">
                 {t("stays_no_match")}
@@ -267,7 +267,7 @@ const Stays = () => {
                       alt={`${villa.title} at AntiguaBella`}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-[380px] md:h-[480px] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03]"
+                      className="w-full h-[240px] sm:h-[320px] md:h-[480px] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03]"
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"
@@ -339,7 +339,7 @@ const Stays = () => {
       </section>
 
       {/* Gallery strip */}
-      <section className="bg-card py-20 md:py-24">
+      <section className="bg-card py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <div data-reveal="slide-up" className="section-header mb-12">
             <p className="luxury-subheading text-primary mb-4">Gallery</p>
@@ -373,7 +373,7 @@ const Stays = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 md:py-28 text-center">
+      <section className="py-12 md:py-20 lg:py-28 text-center">
         <div className="mx-auto max-w-2xl px-4">
           <motion.div
             initial="hidden"

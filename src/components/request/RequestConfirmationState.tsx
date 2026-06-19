@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -7,15 +8,50 @@ import { getRequestTypeLabelKey } from "@/lib/request";
 
 interface RequestConfirmationStateProps {
   context: RequestSelectionContext | null;
+  inquiryId?: string | null;
+  isVillaRequest?: boolean;
 }
 
 const RequestConfirmationState = ({
   context,
+  inquiryId,
+  isVillaRequest,
 }: RequestConfirmationStateProps) => {
   const { t } = useLanguage();
+  const [depositLoading, setDepositLoading] = useState(false);
+  const [depositError, setDepositError] = useState<string | null>(null);
   const requestedTypeLabel = context
     ? t(getRequestTypeLabelKey(context.type))
     : null;
+
+  const handleDepositClick = async () => {
+    if (!inquiryId || depositLoading) return;
+    setDepositLoading(true);
+    setDepositError(null);
+
+    try {
+      const res = await fetch("/api/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          inquiry_id: inquiryId,
+          listing_name: context?.name ?? "AntiguaBella",
+        }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok || !json.url) {
+        throw new Error(json.error ?? "Could not create checkout session");
+      }
+
+      window.location.href = json.url;
+    } catch (err) {
+      console.error("Deposit checkout error:", err);
+      setDepositError("Could not start payment. Please try again or contact us directly.");
+      setDepositLoading(false);
+    }
+  };
 
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 pb-32">
@@ -49,22 +85,50 @@ const RequestConfirmationState = ({
           </p>
         ) : null}
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {isVillaRequest && inquiryId ? (
+          <div className="mt-8 pt-8 border-t border-border/30">
+            <p className="luxury-subheading text-primary/60 mb-2">
+              Secure Your Dates
+            </p>
+            <p className="text-sm text-muted-foreground/60 font-sans mb-5 max-w-md mx-auto">
+              Pay a $500 deposit to hold your requested dates while we confirm availability.
+              Applied to your total balance upon confirmation.
+            </p>
+            {depositError ? (
+              <p className="text-sm text-red-400/80 text-center mb-3">{depositError}</p>
+            ) : null}
+            <button
+              type="button"
+              disabled={depositLoading}
+              onClick={handleDepositClick}
+              className={`
+                w-full sm:w-auto mx-auto block px-10 py-4 rounded-lg
+                text-[11px] uppercase tracking-[0.25em] font-sans font-medium
+                border transition-all duration-500
+                ${depositLoading
+                  ? "border-border/30 text-muted-foreground/40 cursor-not-allowed"
+                  : "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] cursor-pointer"
+                }
+              `}
+            >
+              {depositLoading ? "Redirecting to payment…" : "Pay $500 Deposit — Stripe Checkout"}
+            </button>
+            <p className="mt-3 text-[10px] uppercase tracking-[0.15em] text-muted-foreground/30 font-sans">
+              Secure checkout · SSL encrypted · Powered by Stripe
+            </p>
+          </div>
+        ) : null}
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
           <Link to="/" className="luxury-btn-outline text-center">
             {t("common_return_home")}
           </Link>
           <Link to="/stays" className="luxury-btn-outline text-center">
             {t("common_explore_stays")}
           </Link>
-          <Link to="/experiences" className="luxury-btn-outline text-center">
-            {t("common_explore_experiences")}
-          </Link>
-          <Link to="/charters" className="luxury-btn-outline text-center">
-            {t("common_explore_charters")}
-          </Link>
           <Link
             to="/concierge"
-            className="luxury-btn-bold text-center sm:col-span-2 lg:col-span-1"
+            className="luxury-btn-bold text-center"
           >
             {t("common_concierge")}
           </Link>
