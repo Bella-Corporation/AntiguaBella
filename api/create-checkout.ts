@@ -30,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     (req.headers.referer as string)?.replace(/\/$/, "") ||
     "https://antigua-bella.vercel.app";
 
-  const stripe = new Stripe(secretKey);
+  const stripe = new Stripe(secretKey, { apiVersion: "2025-03-31.basil" });
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -58,7 +58,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({ url: session.url });
   } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
     console.error("Stripe checkout session error:", err);
-    return res.status(500).json({ error: "Could not create checkout session" });
+    return res.status(500).json({ error: "Could not create checkout session", detail: message });
   }
 }
