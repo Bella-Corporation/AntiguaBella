@@ -7,14 +7,16 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import Stays from "./pages/Stays";
 import Request from "./pages/Request";
+import RequestConfirmed from "./pages/RequestConfirmed";
 import Book from "./pages/Book";
 import Bag from "./pages/Bag";
 import VillaDetail from "./pages/VillaDetail";
-import ExperienceDetail from "./pages/ExperienceDetail";
-import Experiences from "./pages/Experiences";
-import Charters from "./pages/Charters";
-import CharterDetail from "./pages/CharterDetail";
-import Concierge from "./pages/Concierge";
+// MVP v0.0.1 — experiences, charters, and concierge disabled; pages kept for future re-enable
+// import ExperienceDetail from "./pages/ExperienceDetail";
+// import Experiences from "./pages/Experiences";
+// import Charters from "./pages/Charters";
+// import CharterDetail from "./pages/CharterDetail";
+// import Concierge from "./pages/Concierge";
 import Support from "./pages/Support";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -48,13 +50,15 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/stays" element={<Stays />} />
                 <Route path="/stays/:villaId" element={<VillaDetail />} />
-                <Route path="/experiences" element={<Experiences />} />
-                <Route path="/experiences/:experienceId" element={<ExperienceDetail />} />
-                <Route path="/charters" element={<Charters />} />
-                <Route path="/charters/:charterId" element={<CharterDetail />} />
+                {/* MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch */}
+                {/* <Route path="/experiences" element={<Experiences />} /> */}
+                {/* <Route path="/experiences/:experienceId" element={<ExperienceDetail />} /> */}
+                {/* <Route path="/charters" element={<Charters />} /> */}
+                {/* <Route path="/charters/:charterId" element={<CharterDetail />} /> */}
+                {/* <Route path="/concierge" element={<Concierge />} /> */}
                 <Route path="/request" element={<Request />} />
+                <Route path="/request/confirmed" element={<RequestConfirmed />} />
                 <Route path="/bag" element={<Bag />} />
-                <Route path="/concierge" element={<Concierge />} />
                 <Route path="/support" element={<Support />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />

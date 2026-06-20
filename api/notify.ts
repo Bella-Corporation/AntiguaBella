@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+﻿import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -55,7 +55,7 @@ function buildHtml(d: InquiryPayload): string {
 <body style="background:#0d0d0d;margin:0;padding:32px 16px;font-family:Georgia,serif">
   <div style="max-width:560px;margin:0 auto">
     <p style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#c9a96e;margin:0 0 8px">AntiguaBella</p>
-    <h1 style="font-size:24px;font-weight:400;color:#f0ead6;margin:0 0 4px">New Enquiry</h1>
+    <h1 style="font-size:24px;font-weight:400;color:#f0ead6;margin:0 0 4px">New Inquiry</h1>
     <p style="font-size:13px;color:#888;margin:0 0 32px">${new Date().toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" })}</p>
 
     <table style="width:100%;border-collapse:collapse;background:#1a1a1a;border-radius:12px;overflow:hidden">
@@ -63,14 +63,14 @@ function buildHtml(d: InquiryPayload): string {
     </table>
 
     <div style="margin-top:24px;text-align:center">
-      <a href="mailto:${d.email}?subject=Re: Your AntiguaBella Enquiry"
+      <a href="mailto:${d.email}?subject=Re: Your AntiguaBella Inquiry"
          style="display:inline-block;padding:12px 28px;border:1px solid #c9a96e;color:#c9a96e;font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:6px">
         Reply to Guest
       </a>
     </div>
 
     <p style="margin-top:32px;font-size:11px;color:#555;text-align:center">
-      Sent by bellacorporation.com · AntiguaBella Enquiry System
+      Sent by bellacorporation.com · AntiguaBella Inquiry System
     </p>
   </div>
 </body>
@@ -96,8 +96,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const subject = payload.listing_name
-      ? `New Enquiry — ${payload.listing_name} (${typeLabel(payload.listing_type)})`
-      : "New Enquiry — AntiguaBella";
+      ? `New Inquiry — ${payload.listing_name} (${typeLabel(payload.listing_type)})`
+      : "New Inquiry — AntiguaBella";
 
     const { error } = await resend.emails.send({
       from: "AntiguaBella Enquiries <onboarding@resend.dev>",

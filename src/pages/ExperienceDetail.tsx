@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -42,7 +42,7 @@ const ExperienceDetail = () => {
       ? `${experience.title} — AntiguaBella`
       : "Experience Not Found — AntiguaBella",
     description: experience
-      ? (experience.shortDescription ?? experience.subtitle ?? "A curated Antigua experience, arranged by personal enquiry.")
+      ? (experience.shortDescription ?? experience.subtitle ?? "A curated Antigua experience, arranged by personal inquiry.")
       : "This experience is not available. Browse all curated island experiences on AntiguaBella.",
     canonicalPath: experience ? `/experiences/${experienceId}` : undefined,
   });

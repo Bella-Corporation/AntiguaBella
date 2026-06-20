@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 
 const DEFAULT_TITLE = "AntiguaBella — The Caribbean, Curated";
 const DEFAULT_DESCRIPTION =
-  "Discover Antigua's finest private villas, curated island experiences, and private charter services. Enquiry-led — every arrangement fulfilled personally.";
+  "Discover Antigua's finest private villas, curated island experiences, and private charter services. Inquiry-led — every arrangement fulfilled personally.";
 
 const SITE_URL: string | undefined =
   typeof import.meta !== "undefined" && (import.meta as { env?: Record<string, string> }).env?.VITE_SITE_URL;

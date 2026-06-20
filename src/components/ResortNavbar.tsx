@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = ["Stays", "Experiences", "Concierge"];
+// MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch
+const navLinks = ["Stays" /* , "Experiences", "Concierge" */];
 
 const ResortNavbar = () => {
   const [scrolled, setScrolled] = useState(false);

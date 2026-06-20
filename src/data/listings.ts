@@ -1,4 +1,4 @@
-import type { BaseListing } from "@/types/index";
+﻿import type { BaseListing } from "@/types/index";
 
 import villaBeachfront from "@/assets/villa-beachfront.jpg";
 import villaHillside from "@/assets/villa-hillside.jpg";
@@ -39,15 +39,15 @@ export const listings: BaseListing[] = [
     featured: true,
   },
   {
-    id: "Sugar Moon",
-    slug: "sugar-moon",
+    id: "AntiguaSoleil",
+    slug: "antiguasoleil",
     type: "villa",
-    title: "Sugar Moon",
+    title: "AntiguaSoleil",
     subtitle: "Romantic seclusion under Caribbean skies",
     shortDescription:
       "Garden tranquility with open-air bathing, private dining, and a quiet yoga deck.",
     description:
-      "Tucked among lush tropical gardens, Sugar Moon is designed for romance and calm. Indulge in moonlit dining on your private terrace, unwind with open-air bathing, and start each day with gentle movement on the yoga deck—while the island’s soundtrack drifts in through the open verandas.",
+      "Tucked among lush tropical gardens, AntiguaSoleil is designed for romance and calm. Indulge in moonlit dining on your private terrace, unwind with open-air bathing, and start each day with gentle movement on the yoga deck—while the island’s soundtrack drifts in through the open verandas.",
     location: "Valley Church, Antigua",
     price: 1650,
     currency: "USD",

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowLeft, Plane, ChefHat, Sparkles, MapPinned, PartyPopper, CarFront } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -93,7 +93,7 @@ const Concierge = () => {
   usePageMeta({
     title: "Concierge — AntiguaBella",
     description:
-      "Personal concierge services including airport transfers, private chef, wellness coordination, and custom itinerary planning. All enquiry-led.",
+      "Personal concierge services including airport transfers, private chef, wellness coordination, and custom itinerary planning. All inquiry-led.",
     canonicalPath: "/concierge",
   });
 

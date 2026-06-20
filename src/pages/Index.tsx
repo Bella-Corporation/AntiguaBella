@@ -1,12 +1,13 @@
-import useScrollReveal from "@/hooks/useScrollReveal";
+﻿import useScrollReveal from "@/hooks/useScrollReveal";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import StaysSection from "@/components/StaysSection";
-import ExperiencesSection from "@/components/ExperiencesSection";
-import ChartersSection from "@/components/ChartersSection";
-import WellnessSection from "@/components/WellnessSection";
-import ConciergeSection from "@/components/ConciergeSection";
+// MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch
+// import ExperiencesSection from "@/components/ExperiencesSection";
+// import ChartersSection from "@/components/ChartersSection";
+// import WellnessSection from "@/components/WellnessSection";
+// import ConciergeSection from "@/components/ConciergeSection";
 import AwardsSection from "@/components/AwardsSection";
 import ResortFooter from "@/components/ResortFooter";
 
@@ -15,7 +16,7 @@ const Index = () => {
   usePageMeta({
     title: "AntiguaBella — The Caribbean, Curated",
     description:
-      "Discover Antigua's finest private villas, curated island experiences, and private charter services. Enquiry-led — every arrangement fulfilled personally.",
+      "Discover AntiguaBella and AntiguaSoleil — two of Antigua's finest private villas. Inquiry-led — every stay arranged personally.",
     canonicalPath: "/",
   });
 
@@ -25,10 +26,11 @@ const Index = () => {
         <HeroSection />
         <IntroSection />
         <StaysSection />
-        <ExperiencesSection />
-        <ChartersSection />
-        <WellnessSection />
-        <ConciergeSection />
+        {/* MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch */}
+        {/* <ExperiencesSection /> */}
+        {/* <ChartersSection /> */}
+        {/* <WellnessSection /> */}
+        {/* <ConciergeSection /> */}
         <AwardsSection />
       </main>
       <ResortFooter />

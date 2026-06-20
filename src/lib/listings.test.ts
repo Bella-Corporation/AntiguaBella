@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+﻿import { describe, it, expect } from "vitest";
 import {
   getAllListings,
   getFeaturedListings,
@@ -27,7 +27,7 @@ describe("listings helpers", () => {
     const villas = getListingsByType("villa");
     expect(villas.every((l) => l.type === "villa")).toBe(true);
     expect(villas.some((l) => l.id === "AntiguaBella")).toBe(true);
-    expect(villas.some((l) => l.id === "Sugar Moon")).toBe(true);
+    expect(villas.some((l) => l.id === "AntiguaSoleil")).toBe(true);
   });
 
   it("getListingsByType returns correct experience listings", () => {

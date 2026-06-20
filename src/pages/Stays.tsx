@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -34,8 +34,8 @@ const highlights = [
     body: "Caribbean vernacular and contemporary minimalism are combined to frame the island landscape.",
   },
   {
-    title: "Concierge-Led Coordination",
-    body: "Requests are reviewed manually and follow-up is coordinated by concierge with clear next steps.",
+    title: "Dedicated Villa Service",
+    body: "Requests are reviewed manually and every stay is followed up directly with clear next steps.",
   },
 ];
 
@@ -53,7 +53,7 @@ const Stays = () => {
   usePageMeta({
     title: "Private Stays — AntiguaBella",
     description:
-      "Browse Antigua's finest private villas and residences. Each stay is matched to your requirements and arranged by personal enquiry.",
+      "Browse Antigua's finest private villas and residences. Each stay is matched to your requirements and arranged by personal inquiry.",
     canonicalPath: "/stays",
   });
   const { villas } = useListings();

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -9,7 +9,7 @@ const Terms = () => {
   usePageMeta({
     title: "Terms of Service — AntiguaBella",
     description:
-      "The terms and conditions governing use of AntiguaBella's website and enquiry-led arrangement services.",
+      "The terms and conditions governing use of AntiguaBella's website and inquiry-led arrangement services.",
   });
 
   return <div className="min-h-screen bg-background text-foreground">

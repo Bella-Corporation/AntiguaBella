@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { Award, KeyRound, Globe, Star } from "lucide-react";
 
 const accolades = [
-  { name: "Private Selection", detail: "Curated stays, experiences, and charters", icon: Award },
+  { name: "Private Selection", detail: "Two exceptional villas, curated for discerning travelers", icon: Award },
   { name: "Inquiry-Led Model", detail: "Manual review before availability is confirmed", icon: KeyRound },
-  { name: "Concierge Coordination", detail: "Next steps are guided personally", icon: Globe },
+  { name: "Personal Coordination", detail: "Every stay is arranged and followed up directly", icon: Globe },
   { name: "Calm Route Clarity", detail: "Public surfaces prioritize accurate intent", icon: Star },
 ];
 
@@ -44,7 +44,7 @@ const AwardsSection = () => {
             — AntiguaBella v0.0.1
           </p>
           <Link to="/request" className="luxury-btn-bold inline-block">
-            Begin Your Enquiry
+            Begin Your Inquiry
           </Link>
         </div>
       </div>

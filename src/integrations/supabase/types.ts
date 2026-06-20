@@ -14,6 +14,70 @@ export type Database = {
   }
   public: {
     Tables: {
+      availability_blocks: {
+        Row: {
+          id: string
+          villa_id: string
+          start_date: string
+          end_date: string
+          reason: string
+          source: string
+          created_at: string
+          created_by: string | null
+        }
+        Insert: {
+          id?: string
+          villa_id: string
+          start_date: string
+          end_date: string
+          reason: string
+          source?: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Update: {
+          id?: string
+          villa_id?: string
+          start_date?: string
+          end_date?: string
+          reason?: string
+          source?: string
+          created_at?: string
+          created_by?: string | null
+        }
+      }
+      booking_requests: {
+        Row: {
+          id: string
+          user_id: string
+          villa_id: string
+          check_in: string
+          check_out: string
+          guest_count: number
+          status: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          villa_id: string
+          check_in: string
+          check_out: string
+          guest_count: number
+          status?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          villa_id?: string
+          check_in?: string
+          check_out?: string
+          guest_count?: number
+          status?: string
+          created_at?: string
+        }
+      }
       blocked_dates: {
         Row: {
           id: string

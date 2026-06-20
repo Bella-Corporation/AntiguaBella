@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -26,7 +26,7 @@ const Charters = () => {
   usePageMeta({
     title: "Private Charters — AntiguaBella",
     description:
-      "Private yacht and boat charters around Antigua and beyond. Enquiry-led — submit your requirements to begin planning.",
+      "Private yacht and boat charters around Antigua and beyond. Inquiry-led — submit your requirements to begin planning.",
     canonicalPath: "/charters",
   });
   const { charters } = useListings();

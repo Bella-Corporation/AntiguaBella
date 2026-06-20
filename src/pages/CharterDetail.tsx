@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -47,7 +47,7 @@ const CharterDetail = () => {
       ? `${charter.title} — AntiguaBella`
       : "Charter Not Found — AntiguaBella",
     description: charter
-      ? (charter.shortDescription ?? charter.subtitle ?? "A private charter around Antigua, arranged by personal enquiry.")
+      ? (charter.shortDescription ?? charter.subtitle ?? "A private charter around Antigua, arranged by personal inquiry.")
       : "This charter is not available. Browse all private charters on AntiguaBella.",
     canonicalPath: charter ? `/charters/${charterId}` : undefined,
   });

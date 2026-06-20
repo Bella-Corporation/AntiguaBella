@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -9,7 +9,7 @@ const Privacy = () => {
   usePageMeta({
     title: "Privacy Policy — AntiguaBella",
     description:
-      "How AntiguaBella collects, uses, and protects your personal information and enquiry data.",
+      "How AntiguaBella collects, uses, and protects your personal information and inquiry data.",
   });
 
   return <div className="min-h-screen bg-background text-foreground">

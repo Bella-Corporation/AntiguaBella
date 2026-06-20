@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -25,7 +25,7 @@ const Experiences = () => {
   usePageMeta({
     title: "Experiences — AntiguaBella",
     description:
-      "Curated island experiences across Antigua, from private dining to cultural immersions. Submit an enquiry to arrange any combination.",
+      "Curated island experiences across Antigua, from private dining to cultural immersions. Submit an inquiry to arrange any combination.",
     canonicalPath: "/experiences",
   });
   const { experiences } = useListings();

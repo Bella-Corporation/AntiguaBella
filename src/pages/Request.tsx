@@ -1,49 +1,85 @@
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Minus, Plus, X } from "lucide-react";
-import { format } from "date-fns";
-import { Link, useSearchParams } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+﻿import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { format, differenceInDays } from "date-fns";
+import { Check } from "lucide-react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
-import AvailabilityCalendar from "@/components/request/AvailabilityCalendar";
-import RequestConfirmationState from "@/components/request/RequestConfirmationState";
-import RequestInquiryFraming from "@/components/request/RequestInquiryFraming";
-import RequestSelectedItemSummary from "@/components/request/RequestSelectedItemSummary";
+import DateRangePicker from "@/components/request/DateRangePicker";
+import GuestSelector, { type GuestBreakdown } from "@/components/request/GuestSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePageMeta } from "@/hooks/usePageMeta";
-import { getListingById } from "@/lib/listings";
 import { decodeRequestSelectionContext } from "@/lib/request";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { getBlockedRanges, type BlockedRange, type VillaAvailabilityId } from "@/lib/availability";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import villaBeachfront from "@/assets/villa-beachfront.jpg";
+import villaHillside from "@/assets/villa-hillside.jpg";
 
-const hasDefinedCharterDuration = (
-  title?: string,
-  subtitle?: string,
-  shortDescription?: string,
-  category?: string,
-  tags: string[] = []
-) => {
-  const source = [title, subtitle, shortDescription, category, ...tags]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
+const NIGHTLY_RATE = 850;
 
+type VillaId = "AntiguaBella" | "AntiguaSoleil" | "BothVillas";
+
+interface VillaConfig {
+  id: VillaId;
+  label: string;
+  sublabel: string;
+  beds: number;
+  maxGuests: number;
+}
+
+const VILLAS: VillaConfig[] = [
+  { id: "AntiguaSoleil", label: "AntiguaSoleil", sublabel: "Garden Retreat", beds: 3, maxGuests: 8  },
+  { id: "AntiguaBella",  label: "AntiguaBella",  sublabel: "Beachfront",     beds: 3, maxGuests: 8  },
+  { id: "BothVillas",    label: "Both Villas",   sublabel: "Full Estate",    beds: 6, maxGuests: 16 },
+];
+
+function VillaCardImage({ id }: { id: VillaId }) {
+  if (id === "BothVillas") {
+    return (
+      <>
+        <img
+          src={villaBeachfront}
+          alt="AntiguaBella"
+          className="absolute inset-0 w-1/2 h-full object-cover object-right"
+        />
+        <img
+          src={villaHillside}
+          alt="AntiguaSoleil"
+          className="absolute inset-0 left-1/2 w-1/2 h-full object-cover object-left"
+        />
+        <div className="absolute inset-y-0 left-1/2 w-px bg-background/40 z-10" />
+      </>
+    );
+  }
   return (
-    /\bday charter\b/.test(source) ||
-    /\bfull[-\s]?day\b/.test(source) ||
-    /\bhalf[-\s]?day\b/.test(source) ||
-    /\bovernight\b/.test(source) ||
-    /\b\d+\s*(hour|hours|hr|hrs)\b/.test(source)
+    <img
+      src={id === "AntiguaBella" ? villaBeachfront : villaHillside}
+      alt={id}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
   );
+}
+
+const VILLA_ID_MAP: Record<VillaId, string> = {
+  AntiguaBella:  "antiguabella",
+  AntiguaSoleil: "antiguasoleil",
+  BothVillas:    "both",
 };
 
 const RequestPage = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { t } = useLanguage();
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
+
   usePageMeta({
-    title: "Submit an Enquiry — AntiguaBella",
+    title: "Request Your Stay — AntiguaBella",
     description:
-      "Tell us what you're looking for. Every enquiry is reviewed and fulfilled personally — no automated booking, no live checkout.",
+      "Tell us what you're looking for. Every inquiry is reviewed and fulfilled personally — no automated booking.",
     canonicalPath: "/request",
   });
 
@@ -51,157 +87,97 @@ const RequestPage = () => {
     () => decodeRequestSelectionContext(searchParams),
     [searchParams]
   );
-  const selectedListing = useMemo(
-    () =>
-      requestContext?.id != null
-        ? getListingById(requestContext.id) ?? null
-        : null,
-    [requestContext]
-  );
 
+  const initialVilla = useMemo((): VillaId => {
+    const id = requestContext?.id;
+    if (id === "AntiguaBella" || id === "AntiguaSoleil" || id === "BothVillas")
+      return id as VillaId;
+    return "AntiguaBella";
+  }, [requestContext]);
+
+  const [selectedVilla, setSelectedVilla] = useState<VillaId>(initialVilla);
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
-  const [preferredDate, setPreferredDate] = useState("");
-  const [preferredTime, setPreferredTime] = useState("");
-  const [preferredDepartureTime, setPreferredDepartureTime] = useState("");
-  const [duration, setDuration] = useState("");
-  const [guests, setGuests] = useState(2);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneOrWhatsApp, setPhoneOrWhatsApp] = useState("");
-  const [notes, setNotes] = useState("");
-  const [chatOpen, setChatOpen] = useState(false);
-  const [requestSubmitted, setRequestSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [inquiryId, setInquiryId] = useState<string | null>(null);
+  const [guests, setGuests] = useState<GuestBreakdown>({ adults: 2, children: 0, infants: 0 });
+  const [blockedRanges, setBlockedRanges] = useState<BlockedRange[]>([]);
 
-  const isStayRequest = requestContext?.type === "villa";
-  const isExperienceRequest = requestContext?.type === "experience";
-  const isCharterRequest = requestContext?.type === "charter";
-  const charterHasDefinedDuration =
-    isCharterRequest &&
-    hasDefinedCharterDuration(
-      selectedListing?.title ?? requestContext?.name,
-      selectedListing?.subtitle ?? requestContext?.tagline,
-      selectedListing?.shortDescription,
-      selectedListing?.category ?? requestContext?.categoryLabel,
-      selectedListing?.tags ?? []
-    );
-  const needsCharterDuration = isCharterRequest && !charterHasDefinedDuration;
-  const todayInputValue = format(new Date(), "yyyy-MM-dd");
-  const guestLabel =
-    guests === 1
-      ? t("common_guest_singular")
-      : t("common_guest_plural");
-  const hasValidEmail = EMAIL_REGEX.test(email.trim());
-  const hasValidContact = fullName.trim().length > 0 && hasValidEmail;
-  const hasValidStayWindow =
-    checkIn != null && checkOut != null && checkOut > checkIn;
-  const hasValidGuestCount = Number.isInteger(guests) && guests > 0;
-  const hasValidRequestDetails = isStayRequest
-    ? hasValidStayWindow && hasValidGuestCount
-    : isExperienceRequest
-      ? preferredDate.length > 0 && hasValidGuestCount
-      : isCharterRequest
-        ? preferredDate.length > 0 &&
-          hasValidGuestCount &&
-          (!needsCharterDuration || duration.trim().length > 0)
-        : preferredDate.length > 0 && hasValidGuestCount;
-  const submitDisabled = !hasValidContact || !hasValidRequestDetails;
+  useEffect(() => {
+    const dbVillaId = VILLA_ID_MAP[selectedVilla] as VillaAvailabilityId;
+    getBlockedRanges(dbVillaId).then(setBlockedRanges).catch(() => {
+      // Non-fatal — calendar remains usable without availability data
+    });
+  }, [selectedVilla]);
+
+  const villaConfig = VILLAS.find((v) => v.id === selectedVilla)!;
+  const maxGuests = villaConfig.maxGuests;
+
+  const hasValidDates = checkIn != null && checkOut != null && checkOut > checkIn;
+  const nights = hasValidDates ? differenceInDays(checkOut!, checkIn!) : null;
+  const totalOccupants = guests.adults + guests.children;
+  const hasGuests = totalOccupants >= 1;
+
+  const showSummary = hasValidDates && hasGuests;
+  const submitReady = showSummary;
 
   const handleSubmit = async () => {
-    if (submitDisabled || isSubmitting) return;
-    setIsSubmitting(true);
-    setSubmitError(null);
+    if (!submitReady || submitting) return;
 
-    const payload = {
-      name: fullName.trim(),
-      email: email.trim(),
-      phone: phoneOrWhatsApp.trim() || null,
-      listing_name: requestContext?.name ?? null,
-      listing_type: requestContext?.type ?? null,
-      check_in: checkIn ? format(checkIn, "yyyy-MM-dd") : null,
-      check_out: checkOut ? format(checkOut, "yyyy-MM-dd") : null,
-      guests,
-      notes: notes.trim() || null,
-    };
-
-    const { data: insertedRow, error: dbError } = await supabase
-      .from("inquiries")
-      .insert(payload)
-      .select("id")
-      .single();
-
-    if (dbError) {
-      console.error("Supabase insert error:", dbError);
-      setSubmitError(
-        "We couldn't save your request. Please try again, or email us directly at victor.tazewell@bellacorporation.com"
-      );
-      setIsSubmitting(false);
+    // Not logged in — send to auth, return here with form state preserved
+    if (!user) {
+      const params = new URLSearchParams({
+        villa: selectedVilla!,
+        checkIn: format(checkIn!, "yyyy-MM-dd"),
+        checkOut: format(checkOut!, "yyyy-MM-dd"),
+        adults: String(guests.adults),
+        children: String(guests.children),
+        infants: String(guests.infants),
+      });
+      navigate(`/auth?next=${encodeURIComponent(`/request?${params.toString()}`)}`);
       return;
     }
 
-    if (insertedRow?.id) {
-      setInquiryId(insertedRow.id);
-    }
-
+    // Logged in — persist to Supabase then redirect to confirmation
+    setSubmitting(true);
     try {
-      await fetch("/api/notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      const { error } = await supabase.from("booking_requests").insert({
+        user_id:     user.id,
+        villa_id:    VILLA_ID_MAP[selectedVilla],
+        check_in:    format(checkIn!, "yyyy-MM-dd"),
+        check_out:   format(checkOut!, "yyyy-MM-dd"),
+        guest_count: guests.adults + guests.children,
       });
-    } catch (emailErr) {
-      console.error("Email notification failed (non-blocking):", emailErr);
-    }
 
-    setIsSubmitting(false);
-    setRequestSubmitted(true);
+      if (error) throw error;
+
+      navigate("/request/confirmed", {
+        state: {
+          villaLabel: villaConfig.label,
+          checkIn:    format(checkIn!, "EEE, MMM d, yyyy"),
+          checkOut:   format(checkOut!, "EEE, MMM d, yyyy"),
+          guests:     guestSummaryLabel(),
+          nights,
+        },
+      });
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Submission failed",
+        description: "We couldn't save your request. Please try again.",
+      });
+      setSubmitting(false);
+    }
   };
 
-  const formatDateInput = (value: string) =>
-    value ? new Date(`${value}T00:00:00`) : null;
-  const checkInValue = checkIn ? format(checkIn, "yyyy-MM-dd") : "";
-  const checkOutValue = checkOut ? format(checkOut, "yyyy-MM-dd") : "";
-  const stayWindowLabel =
-    checkIn && checkOut
-      ? `${format(checkIn, "MMM d, yyyy")} - ${format(checkOut, "MMM d, yyyy")}`
-      : checkIn
-        ? `${format(checkIn, "MMM d, yyyy")} - ${t("common_departure")}`
-        : t("request_summary_pending_value");
-
-  if (requestSubmitted) {
-    return (
-      <div className="min-h-screen bg-background text-foreground">
-        <header className="flex items-center justify-center py-8 px-6 relative">
-          <Link
-            to="/"
-            className="absolute left-6 lg:left-12 text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.2em] font-sans"
-          >
-            ← {t("common_back")}
-          </Link>
-          <Link
-            to="/"
-            className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]"
-          >
-            <span className="text-foreground/90">
-              Antigua<span className="gold-text">Bella</span>
-            </span>
-          </Link>
-        </header>
-
-        <RequestConfirmationState
-          context={requestContext}
-          inquiryId={inquiryId}
-          isVillaRequest={isStayRequest}
-        />
-      </div>
-    );
-  }
+  const guestSummaryLabel = () => {
+    const parts: string[] = [];
+    if (guests.adults > 0) parts.push(`${guests.adults} adult${guests.adults !== 1 ? "s" : ""}`);
+    if (guests.children > 0) parts.push(`${guests.children} child${guests.children !== 1 ? "ren" : ""}`);
+    if (guests.infants > 0) parts.push(`${guests.infants} infant${guests.infants !== 1 ? "s" : ""}`);
+    return parts.join(", ");
+  };
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative">
+    <div className="min-h-screen bg-background text-foreground">
       <header className="flex items-center justify-center py-8 px-6 relative">
         <Link
           to="/"
@@ -209,339 +185,226 @@ const RequestPage = () => {
         >
           ← {t("common_back")}
         </Link>
-        <Link
-          to="/"
-          className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]"
-        >
+        <Link to="/" className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]">
           <span className="text-foreground/90">
             Antigua<span className="gold-text">Bella</span>
           </span>
         </Link>
       </header>
 
-      <RequestSelectedItemSummary
-        context={requestContext}
-        listing={selectedListing}
-      />
-
-      <main className="flex justify-center px-4 pb-32 lg:pb-20 pt-6">
+      <main className="flex justify-center px-4 pb-24 pt-2">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-3xl rounded-2xl border border-border/40 bg-card overflow-hidden"
-          style={{ boxShadow: "var(--shadow-card)" }}
+          className="w-full max-w-2xl"
         >
-          <div className="p-6 lg:p-10 space-y-6">
-            <RequestInquiryFraming />
+          {/* Page heading */}
+          <div className="text-center mb-10">
+            <p className="luxury-subheading text-primary/60 mb-3">Private Villa Inquiry</p>
+            <h1 className="luxury-heading text-3xl md:text-4xl text-foreground mb-5">
+              Reserve Your <span className="italic">Stay</span>
+            </h1>
+            <div className="luxury-divider" />
+          </div>
 
-            <div className="space-y-4">
-              <p className="luxury-subheading text-primary/60">
-                {t("request_contact_title")}
-              </p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2 sm:col-span-2">
-                  <p className="luxury-subheading text-primary/60 mb-0">{t("request_label_full_name")}</p>
-                  <input
-                    type="text"
-                    value={fullName}
-                    onChange={(event) => setFullName(event.target.value)}
-                    aria-label={t("request_label_full_name")}
-                    placeholder={t("request_placeholder_full_name")}
-                    required
-                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <p className="luxury-subheading text-primary/60 mb-0">{t("request_label_email")}</p>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    aria-label={t("request_label_email")}
-                    placeholder={t("request_placeholder_email")}
-                    required
-                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <p className="luxury-subheading text-primary/60 mb-0">{t("request_label_phone_or_whatsapp")}</p>
-                  <input
-                    type="text"
-                    value={phoneOrWhatsApp}
-                    onChange={(event) => setPhoneOrWhatsApp(event.target.value)}
-                    aria-label={t("request_label_phone_or_whatsapp")}
-                    placeholder={t("request_placeholder_phone_or_whatsapp")}
-                    className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                  />
-                  <p className="text-xs text-muted-foreground/60">{t("request_helper_phone_or_whatsapp")}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <p className="luxury-subheading text-primary/60">
-                {t("request_details_title")}
-              </p>
-
-              {isStayRequest ? (
-                <AvailabilityCalendar
-                  checkIn={checkIn}
-                  checkOut={checkOut}
-                  onRangeChange={(from, to) => {
-                    setCheckIn(from);
-                    setCheckOut(to);
+          {/* ── Villa selector ── */}
+          <div className="grid grid-cols-3 gap-3 mb-8">
+            {VILLAS.map((villa) => {
+              const isSelected = selectedVilla === villa.id;
+              return (
+                <button
+                  key={villa.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedVilla(villa.id);
+                    /* clamp guests if switching to a villa with lower cap */
+                    if (totalOccupants > villa.maxGuests) {
+                      const overflow = totalOccupants - villa.maxGuests;
+                      const newChildren = Math.max(0, guests.children - overflow);
+                      const remaining = overflow - (guests.children - newChildren);
+                      setGuests({
+                        adults: Math.max(1, guests.adults - remaining),
+                        children: newChildren,
+                        infants: guests.infants,
+                      });
+                    }
                   }}
-                  listingId={requestContext?.id ?? null}
-                />
-              ) : (
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <p className="luxury-subheading text-primary/60 mb-0">
-                      {t("request_label_preferred_date")}
-                    </p>
-                    <input
-                      type="date"
-                      min={todayInputValue}
-                      value={preferredDate}
-                      aria-label={t("request_label_preferred_date")}
-                      onChange={(event) => setPreferredDate(event.target.value)}
-                      required
-                      className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
+                  className={`relative overflow-hidden rounded-xl text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
+                    isSelected
+                      ? "shadow-[0_0_0_1.5px_hsl(var(--primary)/0.38),0_0_20px_hsl(var(--primary)/0.16),0_8px_28px_hsl(var(--primary)/0.10)]"
+                      : "ring-1 ring-border/30 hover:ring-border/60 hover:shadow-md"
+                  }`}
+                >
+                  {/* Image — fixed 3:2 ratio */}
+                  <div className="relative w-full" style={{ paddingBottom: "66.67%" }}>
+                    <VillaCardImage id={villa.id} />
+                    {/* base gradient */}
+                    <div
+                      className="absolute inset-0 z-10"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, hsla(0,0%,0%,0.22) 0%, hsla(0,0%,0%,0.58) 100%)",
+                      }}
                     />
+                    {/* gold tint on selected */}
+                    <div
+                      className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.04) 100%)",
+                        opacity: isSelected ? 1 : 0,
+                      }}
+                    />
+                    {/* checkmark badge */}
+                    <div
+                      className="absolute top-2 right-2 z-20 w-5 h-5 rounded-full bg-primary flex items-center justify-center shadow-md transition-all duration-200"
+                      style={{
+                        opacity: isSelected ? 1 : 0,
+                        transform: isSelected ? "scale(1)" : "scale(0.6)",
+                      }}
+                    >
+                      <Check className="w-3 h-3 text-background" strokeWidth={3} />
+                    </div>
                   </div>
-                  {isExperienceRequest ? (
-                    <div className="space-y-2">
-                      <p className="luxury-subheading text-primary/60 mb-0">
-                        {t("request_label_preferred_time")}
-                      </p>
-                      <input
-                        type="time"
-                        value={preferredTime}
-                        aria-label={t("request_label_preferred_time")}
-                        onChange={(event) => setPreferredTime(event.target.value)}
-                        className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                      />
-                    </div>
-                  ) : null}
-                  {isCharterRequest ? (
-                    <div className="space-y-2">
-                      <p className="luxury-subheading text-primary/60 mb-0">
-                        {t("request_label_preferred_departure_time")}
-                      </p>
-                      <input
-                        type="time"
-                        value={preferredDepartureTime}
-                        aria-label={t("request_label_preferred_departure_time")}
-                        onChange={(event) =>
-                          setPreferredDepartureTime(event.target.value)
-                        }
-                        className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                      />
-                    </div>
-                  ) : null}
-                  {needsCharterDuration ? (
-                    <div className="space-y-2 sm:col-span-2">
-                      <p className="luxury-subheading text-primary/60 mb-0">
-                        {t("request_label_duration")}
-                      </p>
-                      <input
-                        type="text"
-                        value={duration}
-                        aria-label={t("request_label_duration")}
-                        onChange={(event) => setDuration(event.target.value)}
-                        placeholder={t("request_placeholder_duration")}
-                        required
-                        className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors"
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              )}
 
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-sans">
-                  {isStayRequest
-                    ? t("request_label_guests")
-                    : t("request_label_group_size")}
-                </span>
-                <div className="flex items-center gap-4">
-                  <button
-                    type="button"
-                    aria-label={`Decrease ${isStayRequest
-                      ? t("request_label_guests")
-                      : t("request_label_group_size")}`}
-                    onClick={() => setGuests(Math.max(1, guests - 1))}
-                    className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center text-muted-foreground hover:border-primary/40 hover:text-primary hover:shadow-[0_0_10px_hsl(var(--primary)/0.12)] transition-all duration-300"
-                  >
-                    <Minus className="w-3 h-3" />
-                  </button>
-                  <span aria-live="polite" className="text-lg font-sans font-light text-primary min-w-16 text-center">
-                    {guests} {guestLabel}
-                  </span>
-                  <button
-                    type="button"
-                    aria-label={`Increase ${isStayRequest
-                      ? t("request_label_guests")
-                      : t("request_label_group_size")}`}
-                    onClick={() => setGuests(Math.min(12, guests + 1))}
-                    className="w-8 h-8 rounded-full border border-border/60 flex items-center justify-center text-muted-foreground hover:border-primary/40 hover:text-primary hover:shadow-[0_0_10px_hsl(var(--primary)/0.12)] transition-all duration-300"
-                  >
-                    <Plus className="w-3 h-3" />
-                  </button>
-                </div>
-              </div>
-            </div>
+                  {/* Info strip */}
+                  <div className="px-3 py-2.5 bg-card border-t border-border/20">
+                    <p
+                      className={`luxury-heading text-[13px] leading-tight mb-0.5 transition-colors duration-300 ${
+                        isSelected ? "text-primary" : "text-foreground/80"
+                      }`}
+                    >
+                      {villa.label}
+                    </p>
+                    <p className="luxury-subheading text-[9px] text-muted-foreground/50 tracking-[0.1em]">
+                      {villa.beds} BR · UP TO {villa.maxGuests}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
 
-            <div className="space-y-2">
-              <p className="luxury-subheading text-primary/60">
-                {t("request_notes_title")}
-              </p>
-              <p className="luxury-subheading text-primary/60 mb-0">{t("request_label_notes")}</p>
-              <textarea
-                value={notes}
-                onChange={(event) => setNotes(event.target.value)}
-                aria-label={t("request_label_notes")}
-                placeholder={t("request_placeholder_notes")}
-                rows={3}
-                className="w-full bg-background/50 border border-foreground/10 rounded-lg px-4 py-3 text-foreground/80 text-sm focus:outline-none focus:border-primary/40 transition-colors resize-y"
+          {/* ── Form card ── */}
+          <div
+            className="rounded-2xl border border-border/40 bg-card overflow-visible"
+            style={{ boxShadow: "var(--shadow-card)" }}
+          >
+            {/* Step 1 — Dates */}
+            <div className="p-6 lg:p-8">
+              <p className="luxury-subheading text-primary/60 mb-3">Dates</p>
+              <DateRangePicker
+                checkIn={checkIn}
+                checkOut={checkOut}
+                onChange={(ci, co) => { setCheckIn(ci); setCheckOut(co); }}
+                minDate={new Date()}
+                disabledRanges={blockedRanges}
               />
-              <p className="text-xs text-muted-foreground/60">{t("request_helper_notes")}</p>
             </div>
 
-            <div className="rounded-xl bg-secondary/40 p-5">
-              <p className="luxury-subheading text-primary/60 mb-4">
-                {t("request_inquiry_summary")}
-              </p>
-              <div className="space-y-4">
-                {requestContext ? (
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-sans">
-                      {t("common_selection")}
-                    </span>
-                    <span className="text-sm text-foreground/80 text-right">
-                      {requestContext.name}
-                    </span>
+            <div className="mx-6 lg:mx-8 border-t border-border/20" />
+
+            {/* Step 2 — Guests */}
+            <div className="p-6 lg:p-8">
+              <p className="luxury-subheading text-primary/60 mb-3">Guests</p>
+              <GuestSelector
+                value={guests}
+                onChange={setGuests}
+                maxOccupants={maxGuests}
+              />
+            </div>
+
+            {/* Step 3 — Summary (animated in when complete) */}
+            <AnimatePresence>
+              {showSummary && nights != null && (
+                <motion.div
+                  key="summary"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="mx-6 lg:mx-8 border-t border-border/20" />
+                  <div className="p-6 lg:p-8">
+                    <p className="luxury-subheading text-primary/60 mb-4">Your Stay</p>
+
+                    <div className="space-y-2.5">
+                      <SummaryRow label="Villa" value={villaConfig?.label ?? ""} />
+                      <SummaryRow
+                        label="Check-in"
+                        value={format(checkIn!, "EEE, MMM d, yyyy")}
+                      />
+                      <SummaryRow
+                        label="Check-out"
+                        value={format(checkOut!, "EEE, MMM d, yyyy")}
+                      />
+                      <SummaryRow
+                        label="Nights"
+                        value={`${nights} ${nights === 1 ? "night" : "nights"}`}
+                      />
+                      <SummaryRow label="Guests" value={guestSummaryLabel()} />
+                    </div>
+
+                    <div className="mt-5 pt-4 border-t border-border/20 flex items-end justify-between">
+                      <div>
+                        <p className="luxury-subheading text-primary/60 text-[10px] mb-0.5">
+                          Estimated Total
+                        </p>
+                        <p className="text-[10px] font-sans text-muted-foreground/35">
+                          ${NIGHTLY_RATE.toLocaleString()} / night · {nights}{" "}
+                          {nights === 1 ? "night" : "nights"}
+                        </p>
+                      </div>
+                      <p className="luxury-heading text-2xl text-primary">
+                        ${(NIGHTLY_RATE * nights).toLocaleString()}
+                      </p>
+                    </div>
+
+                    <p className="mt-3 text-[10px] font-sans text-muted-foreground/30 leading-relaxed">
+                      Rates are indicative. Final pricing is confirmed upon inquiry.
+                    </p>
                   </div>
-                ) : null}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-sans">
-                    {isStayRequest
-                      ? t("request_stay_window")
-                      : t("common_preferred_date")}
-                  </span>
-                  <span className="text-sm text-foreground/80 text-right">
-                    {isStayRequest
-                      ? stayWindowLabel
-                      : preferredDate || t("request_summary_pending_value")}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-sans">
-                    {isStayRequest
-                      ? t("request_label_guests")
-                      : t("request_label_group_size")}
-                  </span>
-                  <span className="text-sm text-foreground/80 text-right">
-                    {guests} {guestLabel}
-                  </span>
-                </div>
-              </div>
+            {/* Step 4 — Button */}
+            <div className="px-6 pb-6 lg:px-8 lg:pb-8">
+              <motion.button
+                type="button"
+                whileHover={submitReady && !submitting ? { scale: 1.01 } : {}}
+                whileTap={submitReady && !submitting ? { scale: 0.99 } : {}}
+                disabled={!submitReady || submitting}
+                onClick={handleSubmit}
+                className={`
+                  w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.3em] font-sans font-medium
+                  border transition-all duration-500
+                  ${
+                    submitReady && !submitting
+                      ? "border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:shadow-[0_0_36px_hsl(var(--primary)/0.24)] cursor-pointer"
+                      : "border-border/30 text-muted-foreground/30 cursor-not-allowed"
+                  }
+                `}
+              >
+                {submitting ? "Submitting…" : "Request Your Stay"}
+              </motion.button>
             </div>
-
-            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/50">
-              {t("request_availability_note")}
-            </p>
-
-            {submitError ? (
-              <p className="text-sm text-red-400/80 text-center px-2 -mb-2">
-                {submitError}
-              </p>
-            ) : null}
-
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              disabled={submitDisabled || isSubmitting}
-              onClick={handleSubmit}
-              className={`
-                w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.25em] font-sans font-medium
-                border transition-all duration-500
-                ${
-                  submitDisabled || isSubmitting
-                    ? "border-border/30 text-muted-foreground/40 cursor-not-allowed"
-                    : "border-primary/50 text-primary bg-primary/5 hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] cursor-pointer"
-                }
-              `}
-            >
-              {isSubmitting ? "Sending…" : t("request_submit")}
-            </motion.button>
-
-            <Link
-              to="/concierge"
-              className="block text-center text-[11px] uppercase tracking-[0.2em] text-muted-foreground/40 hover:text-primary font-sans transition-colors duration-300"
-            >
-              {t("common_speak_to_concierge")}
-            </Link>
           </div>
         </motion.div>
       </main>
-
-      <div className="fixed bottom-6 left-6 z-50">
-        <AnimatePresence>
-          {chatOpen ? (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="mb-4 w-72 rounded-2xl border border-primary/20 bg-card overflow-hidden"
-              style={{ boxShadow: "0 8px 30px -8px hsl(0 0% 0% / 0.7)" }}
-            >
-              <div className="flex items-center justify-between p-4 border-b border-border/30">
-                <span className="text-xs uppercase tracking-[0.2em] text-primary font-sans">
-                  Concierge
-                </span>
-                <button
-                  type="button"
-                  aria-label="Close concierge chat"
-                  onClick={() => setChatOpen(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              <div className="p-4 h-48 flex items-end">
-                <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-                  {t("request_chat_intro")}
-                </p>
-              </div>
-              <div className="p-3 border-t border-border/30">
-                <input
-                  type="text"
-                  aria-label="Concierge note"
-                  placeholder={t("request_chat_placeholder")}
-                  className="w-full bg-secondary/40 rounded-lg px-3 py-2 text-sm font-sans text-foreground/80 placeholder:text-muted-foreground/40 outline-none focus:ring-1 focus:ring-primary/30 transition-all"
-                />
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-        <motion.button
-          type="button"
-          aria-label={chatOpen ? "Close concierge chat" : "Open concierge chat"}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setChatOpen(!chatOpen)}
-          className="w-12 h-12 rounded-full border border-primary/30 bg-card flex items-center justify-center hover:shadow-[0_0_16px_hsl(var(--primary)/0.15)] transition-all duration-300"
-        >
-          <span className="text-primary text-lg">🍍</span>
-        </motion.button>
-      </div>
     </div>
   );
 };
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <span className="text-[12px] font-sans text-muted-foreground/50 shrink-0">{label}</span>
+      <span className="text-[13px] font-sans text-foreground/75 text-right">{value}</span>
+    </div>
+  );
+}
 
 export default RequestPage;

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -47,7 +47,7 @@ const VillaDetail = () => {
       ? `${villa.title} — Private Villa · AntiguaBella`
       : "Villa Not Found — AntiguaBella",
     description: villa
-      ? (villa.shortDescription ?? villa.subtitle ?? "A private villa in Antigua, arranged by personal enquiry.")
+      ? (villa.shortDescription ?? villa.subtitle ?? "A private villa in Antigua, arranged by personal inquiry.")
       : "This villa is not available. Browse all private stays in Antigua on AntiguaBella.",
     canonicalPath: villa ? `/stays/${villaId}` : undefined,
   });

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ShoppingBag, User } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
@@ -24,10 +24,12 @@ const HeroSection = () => {
   const [exploreHidden, setExploreHidden] = useState(false);
   const [exploreVisible, setExploreVisible] = useState(false);
   const heroNavLinks = [
-    { label: t("nav_stays"), route: "/stays" },
-    { label: t("nav_experiences"), route: "/experiences" },
-    { label: t("nav_charters"), route: "/charters" },
-    { label: t("nav_concierge"), route: "/concierge" },
+    { label: "AntiguaBella", route: "/stays/antiguabella" },
+    { label: "AntiguaSoleil", route: "/stays/antiguasoleil" },
+    // MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch
+    // { label: t("nav_experiences"), route: "/experiences" },
+    // { label: t("nav_charters"), route: "/charters" },
+    // { label: t("nav_concierge"), route: "/concierge" },
   ];
 
   useEffect(() => {
@@ -173,27 +175,25 @@ const HeroSection = () => {
               className="fixed inset-0 bg-background/30 backdrop-blur-xl z-40"
             >
               <nav className="flex flex-col items-center gap-6 h-full justify-center">
+                {/* Account — always visible at top of menu */}
+                <Link
+                  to="/account"
+                  onClick={() => setMenuOpen(false)}
+                  className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                >
+                  {t("common_account")}
+                </Link>
+                <div className="w-8 border-t border-foreground/10" />
                 {/* Mobile-only action links */}
                 {isMobile && (
-                  <>
-                    <Link
-                      to="/account"
-                      onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                    >
-                      <User size={15} strokeWidth={1.4} />
-                      {t("common_account")}
-                    </Link>
-                    <Link
-                      to="/request"
-                      onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                    >
-                      <ShoppingBag size={15} strokeWidth={1.4} />
-                      {t("common_request")}
-                    </Link>
-                    <div className="w-8 border-t border-foreground/10" />
-                  </>
+                  <Link
+                    to="/request"
+                    onClick={() => setMenuOpen(false)}
+                    className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                  >
+                    <ShoppingBag size={15} strokeWidth={1.4} />
+                    {t("common_request")}
+                  </Link>
                 )}
                 {heroNavLinks.map((link) => {
                   return link.route ? (

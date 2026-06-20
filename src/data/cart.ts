@@ -1,4 +1,4 @@
-import spaWellness from "@/assets/spa-wellness.jpg";
+﻿import spaWellness from "@/assets/spa-wellness.jpg";
 import { getListingById } from "@/lib/listings";
 import type { BaseListing, ListingType } from "@/types/index";
 
@@ -43,7 +43,7 @@ const requireListing = <TType extends ListingType>(
 // Kept isolated so list pages, booking UI, and future checkout all share the same “mock world”.
 export const initialCartItems: CartItem[] = (() => {
   const villaAntiguaBella = requireListing("AntiguaBella", "villa");
-  const villaSugarMoon = requireListing("Sugar Moon", "villa");
+  const villaAntiguaSoleil = requireListing("AntiguaSoleil", "villa");
   const charterPrivateCoastline = requireListing("coastline_private_day", "charter");
   const expCulinaryJourneys = requireListing("culinary_journeys", "experience");
   const expOceanReef = requireListing("ocean_reef", "experience");
@@ -63,10 +63,10 @@ export const initialCartItems: CartItem[] = (() => {
     {
       id: "v2",
       type: "villa",
-      name: villaSugarMoon.title,
-      description: villaSugarMoon.shortDescription ?? villaSugarMoon.description,
-      image: listingImage(villaSugarMoon),
-      price: villaSugarMoon.price,
+      name: villaAntiguaSoleil.title,
+      description: villaAntiguaSoleil.shortDescription ?? villaAntiguaSoleil.description,
+      image: listingImage(villaAntiguaSoleil),
+      price: villaAntiguaSoleil.price,
       dates: { from: new Date(2026, 3, 10), to: new Date(2026, 3, 14) },
       guests: 2,
       selected: true,

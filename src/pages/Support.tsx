@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -9,7 +9,7 @@ const Support = () => {
   usePageMeta({
     title: "Support & Assistance — AntiguaBella",
     description:
-      "Need help with your enquiry or arrangement? Reach the AntiguaBella team directly — every request is handled personally.",
+      "Need help with your inquiry or arrangement? Reach the AntiguaBella team directly — every request is handled personally.",
   });
 
   return <div className="min-h-screen bg-background text-foreground">
