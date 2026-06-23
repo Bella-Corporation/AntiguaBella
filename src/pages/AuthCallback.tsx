@@ -7,11 +7,16 @@ const AuthCallback = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const code = searchParams.get("code");
+    const code = searchParams.get("code")
+      ?? new URLSearchParams(window.location.hash.slice(1)).get("code");
     const next = sessionStorage.getItem('ab_oauth_next') || '/';
 
     console.log('[AuthCallback] mounted');
     console.log('[AuthCallback] code:', code ? 'present' : 'MISSING');
+    console.log('[AuthCallback] code source:',
+      searchParams.get("code") ? 'query param' :
+      new URLSearchParams(window.location.hash.slice(1)).get("code") ?
+      'hash fragment' : 'not found');
     console.log('[AuthCallback] next from sessionStorage:', next);
 
     if (!code) {
