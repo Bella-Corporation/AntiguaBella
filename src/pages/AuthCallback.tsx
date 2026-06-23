@@ -8,7 +8,8 @@ const AuthCallback = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    const next = searchParams.get("next") || "/";
+    const next = sessionStorage.getItem('ab_oauth_next') || '/';
+    sessionStorage.removeItem('ab_oauth_next');
 
     if (!code) {
       navigate("/auth", { replace: true });

@@ -71,10 +71,11 @@ const Auth = () => {
   const handleOAuth = async (provider: "google" | "apple") => {
     if (oauthLoading) return;
     setOauthLoading(true);
+    sessionStorage.setItem('ab_oauth_next', returnTo);
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     setOauthLoading(false);
