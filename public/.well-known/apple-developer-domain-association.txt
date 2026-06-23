@@ -1,0 +1,33 @@
+# PLACEHOLDER — Apple Sign In domain verification file
+#
+# To activate Sign in with Apple for antiguabella.com:
+#
+# 1. In Apple Developer Console (developer.apple.com):
+#    - Create a Services ID (Identifiers > Services IDs)
+#    - Enable "Sign in with Apple" on that Services ID
+#    - Add antiguabella.com as a registered domain
+#    - Add https://oiszivwjmykiayscjrch.supabase.co/auth/v1/callback
+#      as a Return URL
+#
+# 2. Apple will prompt you to verify domain ownership.
+#    Download the verification file Apple provides.
+#
+# 3. Replace this entire file with the exact content Apple provides.
+#    Do not modify the Apple-provided content — any change breaks
+#    the domain verification check.
+#
+# 4. Confirm the file is reachable at:
+#    https://antiguabella.com/.well-known/apple-developer-domain-association.txt
+#
+# 5. Click "Verify" in Apple Developer Console.
+#
+# 6. In Supabase Dashboard > Authentication > Providers > Apple:
+#    - Enter the Services ID as the Client ID
+#    - Generate a client secret JWT using your P8 private key
+#      (client secrets expire — regenerate every 6 months)
+#    - Save and enable the Apple provider
+#
+# Note: The Vercel rewrite in vercel.json routes all non-api/* paths
+# to index.html, but Vercel serves static files from the build output
+# before applying rewrites — this file will be served correctly as-is
+# without any vercel.json changes required.

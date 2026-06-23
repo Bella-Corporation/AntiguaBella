@@ -89,16 +89,43 @@ const RequestPage = () => {
   );
 
   const initialVilla = useMemo((): VillaId => {
+    // Auth-return path encodes villa as ?villa=<VillaId>; check that first.
+    const villaParam = searchParams.get("villa");
+    if (villaParam === "AntiguaBella" || villaParam === "AntiguaSoleil" || villaParam === "BothVillas")
+      return villaParam as VillaId;
+    // Listing-link path encodes villa id via decodeRequestSelectionContext (?item=<id>).
     const id = requestContext?.id;
     if (id === "AntiguaBella" || id === "AntiguaSoleil" || id === "BothVillas")
       return id as VillaId;
     return "AntiguaBella";
-  }, [requestContext]);
+  }, [requestContext, searchParams]);
 
   const [selectedVilla, setSelectedVilla] = useState<VillaId>(initialVilla);
-  const [checkIn, setCheckIn] = useState<Date | null>(null);
-  const [checkOut, setCheckOut] = useState<Date | null>(null);
-  const [guests, setGuests] = useState<GuestBreakdown>({ adults: 2, children: 0, infants: 0 });
+
+  const [checkIn, setCheckIn] = useState<Date | null>(() => {
+    const s = searchParams.get("checkIn");
+    if (!s) return null;
+    const d = new Date(`${s}T00:00:00`);
+    return isNaN(d.getTime()) ? null : d;
+  });
+
+  const [checkOut, setCheckOut] = useState<Date | null>(() => {
+    const s = searchParams.get("checkOut");
+    if (!s) return null;
+    const d = new Date(`${s}T00:00:00`);
+    return isNaN(d.getTime()) ? null : d;
+  });
+
+  const [guests, setGuests] = useState<GuestBreakdown>(() => {
+    const adults   = parseInt(searchParams.get("adults")   ?? "", 10);
+    const children = parseInt(searchParams.get("children") ?? "", 10);
+    const infants  = parseInt(searchParams.get("infants")  ?? "", 10);
+    return {
+      adults:   isNaN(adults)   || adults   < 1 ? 2 : adults,
+      children: isNaN(children) || children < 0 ? 0 : children,
+      infants:  isNaN(infants)  || infants  < 0 ? 0 : infants,
+    };
+  });
   const [blockedRanges, setBlockedRanges] = useState<BlockedRange[]>([]);
 
   useEffect(() => {
