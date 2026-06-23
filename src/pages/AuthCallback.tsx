@@ -9,17 +9,28 @@ const AuthCallback = () => {
   useEffect(() => {
     const code = searchParams.get("code");
     const next = sessionStorage.getItem('ab_oauth_next') || '/';
-    sessionStorage.removeItem('ab_oauth_next');
+
+    console.log('[AuthCallback] mounted');
+    console.log('[AuthCallback] code:', code ? 'present' : 'MISSING');
+    console.log('[AuthCallback] next from sessionStorage:', next);
 
     if (!code) {
+      console.log('[AuthCallback] no code — redirecting to /auth');
       navigate("/auth", { replace: true });
       return;
     }
 
-    supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+    sessionStorage.removeItem('ab_oauth_next');
+
+    supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
+      console.log('[AuthCallback] exchangeCodeForSession result:');
+      console.log('[AuthCallback] data:', data);
+      console.log('[AuthCallback] error:', error);
       if (error) {
+        console.log('[AuthCallback] exchange failed — redirecting to /auth?error=oauth_failed');
         navigate("/auth?error=oauth_failed", { replace: true });
       } else {
+        console.log('[AuthCallback] exchange succeeded — navigating to:', next);
         navigate(next, { replace: true });
       }
     });
