@@ -25,7 +25,15 @@ const Auth = () => {
   const returnTo = searchParams.get("next") || "/";
 
   useEffect(() => {
-    if (user) navigate(returnTo);
+    if (user) {
+      const oauthNext = sessionStorage.getItem('ab_oauth_next');
+      if (oauthNext) {
+        sessionStorage.removeItem('ab_oauth_next');
+        navigate(oauthNext);
+      } else {
+        navigate(returnTo);
+      }
+    }
   }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,7 +83,7 @@ const Auth = () => {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth`,
       },
     });
     setOauthLoading(false);
