@@ -74,7 +74,7 @@ const Auth = () => {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth?next=${encodeURIComponent(returnTo)}`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(returnTo)}`,
       },
     });
     setOauthLoading(false);

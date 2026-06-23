@@ -27,6 +27,7 @@ import AccountSettings from "./pages/AccountSettings";
 import AccountAppointments from "./pages/AccountAppointments";
 import AccountJourney from "./pages/AccountJourney";
 import Auth from "./pages/Auth";
+import AuthCallback from "./pages/AuthCallback";
 import ResetPassword from "./pages/ResetPassword";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import NotFound from "./pages/NotFound";
@@ -105,6 +106,7 @@ const App = () => (
 
                 {/* Auth */}
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
 
                 <Route path="*" element={<NotFound />} />
