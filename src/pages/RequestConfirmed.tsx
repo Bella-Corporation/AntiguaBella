@@ -1,24 +1,34 @@
-import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ConfirmationState {
-  villaLabel: string;
-  checkIn:    string;
-  checkOut:   string;
-  guests:     string;
-  nights:     number | null;
+  villaLabel:        string;
+  checkIn:           string;
+  checkOut:          string;
+  guests:            string;
+  nights:            number | null;
+  totalPaid?:        number;   // cents
+  bookingConfirmed?: boolean;  // true when arriving from Stripe success
 }
 
 const RequestConfirmed = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const state = location.state as ConfirmationState | null;
+  const location    = useLocation();
+  const navigate    = useNavigate();
+  const [searchParams] = useSearchParams();
+  const state       = location.state as ConfirmationState | null;
+
+  // bookingConfirmed can be set from state OR confirmed via Supabase lookup
+  const [bookingConfirmed, setBookingConfirmed] = useState<boolean>(
+    state?.bookingConfirmed === true
+  );
+  const [totalPaid, setTotalPaid] = useState<number | undefined>(state?.totalPaid);
 
   usePageMeta({
-    title: "Inquiry Confirmed — AntiguaBella",
-    description: "Your villa inquiry has been received. Our team will be in touch shortly.",
+    title: "Booking Confirmed — AntiguaBella",
+    description: "Your villa booking has been confirmed. Your dates are reserved.",
     canonicalPath: "/request/confirmed",
   });
 
@@ -28,6 +38,30 @@ const RequestConfirmed = () => {
       navigate("/request", { replace: true });
     }
   }, [state, navigate]);
+
+  // If arriving from Stripe success_url with ?booking_id= but no confirmed state,
+  // verify against Supabase (anon key, RLS SELECT own rows)
+  useEffect(() => {
+    const bookingId = searchParams.get("booking_id");
+    if (!bookingId || bookingConfirmed) return;
+
+    supabase
+      .from("booking_requests")
+      .select("status, total_amount_cents")
+      .eq("id", bookingId)
+      .single()
+      .then(({ data }) => {
+        if (data?.status === "confirmed") {
+          setBookingConfirmed(true);
+          if (data.total_amount_cents != null) {
+            setTotalPaid(data.total_amount_cents);
+          }
+        }
+      })
+      .catch(() => {
+        // Non-fatal — page still renders with inquiry-received copy
+      });
+  }, [searchParams, bookingConfirmed]);
 
   if (!state?.villaLabel) return null;
 
@@ -87,14 +121,29 @@ const RequestConfirmed = () => {
               </motion.svg>
             </motion.div>
 
-            <p className="luxury-subheading text-primary/60 mb-3">Inquiry Received</p>
-            <h1 className="luxury-heading text-3xl md:text-4xl text-foreground mb-4">
-              Thank You for <span className="italic">Reaching Out</span>
-            </h1>
-            <p className="font-sans text-sm text-muted-foreground/60 leading-relaxed max-w-md mx-auto">
-              We've received your inquiry and will personally follow up within 24 hours
-              to confirm availability and finalize your stay.
-            </p>
+            {bookingConfirmed ? (
+              <>
+                <p className="luxury-subheading text-primary/60 mb-3">Payment Received</p>
+                <h1 className="luxury-heading text-3xl md:text-4xl text-foreground mb-4">
+                  Booking <span className="italic">Confirmed</span>
+                </h1>
+                <p className="font-sans text-sm text-muted-foreground/60 leading-relaxed max-w-md mx-auto">
+                  Your payment was received and your dates are reserved. A Stripe receipt has been
+                  sent to your email.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="luxury-subheading text-primary/60 mb-3">Inquiry Received</p>
+                <h1 className="luxury-heading text-3xl md:text-4xl text-foreground mb-4">
+                  Thank You for <span className="italic">Reaching Out</span>
+                </h1>
+                <p className="font-sans text-sm text-muted-foreground/60 leading-relaxed max-w-md mx-auto">
+                  We've received your inquiry and will personally follow up within 24 hours
+                  to confirm availability and finalize your stay.
+                </p>
+              </>
+            )}
             <div className="luxury-divider mt-6" />
           </div>
 
@@ -104,7 +153,9 @@ const RequestConfirmed = () => {
             style={{ boxShadow: "var(--shadow-card)" }}
           >
             <div className="p-6 lg:p-8">
-              <p className="luxury-subheading text-primary/60 mb-5">Your Inquiry Summary</p>
+              <p className="luxury-subheading text-primary/60 mb-5">
+                {bookingConfirmed ? "Booking Summary" : "Your Inquiry Summary"}
+              </p>
 
               <div className="space-y-3">
                 <ConfirmRow label="Villa"     value={villaLabel} />
@@ -116,10 +167,19 @@ const RequestConfirmed = () => {
                     value={`${nights} ${nights === 1 ? "night" : "nights"}`}
                   />
                 )}
-                <ConfirmRow label="Guests"    value={guests} />
+                <ConfirmRow label="Guests" value={guests} />
+                {bookingConfirmed && totalPaid != null && (
+                  <ConfirmRow
+                    label="Total Paid"
+                    value={new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(totalPaid / 100)}
+                  />
+                )}
               </div>
 
-              {/* Personal follow-up note */}
+              {/* What happens next */}
               <div
                 className="mt-7 rounded-xl border border-primary/20 bg-primary/5 px-5 py-4"
                 style={{ boxShadow: "0 0 20px hsl(var(--primary)/0.06)" }}
@@ -127,11 +187,18 @@ const RequestConfirmed = () => {
                 <p className="luxury-subheading text-primary/70 text-[10px] mb-1.5 tracking-[0.2em]">
                   What Happens Next
                 </p>
-                <p className="font-sans text-sm text-foreground/70 leading-relaxed">
-                  Victor and the AntiguaBella team review every inquiry personally.
-                  You'll hear from us within 24 hours with confirmed availability,
-                  a tailored rate, and next steps to secure your stay.
-                </p>
+                {bookingConfirmed ? (
+                  <p className="font-sans text-sm text-foreground/70 leading-relaxed">
+                    Your stay is confirmed. Victor and the AntiguaBella team will be in touch
+                    before your arrival with everything you need to know.
+                  </p>
+                ) : (
+                  <p className="font-sans text-sm text-foreground/70 leading-relaxed">
+                    Victor and the AntiguaBella team review every inquiry personally.
+                    You'll hear from us within 24 hours with confirmed availability,
+                    a tailored rate, and next steps to secure your stay.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -147,7 +214,7 @@ const RequestConfirmed = () => {
                 to="/request"
                 className="flex-1 text-center py-3.5 rounded-lg text-[11px] uppercase tracking-[0.3em] font-sans font-medium border border-primary/30 bg-primary/8 text-primary hover:bg-primary/15 hover:shadow-[0_0_24px_hsl(var(--primary)/0.18)] transition-all duration-300"
               >
-                Submit Another Inquiry
+                {bookingConfirmed ? "Book Another Stay" : "Submit Another Inquiry"}
               </Link>
             </div>
           </div>

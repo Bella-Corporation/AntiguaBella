@@ -1,7 +1,10 @@
 {
   "functions": {
-    "api/create-checkout.ts": {
-      "includeFiles": "node_modules/stripe/**"
+    "api/checkout.ts": {
+      "includeFiles": "node_modules/stripe/**,node_modules/@supabase/supabase-js/**"
+    },
+    "api/stripe-webhook.ts": {
+      "includeFiles": "node_modules/stripe/**,node_modules/@supabase/supabase-js/**,node_modules/resend/**"
     },
     "api/notify.ts": {
       "includeFiles": "node_modules/resend/**"

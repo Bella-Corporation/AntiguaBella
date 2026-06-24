@@ -14,6 +14,29 @@ export type Database = {
   }
   public: {
     Tables: {
+      villa_rates: {
+        Row: {
+          villa_id: string
+          nightly_rate_usd: number
+          cleaning_fee_usd: number
+          min_nights: number
+          updated_at: string
+        }
+        Insert: {
+          villa_id: string
+          nightly_rate_usd: number
+          cleaning_fee_usd: number
+          min_nights: number
+          updated_at?: string
+        }
+        Update: {
+          villa_id?: string
+          nightly_rate_usd?: number
+          cleaning_fee_usd?: number
+          min_nights?: number
+          updated_at?: string
+        }
+      }
       availability_blocks: {
         Row: {
           id: string
@@ -54,8 +77,11 @@ export type Database = {
           check_in: string
           check_out: string
           guest_count: number
-          status: string
+          status: 'new' | 'pending_payment' | 'confirmed' | 'declined' | 'cancelled'
           created_at: string
+          stripe_customer_id: string | null
+          stripe_session_id: string | null
+          total_amount_cents: number | null
         }
         Insert: {
           id?: string
@@ -64,8 +90,11 @@ export type Database = {
           check_in: string
           check_out: string
           guest_count: number
-          status?: string
+          status?: 'new' | 'pending_payment' | 'confirmed' | 'declined' | 'cancelled'
           created_at?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+          total_amount_cents?: number | null
         }
         Update: {
           id?: string
@@ -74,8 +103,11 @@ export type Database = {
           check_in?: string
           check_out?: string
           guest_count?: number
-          status?: string
+          status?: 'new' | 'pending_payment' | 'confirmed' | 'declined' | 'cancelled'
           created_at?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+          total_amount_cents?: number | null
         }
       }
       blocked_dates: {

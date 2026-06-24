@@ -163,34 +163,64 @@ const RequestPage = () => {
       return;
     }
 
-    // Logged in — persist to Supabase then redirect to confirmation
+    // Logged in — persist to Supabase then redirect to Stripe Checkout
     setSubmitting(true);
+    let bookingRequestId: string | null = null;
     try {
-      const { error } = await supabase.from("booking_requests").insert({
-        user_id:     user.id,
-        villa_id:    VILLA_ID_MAP[selectedVilla],
-        check_in:    format(checkIn!, "yyyy-MM-dd"),
-        check_out:   format(checkOut!, "yyyy-MM-dd"),
-        guest_count: guests.adults + guests.children,
+      const { data: inserted, error: insertError } = await supabase
+        .from("booking_requests")
+        .insert({
+          user_id:     user.id,
+          villa_id:    VILLA_ID_MAP[selectedVilla],
+          check_in:    format(checkIn!, "yyyy-MM-dd"),
+          check_out:   format(checkOut!, "yyyy-MM-dd"),
+          guest_count: guests.adults + guests.children,
+          status:      "pending_payment",
+        })
+        .select("id")
+        .single();
+
+      if (insertError || !inserted) throw insertError ?? new Error("No row returned");
+      bookingRequestId = inserted.id;
+
+      const calculatedNights = differenceInDays(checkOut!, checkIn!);
+
+      const checkoutRes = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingRequestId,
+          userId:      user.id,
+          villaId:     VILLA_ID_MAP[selectedVilla],
+          villaLabel:  villaConfig.label,
+          checkIn:     format(checkIn!, "yyyy-MM-dd"),
+          checkOut:    format(checkOut!, "yyyy-MM-dd"),
+          nights:      calculatedNights,
+          guestCount:  guests.adults + guests.children,
+          userEmail:   user.email,
+          origin:      window.location.origin,
+        }),
       });
 
-      if (error) throw error;
+      const checkoutData = await checkoutRes.json();
 
-      navigate("/request/confirmed", {
-        state: {
-          villaLabel: villaConfig.label,
-          checkIn:    format(checkIn!, "EEE, MMM d, yyyy"),
-          checkOut:   format(checkOut!, "EEE, MMM d, yyyy"),
-          guests:     guestSummaryLabel(),
-          nights,
-        },
-      });
+      if (!checkoutRes.ok || !checkoutData.url) {
+        throw new Error(checkoutData.error ?? "No checkout URL returned");
+      }
+
+      window.location.href = checkoutData.url;
     } catch {
       toast({
         variant: "destructive",
-        title: "Submission failed",
-        description: "We couldn't save your request. Please try again.",
+        title: "Payment setup failed",
+        description: "Please try again.",
       });
+      if (bookingRequestId) {
+        await supabase
+          .from("booking_requests")
+          .update({ status: "cancelled" })
+          .eq("id", bookingRequestId);
+      }
       setSubmitting(false);
     }
   };
@@ -415,7 +445,7 @@ const RequestPage = () => {
                   }
                 `}
               >
-                {submitting ? "Submitting…" : "Request Your Stay"}
+                {submitting ? "Redirecting to Payment…" : "Reserve Your Stay"}
               </motion.button>
             </div>
           </div>
