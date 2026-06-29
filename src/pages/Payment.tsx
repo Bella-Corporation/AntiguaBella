@@ -202,19 +202,19 @@ function PaymentForm({ booking, total }: PaymentFormProps) {
         </button>
         <button
           type="button"
-          onClick={() => setSelectedMethod("google_pay")}
-          className={`${pillBase} ${selectedMethod === "google_pay" ? pillSelected : pillDefault}`}
-        >
-          <GooglePayIcon />
-          Google Pay
-        </button>
-        <button
-          type="button"
           onClick={() => setSelectedMethod("card")}
           className={`${pillBase} ${selectedMethod === "card" ? pillSelected : pillDefault}`}
         >
           <CreditCard className="w-4 h-4 shrink-0" />
           Card
+        </button>
+        <button
+          type="button"
+          onClick={() => setSelectedMethod("google_pay")}
+          className={`${pillBase} ${selectedMethod === "google_pay" ? pillSelected : pillDefault}`}
+        >
+          <GooglePayIcon />
+          Google Pay
         </button>
       </div>
 
@@ -226,6 +226,10 @@ function PaymentForm({ booking, total }: PaymentFormProps) {
               layout: "tabs",
               paymentMethodOrder: ["card"],
               defaultValues: { billingDetails: {} },
+              wallets: {
+                applePay: "never",
+                googlePay: "never",
+              },
             }}
           />
         ) : (
