@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { differenceInDays } from "date-fns";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -14,17 +15,38 @@ interface ConfirmationState {
   bookingConfirmed?: boolean;  // true when arriving from Stripe success
 }
 
+// Maps DB villa_id values to human-readable labels
+const VILLA_LABEL_MAP: Record<string, string> = {
+  antiguabella:  "AntiguaBella",
+  antiguasoleil: "AntiguaSoleil",
+  both:          "Both Villas",
+};
+
 const RequestConfirmed = () => {
   const location    = useLocation();
   const navigate    = useNavigate();
   const [searchParams] = useSearchParams();
   const state       = location.state as ConfirmationState | null;
 
-  // bookingConfirmed can be set from state OR confirmed via Supabase lookup
+  const bookingId = searchParams.get("booking_id");
+
+  // When Stripe redirects back via success_url, location.state is null because
+  // it is a full browser navigation. `recovering` stays true while we fetch the
+  // booking row from Supabase so the guards below don't prematurely redirect.
+  const [recovering, setRecovering] = useState<boolean>(
+    !!bookingId && !state?.villaLabel
+  );
+
+  // Populated from Supabase during recovery; overrides location.state when set.
+  const [recoveredState, setRecoveredState] = useState<ConfirmationState | null>(null);
+
   const [bookingConfirmed, setBookingConfirmed] = useState<boolean>(
     state?.bookingConfirmed === true
   );
   const [totalPaid, setTotalPaid] = useState<number | undefined>(state?.totalPaid);
+
+  // Whichever source has data wins; recovered always takes priority over stale state.
+  const effective = recoveredState ?? state;
 
   usePageMeta({
     title: "Booking Confirmed — AntiguaBella",
@@ -32,40 +54,79 @@ const RequestConfirmed = () => {
     canonicalPath: "/request/confirmed",
   });
 
-  // Guard: if someone lands here directly without state, send them back
+  // Guard: redirect to /request if there is nothing to show.
+  // Skip while `recovering` — the Supabase effect below will redirect on failure.
   useEffect(() => {
-    if (!state?.villaLabel) {
+    if (recovering) return;
+    if (!effective?.villaLabel) {
       navigate("/request", { replace: true });
     }
-  }, [state, navigate]);
+  }, [recovering, effective, navigate]);
 
-  // If arriving from Stripe success_url with ?booking_id= but no confirmed state,
-  // verify against Supabase (anon key, RLS SELECT own rows)
+  // Recovery effect: runs once on mount when arriving from Stripe success_url.
+  // Fetches all display fields from Supabase so the confirmation page renders
+  // correctly even though location.state is null after a full-page redirect.
   useEffect(() => {
-    const bookingId = searchParams.get("booking_id");
-    if (!bookingId || bookingConfirmed) return;
+    if (!bookingId || !recovering) return;
 
     supabase
       .from("booking_requests")
-      .select("status, total_amount_cents")
+      .select("status, total_amount_cents, villa_id, check_in, check_out, guest_count")
       .eq("id", bookingId)
       .single()
-      .then(({ data }) => {
-        if (data?.status === "confirmed") {
-          setBookingConfirmed(true);
-          if (data.total_amount_cents != null) {
-            setTotalPaid(data.total_amount_cents);
-          }
+      .then(({ data, error }) => {
+        if (error || !data || data.status !== "confirmed") {
+          navigate("/request", { replace: true });
+          return;
+        }
+
+        const nights = differenceInDays(
+          new Date(data.check_out),
+          new Date(data.check_in),
+        );
+        const gc = data.guest_count;
+
+        setRecoveredState({
+          villaLabel:      VILLA_LABEL_MAP[data.villa_id] ?? data.villa_id,
+          checkIn:         data.check_in,
+          checkOut:        data.check_out,
+          guests:          `${gc} guest${gc !== 1 ? "s" : ""}`,
+          nights,
+          totalPaid:       data.total_amount_cents ?? undefined,
+          bookingConfirmed: true,
+        });
+        setBookingConfirmed(true);
+        if (data.total_amount_cents != null) {
+          setTotalPaid(data.total_amount_cents);
         }
       })
       .catch(() => {
-        // Non-fatal — page still renders with inquiry-received copy
+        navigate("/request", { replace: true });
+      })
+      .finally(() => {
+        setRecovering(false);
       });
-  }, [searchParams, bookingConfirmed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally mount-only: bookingId and recovering are stable at mount
 
-  if (!state?.villaLabel) return null;
+  // Show a minimal loading state while we wait for the Supabase round-trip.
+  if (recovering) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <motion.div
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="luxury-subheading text-primary/50 tracking-[0.3em] text-xs"
+        >
+          Confirming your booking…
+        </motion.div>
+      </div>
+    );
+  }
 
-  const { villaLabel, checkIn, checkOut, guests, nights } = state;
+  if (!effective?.villaLabel) return null;
+
+  const { villaLabel, checkIn, checkOut, guests, nights } = effective;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
