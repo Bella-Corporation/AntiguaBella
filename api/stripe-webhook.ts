@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
 export const config = { api: { bodyParser: false } };
@@ -81,6 +81,100 @@ function buildConfirmationEmail(params: {
 </html>`;
 }
 
+// ─── Shared confirmation logic ────────────────────────────────────────────────
+
+async function confirmBooking(params: {
+  bookingRequestId: string;
+  stripeEventId: string;
+  amountTotal: number;
+  guestEmail?: string;
+  supabase: SupabaseClient;
+  resend: Resend | null;
+  ownerEmail: string | undefined;
+}): Promise<void> {
+  const { bookingRequestId, stripeEventId, amountTotal, guestEmail = "unknown", supabase, resend, ownerEmail } = params;
+
+  // Idempotency check — fetch existing booking row
+  const { data: booking, error: fetchError } = await supabase
+    .from("booking_requests")
+    .select("id, status, villa_id, check_in, check_out, user_id")
+    .eq("id", bookingRequestId)
+    .single();
+
+  if (fetchError || !booking) {
+    console.error("Failed to fetch booking_request:", fetchError);
+    throw new Error("Booking record not found");
+  }
+
+  if (booking.status === "confirmed") {
+    // Already processed — idempotent no-op
+    return;
+  }
+
+  // Update booking_requests to confirmed
+  const { error: updateError } = await supabase
+    .from("booking_requests")
+    .update({
+      status: "confirmed",
+      stripe_session_id: stripeEventId,
+      total_amount_cents: amountTotal,
+    })
+    .eq("id", bookingRequestId);
+
+  if (updateError) {
+    console.error("Failed to confirm booking:", updateError);
+    throw new Error("Failed to update booking status");
+  }
+
+  // Insert availability_blocks to hold the dates
+  const { error: blockError } = await supabase.from("availability_blocks").insert({
+    villa_id: booking.villa_id,
+    start_date: booking.check_in,
+    end_date: booking.check_out,
+    reason: "booked",
+    source: "manual",
+    created_by: booking.user_id,
+  });
+
+  if (blockError) {
+    console.error("Failed to insert availability block:", blockError);
+    // Non-fatal: booking is confirmed; log and continue
+  }
+
+  // Send Resend notification email to owner
+  if (ownerEmail && resend) {
+    const villaLabel =
+      booking.villa_id === "both"
+        ? "Both Villas"
+        : booking.villa_id === "antiguabella"
+          ? "AntiguaBella"
+          : "AntiguaSoleil";
+
+    try {
+      await resend.emails.send({
+        from: "AntiguaBella Bookings <onboarding@resend.dev>",
+        to: ownerEmail,
+        subject: `New Booking Confirmed — ${villaLabel} ${booking.check_in}`,
+        html: buildConfirmationEmail({
+          villaId: booking.villa_id,
+          guestEmail,
+          checkIn: booking.check_in,
+          checkOut: booking.check_out,
+          totalCents: amountTotal ?? 0,
+          bookingId: bookingRequestId,
+        }),
+      });
+    } catch (emailErr) {
+      console.error("Failed to send owner notification:", emailErr);
+      // Non-fatal: booking is confirmed; log and continue
+    }
+  } else {
+    console.warn("Owner email or Resend key not configured — skipping notification");
+  }
+}
+
+// ─── Webhook handler ──────────────────────────────────────────────────────────
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -97,10 +191,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: "Webhook not configured" });
   }
 
-  // Step 1: Read raw body for signature verification
+  // Read raw body for signature verification
   const rawBody = await readRawBody(req);
 
-  // Step 2: Verify Stripe signature
+  // Verify Stripe signature
   const stripe = new Stripe(secretKey);
   let event: Stripe.Event;
   try {
@@ -115,17 +209,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: `Webhook signature invalid: ${message}` });
   }
 
-  // Step 3: Only handle checkout.session.completed — ACK all others
-  if (event.type !== "checkout.session.completed") {
-    return res.status(200).json({ received: true });
-  }
-
-  const session = event.data.object as Stripe.Checkout.Session;
-
-  // Step 4: Read booking_request_id from metadata
-  const bookingRequestId = session.metadata?.booking_request_id;
-  if (!bookingRequestId) {
-    console.warn("checkout.session.completed missing booking_request_id in metadata");
+  // Only handle the two payment success events — ACK all others
+  if (
+    event.type !== "checkout.session.completed" &&
+    event.type !== "payment_intent.succeeded"
+  ) {
     return res.status(200).json({ received: true });
   }
 
@@ -135,88 +223,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const supabase = createClient(supabaseUrl, serviceKey);
+  const resend = resendKey ? new Resend(resendKey) : null;
 
-  // Step 5: IDEMPOTENCY CHECK — fetch existing booking row
-  const { data: booking, error: fetchError } = await supabase
-    .from("booking_requests")
-    .select("id, status, villa_id, check_in, check_out, user_id")
-    .eq("id", bookingRequestId)
-    .single();
+  try {
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const bookingRequestId = session.metadata?.booking_request_id;
 
-  if (fetchError || !booking) {
-    console.error("Failed to fetch booking_request:", fetchError);
-    return res.status(500).json({ error: "Booking record not found" });
-  }
+      if (!bookingRequestId) {
+        console.warn("checkout.session.completed missing booking_request_id in metadata");
+        return res.status(200).json({ received: true });
+      }
 
-  if (booking.status === "confirmed") {
-    // Already processed — idempotent no-op
-    return res.status(200).json({ received: true });
-  }
-
-  // Step 6: Update booking_requests to confirmed
-  const { error: updateError } = await supabase
-    .from("booking_requests")
-    .update({
-      status: "confirmed",
-      stripe_session_id: session.id,
-      total_amount_cents: session.amount_total,
-    })
-    .eq("id", bookingRequestId);
-
-  if (updateError) {
-    console.error("Failed to confirm booking:", updateError);
-    return res.status(500).json({ error: "Failed to update booking status" });
-  }
-
-  // Step 7: Insert availability_blocks to hold the dates
-  const { error: blockError } = await supabase.from("availability_blocks").insert({
-    villa_id: booking.villa_id,
-    start_date: booking.check_in,
-    end_date: booking.check_out,
-    reason: "booked",
-    source: "manual",
-    created_by: booking.user_id,
-  });
-
-  if (blockError) {
-    console.error("Failed to insert availability block:", blockError);
-    // Non-fatal: booking is confirmed; log and continue
-  }
-
-  // Step 8: Send Resend notification email to owner
-  if (ownerEmail && resendKey) {
-    const resend = new Resend(resendKey);
-    const villaLabel =
-      booking.villa_id === "both"
-        ? "Both Villas"
-        : booking.villa_id === "antiguabella"
-          ? "AntiguaBella"
-          : "AntiguaSoleil";
-
-    const guestEmail = session.customer_details?.email ?? "unknown";
-
-    try {
-      await resend.emails.send({
-        from: "AntiguaBella Bookings <onboarding@resend.dev>",
-        to: ownerEmail,
-        subject: `New Booking Confirmed — ${villaLabel} ${booking.check_in}`,
-        html: buildConfirmationEmail({
-          villaId: booking.villa_id,
-          guestEmail,
-          checkIn: booking.check_in,
-          checkOut: booking.check_out,
-          totalCents: session.amount_total ?? 0,
-          bookingId: bookingRequestId,
-        }),
+      await confirmBooking({
+        bookingRequestId,
+        stripeEventId: session.id,
+        amountTotal: session.amount_total ?? 0,
+        guestEmail: session.customer_details?.email ?? "unknown",
+        supabase,
+        resend,
+        ownerEmail,
       });
-    } catch (emailErr) {
-      console.error("Failed to send owner notification:", emailErr);
-      // Non-fatal: booking is confirmed; log and continue
+    } else if (event.type === "payment_intent.succeeded") {
+      const intent = event.data.object as Stripe.PaymentIntent;
+      const bookingRequestId = intent.metadata?.booking_request_id;
+
+      if (!bookingRequestId) {
+        console.warn("payment_intent.succeeded missing booking_request_id in metadata");
+        return res.status(200).json({ received: true });
+      }
+
+      await confirmBooking({
+        bookingRequestId,
+        stripeEventId: intent.id,
+        amountTotal: intent.amount_received,
+        supabase,
+        resend,
+        ownerEmail,
+      });
     }
-  } else {
-    console.warn("Owner email or Resend key not configured — skipping notification");
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("confirmBooking error:", message);
+    return res.status(500).json({ error: message });
   }
 
-  // Step 9: Acknowledge webhook
+  // Acknowledge webhook
   return res.status(200).json({ received: true });
 }

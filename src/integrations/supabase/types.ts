@@ -82,6 +82,7 @@ export type Database = {
           stripe_customer_id: string | null
           stripe_session_id: string | null
           total_amount_cents: number | null
+          stripe_payment_intent_id: string | null
         }
         Insert: {
           id?: string
@@ -95,6 +96,7 @@ export type Database = {
           stripe_customer_id?: string | null
           stripe_session_id?: string | null
           total_amount_cents?: number | null
+          stripe_payment_intent_id?: string | null
         }
         Update: {
           id?: string
@@ -108,6 +110,7 @@ export type Database = {
           stripe_customer_id?: string | null
           stripe_session_id?: string | null
           total_amount_cents?: number | null
+          stripe_payment_intent_id?: string | null
         }
       }
       blocked_dates: {

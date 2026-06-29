@@ -3,6 +3,9 @@
     "api/checkout.ts": {
       "includeFiles": "node_modules/stripe/**,node_modules/@supabase/supabase-js/**"
     },
+    "api/create-payment-intent.ts": {
+      "includeFiles": "node_modules/stripe/**,node_modules/@supabase/supabase-js/**"
+    },
     "api/stripe-webhook.ts": {
       "includeFiles": "node_modules/stripe/**,node_modules/@supabase/supabase-js/**,node_modules/resend/**"
     },

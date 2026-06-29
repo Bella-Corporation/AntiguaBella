@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Stays from "./pages/Stays";
 import Request from "./pages/Request";
 import RequestConfirmed from "./pages/RequestConfirmed";
+import Payment from "./pages/Payment";
 import Book from "./pages/Book";
 import Bag from "./pages/Bag";
 import VillaDetail from "./pages/VillaDetail";
@@ -57,6 +58,14 @@ const App = () => (
                 {/* <Route path="/concierge" element={<Concierge />} /> */}
                 <Route path="/request" element={<Request />} />
                 <Route path="/request/confirmed" element={<RequestConfirmed />} />
+                <Route
+                  path="/payment"
+                  element={
+                    <ProtectedRoute>
+                      <Payment />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/bag" element={<Bag />} />
                 <Route path="/support" element={<Support />} />
                 <Route path="/privacy" element={<Privacy />} />

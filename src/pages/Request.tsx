@@ -185,30 +185,18 @@ const RequestPage = () => {
 
       const calculatedNights = differenceInDays(checkOut!, checkIn!);
 
-      const checkoutRes = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      navigate("/payment", {
+        state: {
           bookingRequestId,
-          userId:      user.id,
-          villaId:     VILLA_ID_MAP[selectedVilla],
           villaLabel:  villaConfig.label,
           checkIn:     format(checkIn!, "yyyy-MM-dd"),
           checkOut:    format(checkOut!, "yyyy-MM-dd"),
           nights:      calculatedNights,
           guestCount:  guests.adults + guests.children,
+          userId:      user.id,
           userEmail:   user.email,
-          origin:      window.location.origin,
-        }),
+        },
       });
-
-      const checkoutData = await checkoutRes.json();
-
-      if (!checkoutRes.ok || !checkoutData.url) {
-        throw new Error(checkoutData.error ?? "No checkout URL returned");
-      }
-
-      window.location.href = checkoutData.url;
     } catch {
       toast({
         variant: "destructive",
