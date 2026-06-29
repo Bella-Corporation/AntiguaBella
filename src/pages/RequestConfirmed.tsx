@@ -189,8 +189,8 @@ const RequestConfirmed = () => {
                   Booking <span className="italic">Confirmed</span>
                 </h1>
                 <p className="font-sans text-sm text-muted-foreground/60 leading-relaxed max-w-md mx-auto">
-                  Your payment was received and your dates are reserved. A Stripe receipt has been
-                  sent to your email.
+                  Your payment was received and your dates are reserved. A member of the AntiguaBella
+                  team will be in touch shortly to confirm your stay details.
                 </p>
               </>
             ) : (
