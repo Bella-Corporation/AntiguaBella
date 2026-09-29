@@ -13,6 +13,7 @@ type StayCard = {
   key: string;
   title: string;
   href: string;
+  external?: boolean;
   photo: SharedPhoto;
   meta: [string, string];
   tagline: string;
@@ -29,14 +30,15 @@ const StaysSection = () => {
     {
       key: "AntiguaSoleil",
       title: "AntiguaSoleil",
-      href: "/stays/AntiguaSoleil",
+      href: "https://www.airbnb.com/rooms/24248006?source_impression_id=p3_1790715224_P39J50mrmBjIMEhc",
+      external: true,
       photo: panoSoleil,
       meta: [
         soleil ? getVillaSizeLabel(soleil) : "AntiguaSoleil",
         soleil ? getListingGuestLabel(soleil) : "",
       ],
       tagline: soleil ? getListingTagline(soleil) : "",
-      action: t("common_details"),
+      action: "View on Airbnb",
     },
     {
       key: "SoleilBella",
@@ -50,14 +52,15 @@ const StaysSection = () => {
     {
       key: "AntiguaBella",
       title: "AntiguaBella",
-      href: "/stays/AntiguaBella",
+      href: "https://www.airbnb.com/rooms/46730249?source_impression_id=p3_1790715181_P3TzML2p4xQamHGv",
+      external: true,
       photo: panoBella,
       meta: [
         bella ? getVillaSizeLabel(bella) : "AntiguaBella",
         bella ? getListingGuestLabel(bella) : "",
       ],
       tagline: bella ? getListingTagline(bella) : "",
-      action: t("common_details"),
+      action: "View on Airbnb",
     },
   ];
 
@@ -80,6 +83,9 @@ const StaysSection = () => {
             <Link
               key={card.key}
               to={card.href}
+              target={card.external ? "_blank" : undefined}
+              rel={card.external ? "noopener noreferrer" : undefined}
+              aria-label={card.external ? `${card.title} on Airbnb (opens in a new tab)` : undefined}
               data-reveal="slide-up"
               data-reveal-delay={String(520 + i * 100)}
               className="group block cursor-pointer overflow-hidden rounded-2xl transition-colors duration-500"
