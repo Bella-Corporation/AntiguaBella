@@ -16,6 +16,19 @@ import {
 import { getDetailTrustCopy } from "@/lib/detailTrustCopy";
 import type { BaseListing } from "@/types/index";
 import ResortFooter from "@/components/ResortFooter";
+import PropertyPicture from "@/components/PropertyPicture";
+import VillaFilm from "@/components/VillaFilm";
+import VillaPhotoGallery from "@/components/VillaPhotoGallery";
+import {
+  antiguaBellaGallery,
+  antiguaBellaHighlights,
+  antiguaBellaPageHero,
+} from "@/data/antiguabellaMedia";
+import {
+  antiguaSoleilGallery,
+  antiguaSoleilHero,
+  antiguaSoleilHighlights,
+} from "@/data/antiguasoleilMedia";
 
 const listingImage = (l: BaseListing) => l.featuredImage ?? l.images[0];
 
@@ -91,7 +104,29 @@ const VillaDetail = () => {
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero */}
       <section className="relative h-[70vh] md:h-[78vh] overflow-hidden">
-        <img src={listingImage(villa)} alt={`${villa.title} villa`} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+        {villa.id === "AntiguaBella" ? (
+          <PropertyPicture
+            photo={antiguaBellaPageHero}
+            alt={antiguaBellaPageHero.alt}
+            fetchPriority="high"
+            loading="eager"
+            sizes="100vw"
+            pictureClassName="absolute inset-0 block h-full w-full"
+            className="h-full w-full object-cover object-[22%_68%]"
+          />
+        ) : villa.id === "AntiguaSoleil" ? (
+          <PropertyPicture
+            photo={antiguaSoleilHero}
+            alt={antiguaSoleilHero.alt}
+            fetchPriority="high"
+            loading="eager"
+            sizes="100vw"
+            pictureClassName="absolute inset-0 block h-full w-full"
+            className="h-full w-full object-cover object-[center_70%]"
+          />
+        ) : (
+          <img src={listingImage(villa)} alt={`${villa.title} villa`} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+        )}
         <div
           className="absolute inset-0"
           style={{
@@ -125,6 +160,14 @@ const VillaDetail = () => {
               <p className="luxury-subheading text-primary/70 mb-3">{t("common_villa")}</p>
               <h1 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">{villa.title}</h1>
               <p className="luxury-body text-foreground/70 text-sm max-w-2xl">{villaTagline(villa)}</p>
+              {(villa.id === "AntiguaBella" || villa.id === "AntiguaSoleil") && (
+                <Link
+                  to={createRequestPath(createRequestSelectionContextFromListing(villa))}
+                  className="luxury-btn-bold mt-6 inline-block lg:hidden"
+                >
+                  {t("common_request_stay")}
+                </Link>
+              )}
             </motion.div>
 
             <motion.div
@@ -151,7 +194,28 @@ const VillaDetail = () => {
 
       {/* Content */}
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 py-14 md:py-20">
-        <div className="grid lg:grid-cols-[1.5fr_0.5fr] gap-10 lg:gap-12 items-start">
+        {villa.id === "AntiguaBella" && (
+          <>
+            <VillaPhotoGallery
+              photos={antiguaBellaGallery}
+              presentation="story"
+              highlights={antiguaBellaHighlights}
+              eyebrow="The villa"
+              heading="A look through the house"
+            />
+            <VillaFilm />
+          </>
+        )}
+        {villa.id === "AntiguaSoleil" && (
+          <VillaPhotoGallery
+            photos={antiguaSoleilGallery}
+            presentation="story"
+            highlights={antiguaSoleilHighlights}
+            eyebrow="The villa"
+            heading="A look through the house"
+          />
+        )}
+        <div className={`grid lg:grid-cols-[1.5fr_0.5fr] gap-10 lg:gap-12 items-start ${villa.id === "AntiguaBella" || villa.id === "AntiguaSoleil" ? "mt-12" : ""}`}>
           <section>
             <div className="rounded-2xl border border-border/40 bg-card p-5 sm:p-8 lg:p-10" style={{ boxShadow: "var(--shadow-card)" }}>
               <p className="luxury-subheading text-primary mb-4">{t("detail_stay_overview_heading")}</p>

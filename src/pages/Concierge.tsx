@@ -6,7 +6,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import useScrollReveal from "@/hooks/useScrollReveal";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import ResortFooter from "@/components/ResortFooter";
-import heroBeach from "@/assets/hero-beach.jpg";
+import PropertyPicture from "@/components/PropertyPicture";
+import { sharedCoastBay } from "@/data/sharedMedia";
 
 const conciergeServices = [
   {
@@ -101,10 +102,14 @@ const Concierge = () => {
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero */}
       <section className="relative h-[62vh] md:h-[70vh] overflow-hidden">
-        <img
-          src={heroBeach}
-          alt="AntiguaBella concierge service"
-          className="absolute inset-0 w-full h-full object-cover"
+        <PropertyPicture
+          photo={sharedCoastBay}
+          alt={sharedCoastBay.alt}
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          pictureClassName="absolute inset-0 block h-full w-full"
+          className="h-full w-full object-cover object-center"
         />
         <div
           className="absolute inset-0"

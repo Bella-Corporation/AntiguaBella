@@ -3,6 +3,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import StaysSection from "@/components/StaysSection";
+import IslandSection from "@/components/IslandSection";
 // MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch
 // import ExperiencesSection from "@/components/ExperiencesSection";
 // import ChartersSection from "@/components/ChartersSection";
@@ -26,6 +27,7 @@ const Index = () => {
         <HeroSection />
         <IntroSection />
         <StaysSection />
+        <IslandSection />
         {/* MVP v0.0.1 — villa rentals only; re-enable when experiences/charters/concierge launch */}
         {/* <ExperiencesSection /> */}
         {/* <ChartersSection /> */}

@@ -14,8 +14,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { getBlockedRanges, type BlockedRange, type VillaAvailabilityId } from "@/lib/availability";
 
-import villaBeachfront from "@/assets/villa-beachfront.jpg";
-import villaHillside from "@/assets/villa-hillside.jpg";
+import { antiguaBellaFeatured } from "@/data/antiguabellaMedia";
+import { antiguaSoleilCard } from "@/data/antiguasoleilMedia";
 
 const NIGHTLY_RATE = 850;
 
@@ -31,7 +31,7 @@ interface VillaConfig {
 
 const VILLAS: VillaConfig[] = [
   { id: "AntiguaSoleil", label: "AntiguaSoleil", sublabel: "Garden Retreat", beds: 3, maxGuests: 8  },
-  { id: "AntiguaBella",  label: "AntiguaBella",  sublabel: "Beachfront",     beds: 3, maxGuests: 8  },
+  { id: "AntiguaBella",  label: "AntiguaBella",  sublabel: "Pool terrace",   beds: 3, maxGuests: 8  },
   { id: "BothVillas",    label: "Both Villas",   sublabel: "Full Estate",    beds: 6, maxGuests: 16 },
 ];
 
@@ -40,14 +40,18 @@ function VillaCardImage({ id }: { id: VillaId }) {
     return (
       <>
         <img
-          src={villaBeachfront}
+          src={antiguaBellaFeatured.src}
           alt="AntiguaBella"
-          className="absolute inset-0 w-1/2 h-full object-cover object-right"
+          width={antiguaBellaFeatured.width}
+          height={antiguaBellaFeatured.height}
+          className="absolute inset-0 w-1/2 h-full object-cover object-center"
         />
         <img
-          src={villaHillside}
-          alt="AntiguaSoleil"
-          className="absolute inset-0 left-1/2 w-1/2 h-full object-cover object-left"
+          src={antiguaSoleilCard.src}
+          alt="AntiguaSoleil pool terrace"
+          width={antiguaSoleilCard.width}
+          height={antiguaSoleilCard.height}
+          className="absolute inset-0 left-1/2 w-1/2 h-full object-cover object-center"
         />
         <div className="absolute inset-y-0 left-1/2 w-px bg-background/40 z-10" />
       </>
@@ -55,7 +59,9 @@ function VillaCardImage({ id }: { id: VillaId }) {
   }
   return (
     <img
-      src={id === "AntiguaBella" ? villaBeachfront : villaHillside}
+      src={id === "AntiguaBella" ? antiguaBellaFeatured.src : antiguaSoleilCard.src}
+      width={id === "AntiguaBella" ? antiguaBellaFeatured.width : antiguaSoleilCard.width}
+      height={id === "AntiguaBella" ? antiguaBellaFeatured.height : antiguaSoleilCard.height}
       alt={id}
       className="absolute inset-0 w-full h-full object-cover"
     />

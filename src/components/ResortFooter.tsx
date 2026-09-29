@@ -1,19 +1,33 @@
 import { Link } from "react-router-dom";
 import { Instagram, Twitter } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import PropertyPicture from "@/components/PropertyPicture";
+import { sharedCoastIsland } from "@/data/sharedMedia";
 const ResortFooter = () => {
   const { t } = useLanguage();
 
   return <footer id="begin" className="border-t border-border/10 text-foreground">
-      {/* Newsletter / Begin section */}
-      <div className="section-padding">
-        <div data-reveal="slide-up" className="mx-auto max-w-7xl text-center">
-          <div>
-            <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-5">Begin</p>
-            <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] text-foreground mb-8 leading-[1.15]">
+      <div className="relative isolate overflow-hidden">
+        <PropertyPicture
+          photo={sharedCoastIsland}
+          alt={sharedCoastIsland.alt}
+          sizes="100vw"
+          pictureClassName="absolute inset-0 block h-full w-full"
+          className="h-full w-full object-cover object-[center_42%]"
+        />
+        <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
+        <div className="relative section-padding">
+          <div data-reveal="slide-up" className="mx-auto flex min-h-[280px] max-w-3xl flex-col items-center justify-center text-center sm:min-h-[340px]">
+            <p className="luxury-subheading mb-5 text-primary">Begin</p>
+            <h2 data-scroll-cue className="luxury-heading mb-6 text-[2rem] leading-[1.15] text-white md:text-[2.7rem] lg:text-[3.2rem]">
               Good Things Come to Those Who Go Beyond
             </h2>
-            <p data-reveal="slide-up" data-reveal-delay="340" className="luxury-body text-muted-foreground max-w-md mx-auto text-[18px]">~ AntiguaBella for the Curious Few ~</p>
+            <p className="luxury-body mx-auto mb-8 max-w-md text-[16px] text-white/85 md:text-[18px]">
+              ~ AntiguaBella for the Curious Few ~
+            </p>
+            <Link to="/request" className="luxury-btn-bold">
+              Plan your stay
+            </Link>
           </div>
         </div>
       </div>

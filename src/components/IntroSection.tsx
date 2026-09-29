@@ -1,4 +1,5 @@
-﻿import resortAerial from "@/assets/resort-aerial.jpg";
+﻿import PropertyPicture from "@/components/PropertyPicture";
+import { antiguaBellaAbout } from "@/data/antiguabellaMedia";
 
 const IntroSection = () => {
   return (
@@ -30,12 +31,12 @@ const IntroSection = () => {
 
           <div data-reveal="slide-right" data-reveal-delay="350">
             <div className="rounded-2xl overflow-hidden border border-border/15">
-              <img
-                src={resortAerial}
-                alt="Aerial view of Antigua's coastline"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-[280px] sm:h-[380px] lg:h-[560px] object-cover"
+              <PropertyPicture
+                photo={antiguaBellaAbout}
+                alt={antiguaBellaAbout.alt}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                pictureClassName="block w-full"
+                className="h-[280px] w-full object-cover object-center sm:h-[380px] lg:h-[560px]"
               />
             </div>
           </div>

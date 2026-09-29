@@ -21,8 +21,8 @@ import {
   createRequestPath,
   createRequestSelectionContextFromListing,
 } from "@/lib/request";
-
-import resortAerial from "@/assets/resort-aerial.jpg";
+import { antiguaBellaGallery, antiguaBellaStaysHero } from "@/data/antiguabellaMedia";
+import { antiguaSoleilGallery } from "@/data/antiguasoleilMedia";
 
 const highlights = [
   {
@@ -86,29 +86,33 @@ const Stays = () => {
     });
   }, [villas, guestsFilter, priceFilter, currency, priceThresholds]);
 
-  const galleryImages = (() => {
-    const unique = Array.from(
-      new Set<string>([
-        resortAerial,
-        ...villas.flatMap((v) => v.images),
-        ...villas.flatMap((v) => (v.featuredImage ? [v.featuredImage] : [])),
-      ])
-    );
-
-    if (unique.length === 0) return [resortAerial];
-    return unique.length >= 6 ? unique.slice(0, 6) : [...unique, ...unique].slice(0, 6);
-  })();
+  const galleryImages = [
+    ...["bella-living", "bella-canopy-bedroom", "bella-yellow-bedroom", "bella-kitchen"].map((id) => {
+      const photo = antiguaBellaGallery.find((item) => item.id === id);
+      return photo ? { ...photo, alt: `AntiguaBella: ${photo.alt}` } : null;
+    }).filter((photo) => photo !== null),
+    ...antiguaSoleilGallery
+      .filter((photo) => photo.id === "open-plan" || photo.id === "glass-bath")
+      .map((photo) => ({
+        ...photo,
+        alt: `AntiguaSoleil: ${photo.alt}`,
+      })),
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
         <img
-          src={resortAerial}
-          alt="Aerial view of AntiguaBella resort villas"
+          src={antiguaBellaStaysHero.src}
+          srcSet={antiguaBellaStaysHero.srcSet}
+          sizes="100vw"
+          alt={antiguaBellaStaysHero.alt}
+          width={antiguaBellaStaysHero.width}
+          height={antiguaBellaStaysHero.height}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-[center_72%]"
         />
         <div
           className="absolute inset-0"
@@ -264,7 +268,15 @@ const Stays = () => {
                   <div className={`relative overflow-hidden rounded-2xl ${!isEven ? "lg:order-2" : ""}`}>
                     <img
                       src={getListingImage(villa)}
-                      alt={`${villa.title} at AntiguaBella`}
+                      alt={
+                        villa.id === "AntiguaBella"
+                          ? "Terrace table overlooking the coast at AntiguaBella"
+                          : villa.id === "AntiguaSoleil"
+                            ? "Pool and lounge terrace at AntiguaSoleil overlooking the coast"
+                            : `${villa.title} residence`
+                      }
+                      width={1200}
+                      height={731}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-[240px] sm:h-[320px] md:h-[480px] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03]"
@@ -349,9 +361,9 @@ const Stays = () => {
             <div className="luxury-divider mb-6" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {galleryImages.map((img, i) => (
+            {galleryImages.map((photo, i) => (
                 <motion.div
-                  key={i}
+                  key={photo.id}
                   custom={i}
                   initial="hidden"
                   whileInView="visible"
@@ -360,8 +372,10 @@ const Stays = () => {
                   className="relative overflow-hidden rounded-xl aspect-[4/3]"
                 >
                   <img
-                    src={img}
-                    alt={`Resort gallery image ${i + 1}`}
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-1400 ease-out hover:scale-[1.05]"

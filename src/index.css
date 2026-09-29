@@ -308,6 +308,14 @@
     transform: none !important;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   /* ── Scroll Cue: chapter-like title emphasis ── */
   [data-scroll-cue] {
     transition: text-shadow 1.2s cubic-bezier(0.25, 0.1, 0.25, 1), color 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);

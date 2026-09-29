@@ -1,7 +1,13 @@
 ﻿import type { BaseListing } from "@/types/index";
 
-import villaBeachfront from "@/assets/villa-beachfront.jpg";
-import villaHillside from "@/assets/villa-hillside.jpg";
+import {
+  antiguaBellaFeatured,
+  antiguaBellaGallery,
+} from "@/data/antiguabellaMedia";
+import {
+  antiguaSoleilCard,
+  antiguaSoleilGallery,
+} from "@/data/antiguasoleilMedia";
 
 import expCooking from "@/assets/exp-cooking.jpg";
 import expSnorkel from "@/assets/exp-snorkel.jpg";
@@ -14,27 +20,22 @@ export const listings: BaseListing[] = [
     slug: "antiguabella",
     type: "villa",
     title: "AntiguaBella",
-    subtitle: "Where elegance meets the Caribbean shore",
+    subtitle: "Pool, terrace, and coastal views",
     shortDescription:
-      "Flagship beachfront luxury with open-plan living, private infinity pool, and direct sand access.",
+      "A private villa with a pool, terrace, indoor living spaces, and elevated coastal views.",
     description:
-      "A flagship villa collection offering the pinnacle of island luxury. Floor-to-ceiling glass frames turquoise horizons, while a private infinity pool and butler service elevate every arrival. Enjoy unhurried mornings on the terrace and evenings crafted around candlelit dining by the sea.",
+      "AntiguaBella is a private villa with a pool, a terracotta terrace, indoor living spaces, and elevated coastal views. The residence is arranged by personal inquiry, and the details of the stay are confirmed with you directly.",
     location: "St. John's, Antigua",
     price: 3100,
     currency: "USD",
-    images: [villaBeachfront],
-    featuredImage: villaBeachfront,
-    tags: ["beachfront", "infinity pool", "butler service", "luxury villa"],
+    images: antiguaBellaGallery.map((photo) => photo.src),
+    featuredImage: antiguaBellaFeatured.src,
+    tags: ["pool", "terrace", "coastal views"],
     category: "Villas",
     maxGuests: 8,
     bedrooms: 4,
     bathrooms: 4,
-    amenities: [
-      "Private infinity pool",
-      "Direct beach access",
-      "Butler service",
-      "Outdoor rain shower",
-    ],
+    amenities: ["Pool", "Terrace", "Indoor living spaces", "Coastal views"],
     availabilityStatus: "available",
     featured: true,
   },
@@ -51,7 +52,8 @@ export const listings: BaseListing[] = [
     location: "Valley Church, Antigua",
     price: 1650,
     currency: "USD",
-    images: [villaHillside],
+    images: antiguaSoleilGallery.map((photo) => photo.src),
+    featuredImage: antiguaSoleilCard.src,
     tags: ["garden retreat", "romantic", "private dining", "open-air living"],
     category: "Villas",
     maxGuests: 4,

@@ -1,24 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
-import heroVideo from "@/assets/hero-video.mp4";
-import heroBeach from "@/assets/hero-beach.jpg";
+import { antiguaBellaHero, heroLoopSrc } from "@/data/antiguabellaMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
-  // Determine at mount whether to skip the 37 MB video on narrow viewports.
-  // useState initializer runs synchronously before the first paint, so the
-  // video element is never created on mobile devices.
-  const [skipVideo] = useState(() =>
-    typeof window !== "undefined" && window.innerWidth < 768
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  // Decide before paint so a phone or reduced-motion visit never creates the video.
+  const [preferStill] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches)
   );
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const { t } = useLanguage();
   const [exploreCompact, setExploreCompact] = useState(false);
   const [exploreHidden, setExploreHidden] = useState(false);
@@ -36,6 +40,41 @@ const HeroSection = () => {
     const timer = setTimeout(() => setExploreVisible(true), 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (preferStill) return;
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
+    const tryPlay = () => {
+      if (userPaused) return;
+      video.play().catch(() => setVideoStarted(false));
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) tryPlay();
+        else video.pause();
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(section);
+    tryPlay();
+    return () => observer.disconnect();
+  }, [preferStill, userPaused]);
+
+  const toggleBackground = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      setUserPaused(false);
+      video.play().catch(() => setVideoStarted(false));
+    } else {
+      setUserPaused(true);
+      video.pause();
+    }
+  };
 
   useEffect(() => {
     const handler = () => {
@@ -60,29 +99,34 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Hero background — static image on mobile, cinematic video on desktop */}
+    <section ref={sectionRef} className="relative h-[78svh] w-full overflow-hidden md:h-screen">
+      {/* Still on phones and reduced motion. Desktop video stays out of the mobile document. */}
       <div className="absolute inset-0">
-        {skipVideo ? (
-          <img
-            src={heroBeach}
-            alt=""
-            aria-hidden="true"
-            fetchPriority="high"
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
-        ) : (
+        <img
+          src={antiguaBellaHero.src}
+          srcSet={antiguaBellaHero.srcSet}
+          sizes="100vw"
+          alt={antiguaBellaHero.alt}
+          width={antiguaBellaHero.width}
+          height={antiguaBellaHero.height}
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover object-[28%_center] md:object-center"
+        />
+        {!preferStill && (
           <video
-            src={heroVideo}
-            autoPlay
+            ref={videoRef}
+            src={heroLoopSrc}
             muted
             loop
             playsInline
             preload="metadata"
             aria-hidden="true"
             tabIndex={-1}
-            className="h-full w-full object-cover"
+            onPlaying={() => setVideoStarted(true)}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+              videoStarted ? "opacity-100" : "opacity-0"
+            }`}
           />
         )}
         <div
@@ -93,6 +137,17 @@ const HeroSection = () => {
           }}
         />
       </div>
+
+      {!preferStill && (
+        <button
+          type="button"
+          onClick={toggleBackground}
+          aria-pressed={userPaused}
+          className="absolute bottom-28 left-4 z-30 rounded-md border border-foreground/20 bg-background/45 px-4 py-2 font-aguero text-[11px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm md:bottom-32 md:left-8"
+        >
+          {userPaused ? "Play background" : "Pause background"}
+        </button>
+      )}
 
       <div className="relative z-10 flex h-full flex-col">
         <header
