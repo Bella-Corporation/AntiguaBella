@@ -46,7 +46,7 @@ function GuestRow({
           aria-label={`Decrease ${label}`}
           disabled={!canDecrement}
           onClick={onDecrement}
-          className={`w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-200 ${
+          className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 sm:h-7 sm:w-7 ${
             canDecrement
               ? "border-border/60 text-muted-foreground hover:border-primary/40 hover:text-primary"
               : "border-border/20 text-muted-foreground/20 cursor-not-allowed"
@@ -60,7 +60,7 @@ function GuestRow({
           aria-label={`Increase ${label}`}
           disabled={!canIncrement}
           onClick={onIncrement}
-          className={`w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-200 ${
+          className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 sm:h-7 sm:w-7 ${
             canIncrement
               ? "border-border/60 text-muted-foreground hover:border-primary/40 hover:text-primary"
               : "border-border/20 text-muted-foreground/20 cursor-not-allowed"
@@ -133,7 +133,7 @@ export default function GuestSelector({
       {/* Dropdown */}
       {isOpen && (
         <div
-          className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl border border-border/40 bg-card px-5 py-2 shadow-2xl"
+          className="relative z-50 mt-2 rounded-2xl border border-border/40 bg-card px-4 py-2 shadow-2xl sm:absolute sm:left-0 sm:right-0 sm:top-full sm:px-5"
           style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.55)" }}
         >
           <GuestRow

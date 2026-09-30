@@ -69,7 +69,7 @@ const StaysSection = () => {
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
         <div className="section-header">
           <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary mb-4">{t("stays_eyebrow")}</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
+          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading mb-4 text-[clamp(2rem,8vw,2.5rem)] leading-[1.12] text-foreground md:mb-5 md:text-5xl lg:text-6xl">
             {t("stays_title_main")} <span className="italic">{t("stays_title_accent")}</span>
           </h2>
           <div data-reveal="fade" data-reveal-delay="340" className="luxury-divider mb-6" />
@@ -78,7 +78,7 @@ const StaysSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-5">
+        <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-3 lg:gap-5">
           {cards.map((card, i) => (
             <Link
               key={card.key}
@@ -88,33 +88,24 @@ const StaysSection = () => {
               aria-label={card.external ? `${card.title} on Airbnb (opens in a new tab)` : undefined}
               data-reveal="slide-up"
               data-reveal-delay={String(520 + i * 100)}
-              className="group block cursor-pointer overflow-hidden rounded-2xl transition-colors duration-500"
-              style={{ background: "hsl(0 0% 7%)", border: "1px solid hsl(41 54% 54% / 0.2)", boxShadow: "none" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 20px -4px hsl(41 54% 54% / 0.25), 0 0 40px -8px hsl(41 54% 54% / 0.1)";
-                e.currentTarget.style.borderColor = "hsl(41 54% 54% / 0.45)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "hsl(41 54% 54% / 0.2)";
-              }}
+              className="stay-card block cursor-pointer overflow-hidden rounded-2xl"
             >
-              <div className="relative h-[250px] overflow-hidden sm:h-[300px] lg:aspect-square lg:h-auto">
+              <div className="relative aspect-[3/2] overflow-hidden sm:aspect-[5/4] lg:aspect-square">
                 <PropertyPicture
                   photo={card.photo}
                   alt={card.photo.alt}
                   sizes="(min-width: 1024px) 420px, 100vw"
                   pictureClassName="block h-full w-full"
-                  className="h-full w-full object-cover object-[center_62%] lg:object-center"
+                  className="stay-card-image h-full w-full object-cover object-[center_62%] lg:object-center"
                 />
-                <div className="absolute inset-0 bg-background/0 transition-all duration-700 group-hover:bg-background/30" />
-                <div className="absolute bottom-0 left-0 right-0 z-10 translate-y-2 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="stay-card-dim absolute inset-0" />
+                <div className="stay-card-action absolute bottom-0 left-0 right-0 z-10 p-5">
                   <span className="luxury-subheading text-[11px] font-bold" style={{ color: "hsl(41 54% 54%)" }}>
-                    {card.action} →
+                    {card.action} <span className="stay-card-arrow" aria-hidden="true">→</span>
                   </span>
                 </div>
               </div>
-              <div className="p-6 lg:p-7">
+              <div className="p-5 sm:p-6 lg:p-7">
                 <h3 className="luxury-heading mb-3 text-xl text-foreground lg:text-[1.35rem]">
                   {card.title}
                 </h3>
@@ -135,7 +126,7 @@ const StaysSection = () => {
           ))}
         </div>
 
-        <div data-reveal="fade" data-reveal-delay="750" className="mt-14 flex flex-col justify-center gap-4 sm:flex-row lg:mt-16">
+        <div data-reveal="fade" data-reveal-delay="750" className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-12 sm:flex-row lg:mt-16">
           <Link to="/stays" className="luxury-btn-outline text-center">
             {t("common_explore_stays")}
           </Link>

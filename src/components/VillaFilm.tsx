@@ -14,7 +14,7 @@ const VillaFilm = () => {
 
   return (
     <section className="mt-12" aria-labelledby="villa-film-heading">
-      <h2 id="villa-film-heading" className="luxury-heading text-3xl text-foreground mb-4">
+      <h2 id="villa-film-heading" className="luxury-heading mb-4 text-[clamp(1.65rem,6.5vw,1.875rem)] text-foreground md:text-3xl">
         Watch the villa film
       </h2>
       <div className="overflow-hidden rounded-2xl border border-border/30 bg-black">
@@ -46,7 +46,7 @@ const VillaFilm = () => {
               />
               <span className="absolute inset-0 bg-black/25 transition-colors group-hover:bg-black/35" />
               <span className="absolute inset-0 flex items-center justify-center">
-                <span className="flex items-center gap-3 rounded-full border border-white/30 bg-black/40 px-5 py-3 text-[11px] uppercase tracking-[0.22em] text-white">
+                <span className="flex items-center gap-2 rounded-full border border-white/30 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-[0.14em] text-white sm:gap-3 sm:px-5 sm:py-3 sm:text-[11px] sm:tracking-[0.22em]">
                   <Play size={14} />
                   Watch the villa film
                 </span>

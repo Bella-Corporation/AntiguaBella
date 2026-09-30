@@ -102,7 +102,7 @@ const Stays = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
+      <section className="relative h-[clamp(22rem,62svh,34rem)] overflow-hidden md:h-[80vh]">
         <img
           src={antiguaBellaStaysHero.src}
           srcSet={antiguaBellaStaysHero.srcSet}
@@ -123,21 +123,21 @@ const Stays = () => {
         />
 
         {/* Back nav */}
-        <div className="absolute top-0 left-0 right-0 z-20 py-6 md:py-8 px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-7xl flex items-center justify-between">
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 md:py-8 lg:px-12">
+          <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
             <Link
               to="/"
-              className="flex items-center gap-2 text-foreground/50 hover:text-foreground/80 transition-colors duration-300"
+              className="flex items-center gap-1.5 justify-self-start text-foreground/50 transition-colors duration-300 hover:text-foreground/80"
             >
               <ArrowLeft size={16} strokeWidth={1.5} />
-              <span className="luxury-subheading text-[10px] tracking-[0.22em]">{t("common_back")}</span>
+              <span className="text-[10px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.22em]">{t("common_back")}</span>
             </Link>
-            <a href="/" className="luxury-heading text-foreground/90 text-lg md:text-xl tracking-wide">
+            <a href="/" className="luxury-heading justify-self-center whitespace-nowrap text-[clamp(1.05rem,4.8vw,1.2rem)] tracking-wide text-foreground/90 md:text-xl">
               Antigua<span className="gold-text">Bella</span>
             </a>
             <Link
               to="/request"
-              className="luxury-subheading text-[10px] tracking-[0.22em] text-foreground/50 hover:text-foreground/80 transition-colors duration-300"
+              className="justify-self-end whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.12em] text-foreground/50 transition-colors duration-300 hover:text-foreground/80 sm:tracking-[0.22em]"
             >
               {t("common_request")}
             </Link>
@@ -145,7 +145,7 @@ const Stays = () => {
         </div>
 
         {/* Hero text */}
-        <div className="relative z-10 flex flex-col items-center justify-end h-full pb-16 md:pb-20 px-4 text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-end px-5 pb-10 text-center md:pb-20">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,7 +158,7 @@ const Stays = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="luxury-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-4"
+            className="luxury-heading mb-4 text-[clamp(2rem,8vw,2.6rem)] leading-[1.1] text-foreground md:text-5xl lg:text-6xl xl:text-7xl"
           >
             {t("stays_title_main")} <span className="italic">{t("stays_title_accent")}</span>
           </motion.h1>
@@ -181,8 +181,8 @@ const Stays = () => {
 
       {/* Highlights strip */}
       <section className="bg-card border-y border-border/20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 py-10 md:py-16 lg:py-20">
-          <div className="grid md:grid-cols-3 gap-10 md:gap-14">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-16 lg:px-12 lg:py-20">
+          <div className="grid gap-6 md:grid-cols-3 md:gap-14">
             {highlights.map((item, i) => (
               <motion.div
                 key={item.title}
@@ -207,7 +207,7 @@ const Stays = () => {
       <section className="py-12 md:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <div
-            className="mb-12 flex flex-wrap items-center gap-4 rounded-2xl border border-border/30 bg-card/50 px-5 py-4"
+            className="mb-8 flex flex-col gap-3 rounded-2xl border border-border/30 bg-card/50 px-4 py-4 sm:mb-12 sm:flex-row sm:flex-wrap sm:items-center sm:px-5"
             style={{ boxShadow: "var(--shadow-card)" }}
           >
             <span className="luxury-subheading text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
@@ -216,7 +216,7 @@ const Stays = () => {
             <select
               value={guestsFilter}
               onChange={(e) => setGuestsFilter(e.target.value)}
-              className="luxury-body rounded-lg border border-border/40 bg-background/50 px-4 py-2.5 text-[13px] text-foreground/80 focus:border-primary/40 focus:outline-none"
+              className="luxury-body w-full rounded-lg border border-border/40 bg-background/50 px-3 py-2.5 text-[13px] text-foreground/80 focus:border-primary/40 focus:outline-none sm:w-auto sm:px-4"
             >
               <option value="any">{t("common_any_guests")}</option>
               <option value="2">{t("common_guest_count", { count: 2 })}</option>
@@ -227,7 +227,7 @@ const Stays = () => {
             <select
               value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
-              className="luxury-body rounded-lg border border-border/40 bg-background/50 px-4 py-2.5 text-[13px] text-foreground/80 focus:border-primary/40 focus:outline-none"
+              className="luxury-body w-full rounded-lg border border-border/40 bg-background/50 px-3 py-2.5 text-[13px] text-foreground/80 focus:border-primary/40 focus:outline-none sm:w-auto sm:px-4"
             >
               <option value="any">{t("common_any")}</option>
               <option value="under2k">{t("common_under_amount", { amount: formatCurrencyAmount(priceThresholds.lower, currency) })}</option>
@@ -240,7 +240,7 @@ const Stays = () => {
               <option value="4k+">{t("common_amount_plus", { amount: formatCurrencyAmount(priceThresholds.upper, currency) })}</option>
             </select>
           </div>
-          <div className="space-y-14 md:space-y-24 lg:space-y-32">
+          <div className="space-y-12 md:space-y-24 lg:space-y-32">
             {filteredVillas.length === 0 ? (
               <p className="luxury-body text-muted-foreground/70 text-center py-12">
                 {t("stays_no_match")}
@@ -279,7 +279,7 @@ const Stays = () => {
                       height={731}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-[240px] sm:h-[320px] md:h-[480px] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03]"
+                      className="aspect-[3/2] h-auto w-full object-cover transition-transform duration-1400 ease-out hover:scale-[1.03] sm:aspect-auto sm:h-[320px] md:h-[480px]"
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"
@@ -294,7 +294,7 @@ const Stays = () => {
                     <p className="luxury-subheading text-primary mb-3 text-[10px]">
                       {getListingTagline(villa)}
                     </p>
-                    <h2 className="luxury-heading text-3xl md:text-4xl text-foreground mb-4">
+                    <h2 className="luxury-heading mb-4 text-[clamp(1.75rem,7vw,2rem)] text-foreground md:text-4xl">
                       {villa.title}
                     </h2>
                     <div className="luxury-divider mb-5 !mx-0" />
@@ -353,9 +353,9 @@ const Stays = () => {
       {/* Gallery strip */}
       <section className="bg-card py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <div data-reveal="slide-up" className="section-header mb-12">
+          <div data-reveal="slide-up" className="section-header">
             <p className="luxury-subheading text-primary mb-4">Gallery</p>
-            <h2 className="luxury-heading text-3xl md:text-4xl text-foreground mb-5">
+            <h2 className="luxury-heading mb-5 text-[clamp(1.75rem,7vw,2.15rem)] text-foreground md:text-4xl">
               A Glimpse of <span className="italic">Paradise</span>
             </h2>
             <div className="luxury-divider mb-6" />
@@ -397,7 +397,7 @@ const Stays = () => {
             custom={0}
           >
             <p className="luxury-subheading text-primary mb-4">Begin Your Journey</p>
-            <h2 className="luxury-heading text-3xl md:text-4xl text-foreground mb-5">
+            <h2 className="luxury-heading mb-5 text-[clamp(1.75rem,7vw,2.15rem)] text-foreground md:text-4xl">
               {t("stays_ready_main")} <span className="italic">{t("stays_ready_accent")}</span>
             </h2>
             <div className="luxury-divider mb-6" />

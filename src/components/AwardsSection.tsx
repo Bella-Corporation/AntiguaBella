@@ -12,18 +12,18 @@ const AwardsSection = () => {
   return (
     <section className="section-padding bg-card border-t border-border/10">
       <div data-reveal="slide-up" className="mx-auto max-w-7xl">
-        <div className="text-center mb-12">
+        <div className="mb-8 text-center md:mb-12">
           <p data-reveal="slide-up" data-reveal-delay="120" className="luxury-subheading text-primary/60 mb-6">Principles</p>
-          <h2 data-reveal="slide-up" data-reveal-delay="220" data-scroll-cue className="luxury-heading text-[1.7rem] md:text-[2.2rem] lg:text-[2.5rem] text-foreground leading-[1.2]">
+          <h2 data-reveal="slide-up" data-reveal-delay="220" className="luxury-heading text-[clamp(1.55rem,6.5vw,1.85rem)] leading-[1.2] text-foreground md:text-[2.2rem] lg:text-[2.5rem]">
             What Guides <span className="italic">AntiguaBella</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8 mb-14 max-w-5xl mx-auto">
+        <div className="mx-auto mb-10 grid max-w-5xl grid-cols-1 gap-7 sm:mb-14 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4 lg:gap-8">
           {accolades.map((award, i) => (
             <div key={award.name} data-reveal="slide-up" data-reveal-delay={String(380 + i * 90)} className="text-center">
-              <div className="w-14 h-14 mx-auto mb-6 rounded-full border border-border/30 flex items-center justify-center">
-                <award.icon className="w-6 h-6 text-primary/60" strokeWidth={1.2} />
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-border/30 md:mb-6 md:h-14 md:w-14">
+                <award.icon className="h-5 w-5 text-primary/60 md:h-6 md:w-6" strokeWidth={1.2} />
               </div>
               <h3 className="luxury-heading text-lg lg:text-xl text-foreground mb-2">
                 {award.name}
@@ -36,11 +36,11 @@ const AwardsSection = () => {
         </div>
 
         <div data-reveal="fade" data-reveal-delay="700" className="text-center">
-          <div className="luxury-divider mb-14" />
-          <p className="font-light text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] text-foreground/50 italic leading-[1.7] mb-8 max-w-xl mx-auto" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <div className="luxury-divider mb-8 md:mb-14" />
+          <p className="mx-auto mb-6 max-w-xl text-[1.05rem] font-light italic leading-[1.65] text-foreground/50 md:mb-8 md:text-[1.3rem] md:leading-[1.7] lg:text-[1.5rem]" style={{ fontFamily: "'Playfair Display', serif" }}>
             "Deliberate curation, calm communication, and concierge-led follow-through."
           </p>
-          <p className="luxury-subheading text-[10px] text-primary/40 mb-10">
+          <p className="luxury-subheading text-[10px] text-primary/40 mb-8 md:mb-10">
             — AntiguaBella v0.0.1
           </p>
           <Link to="/request" className="luxury-btn-bold inline-block">

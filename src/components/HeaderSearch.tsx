@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -37,6 +37,7 @@ const HeaderSearch = () => {
   const [filter, setFilter] = useState<"all" | ListingType>("all");
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
 
   const allResults = useMemo(() => all.map(toSearchItem), [all]);
 
@@ -72,12 +73,12 @@ const HeaderSearch = () => {
         {!open && (
           <motion.button
             key="search-icon"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.2 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22 }}
             onClick={() => setOpen(true)}
-            className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50 transition-all duration-300 hover:scale-110"
+            className="hero-glow-hover flex items-center justify-center h-11 w-11 md:h-8 md:w-8 text-foreground/50"
             aria-label="Open search"
           >
             <Search size={17} strokeWidth={1.4} />
@@ -91,20 +92,20 @@ const HeaderSearch = () => {
           <>
             {/* Backdrop */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 0.61, 0.36, 1] }}
               className="fixed inset-0 z-[60] bg-background/60 backdrop-blur-sm"
               onClick={() => setOpen(false)}
             />
 
             {/* Search container */}
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={reduceMotion ? false : { opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
+              transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.22, 0.61, 0.36, 1] }}
               className="fixed top-0 left-0 right-0 z-[70] px-4 pt-4 sm:px-6 sm:pt-5"
             >
               <div className="mx-auto max-w-xl">
@@ -162,10 +163,10 @@ const HeaderSearch = () => {
                 <AnimatePresence>
                   {showResults && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
+                      initial={reduceMotion ? false : { opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      exit={{ opacity: 0, height: reduceMotion ? "auto" : 0 }}
+                      transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeOut" }}
                       className="mt-2 overflow-hidden rounded-lg"
                       style={{
                         background: "hsl(0 0% 6%)",

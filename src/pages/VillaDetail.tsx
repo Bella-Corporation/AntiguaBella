@@ -7,7 +7,7 @@ import useScrollReveal from "@/hooks/useScrollReveal";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { getListingById } from "@/lib/listings";
+import { getVillaByRouteParam } from "@/lib/listings";
 import { getListingPriceLabel } from "@/lib/listingPresentation";
 import {
   createRequestPath,
@@ -51,8 +51,7 @@ const VillaDetail = () => {
 
   const villa = useMemo(() => {
     if (!villaId) return null;
-    const l = getListingById(villaId);
-    return l?.type === "villa" ? l : null;
+    return getVillaByRouteParam(villaId) ?? null;
   }, [villaId]);
 
   usePageMeta({
@@ -62,7 +61,7 @@ const VillaDetail = () => {
     description: villa
       ? (villa.shortDescription ?? villa.subtitle ?? "A private villa in Antigua, arranged by personal inquiry.")
       : "This villa is not available. Browse all private stays in Antigua on AntiguaBella.",
-    canonicalPath: villa ? `/stays/${villaId}` : undefined,
+    canonicalPath: villa ? `/stays/${villa.slug}` : undefined,
   });
 
   if (!villa) {
@@ -103,7 +102,7 @@ const VillaDetail = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero */}
-      <section className="relative h-[70vh] md:h-[78vh] overflow-hidden">
+      <section className="relative h-[clamp(24rem,64svh,36rem)] overflow-hidden md:h-[78vh]">
         {villa.id === "AntiguaBella" ? (
           <PropertyPicture
             photo={antiguaBellaPageHero}
@@ -112,7 +111,7 @@ const VillaDetail = () => {
             loading="eager"
             sizes="100vw"
             pictureClassName="absolute inset-0 block h-full w-full"
-            className="h-full w-full object-cover object-[22%_68%]"
+            className="h-full w-full object-cover object-[center_62%] md:object-[22%_68%]"
           />
         ) : villa.id === "AntiguaSoleil" ? (
           <PropertyPicture
@@ -122,7 +121,7 @@ const VillaDetail = () => {
             loading="eager"
             sizes="100vw"
             pictureClassName="absolute inset-0 block h-full w-full"
-            className="h-full w-full object-cover object-[center_70%]"
+            className="h-full w-full object-cover object-[center_58%] md:object-[center_70%]"
           />
         ) : (
           <img src={listingImage(villa)} alt={`${villa.title} villa`} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
@@ -135,22 +134,22 @@ const VillaDetail = () => {
         />
 
         {/* Back nav + title */}
-        <div className="absolute top-0 left-0 right-0 z-20 py-6 md:py-8 px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-7xl flex items-center justify-between">
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 md:py-8 lg:px-12">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
             <Link
               to="/stays"
-              className="flex items-center gap-2 text-foreground/50 hover:text-foreground/80 transition-colors duration-300"
+              className="flex items-center gap-1.5 text-foreground/50 transition-colors duration-300 hover:text-foreground/80"
             >
               <ArrowLeft size={16} strokeWidth={1.5} />
-              <span className="luxury-subheading text-[10px] tracking-[0.22em]">{t("common_back")}</span>
+              <span className="text-[10px] font-medium uppercase tracking-[0.12em] sm:tracking-[0.22em]">{t("common_back")}</span>
             </Link>
-            <Link to="/" className="luxury-heading text-foreground/90 text-lg md:text-xl tracking-wide">
+            <Link to="/" className="luxury-heading whitespace-nowrap text-[clamp(1.05rem,4.8vw,1.2rem)] tracking-wide text-foreground/90 md:text-xl">
               Antigua<span className="gold-text">Bella</span>
             </Link>
           </div>
         </div>
 
-        <div className="relative z-10 h-full flex items-end pb-14 md:pb-16 px-4 sm:px-6 lg:px-12">
+        <div className="relative z-10 flex h-full items-end px-4 pb-10 sm:px-6 md:pb-16 lg:px-12">
           <div className="mx-auto max-w-7xl w-full grid lg:grid-cols-[1.4fr_0.6fr] gap-8 items-end">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
@@ -158,7 +157,7 @@ const VillaDetail = () => {
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <p className="luxury-subheading text-primary/70 mb-3">{t("common_villa")}</p>
-              <h1 className="luxury-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">{villa.title}</h1>
+              <h1 className="luxury-heading mb-3 text-[clamp(2.15rem,9vw,2.75rem)] leading-[1.08] text-foreground md:mb-4 md:text-5xl lg:text-6xl">{villa.title}</h1>
               <p className="luxury-body text-foreground/70 text-sm max-w-2xl">{villaTagline(villa)}</p>
               {(villa.id === "AntiguaBella" || villa.id === "AntiguaSoleil") && (
                 <Link
@@ -193,7 +192,7 @@ const VillaDetail = () => {
       </section>
 
       {/* Content */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 py-14 md:py-20">
+      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-20 lg:px-12">
         {villa.id === "AntiguaBella" && (
           <>
             <VillaPhotoGallery
@@ -250,7 +249,7 @@ const VillaDetail = () => {
                     to={createRequestPath(
                       createRequestSelectionContextFromListing(villa)
                     )}
-                    className="luxury-btn-bold block text-center px-3 text-[10px] tracking-[0.16em] whitespace-nowrap"
+                    className="luxury-btn-bold block text-center"
                   >
                     {t("common_request_stay")}
                   </Link>

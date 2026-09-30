@@ -5,6 +5,7 @@ import {
   getListingsByType,
   getListingById,
   getListingBySlug,
+  getVillaByRouteParam,
 } from "./listings";
 
 describe("listings helpers", () => {
@@ -76,6 +77,17 @@ describe("listings helpers", () => {
     expect(charter).toBeDefined();
     expect(charter!.slug).toBe("private-coastline-day-charter");
     expect(charter!.id).toBe("coastline_private_day");
+  });
+
+  it("getVillaByRouteParam resolves id or slug regardless of capitalization", () => {
+    expect(getVillaByRouteParam("AntiguaBella")?.id).toBe("AntiguaBella");
+    expect(getVillaByRouteParam("antiguabella")?.id).toBe("AntiguaBella");
+    expect(getVillaByRouteParam("ANTIGUABELLA")?.id).toBe("AntiguaBella");
+    expect(getVillaByRouteParam("AntiguaSoleil")?.id).toBe("AntiguaSoleil");
+    expect(getVillaByRouteParam("antiguasoleil")?.slug).toBe("antiguasoleil");
+    expect(getVillaByRouteParam("  AntiguaSoleil  ")?.id).toBe("AntiguaSoleil");
+    expect(getVillaByRouteParam("ocean_reef")).toBeUndefined();
+    expect(getVillaByRouteParam("")).toBeUndefined();
   });
 
   it("getListingById returns undefined for unknown id", () => {

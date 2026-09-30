@@ -23,7 +23,6 @@ const ChartersSection = () => {
             <h2
               data-reveal="slide-up"
               data-reveal-delay="220"
-              data-scroll-cue
               className="luxury-heading text-3xl md:text-4xl lg:text-[2.75rem] text-foreground leading-[1.18] mb-7"
             >
               {t("charters_title_main")}

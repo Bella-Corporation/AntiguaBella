@@ -353,18 +353,19 @@ const PaymentPage = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="flex items-center justify-center py-8 px-6 relative">
+      <header className="brand-header">
         <Link
           to="/request"
-          className="absolute left-6 lg:left-12 text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.2em] font-sans"
+          className="brand-header-back"
         >
           ← Back
         </Link>
-        <Link to="/" className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]">
-          <span className="text-foreground/90">
+        <Link to="/" className="brand-header-mark">
+          <span>
             Antigua<span className="gold-text">Bella</span>
           </span>
         </Link>
+        <span aria-hidden="true" />
       </header>
 
       <main className="flex justify-center px-4 pb-24 pt-2">

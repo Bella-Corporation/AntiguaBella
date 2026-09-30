@@ -77,12 +77,12 @@ const VillaPhotoGallery = ({
             photo={item}
             alt=""
             loading={eager ? "eager" : "lazy"}
-            sizes={eager ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+            sizes={eager ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 639px) 100vw, (max-width: 768px) 50vw, 33vw"}
             pictureClassName="block h-full w-full"
             className="h-full w-full object-cover object-center"
           />
         </span>
-        <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">
+        <span className="mt-2 block text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
           {item.caption}
         </span>
       </button>
@@ -96,7 +96,7 @@ const VillaPhotoGallery = ({
           <p id="villa-gallery-heading" className="luxury-subheading text-primary mb-2">
             {eyebrow}
           </p>
-          <h2 className="luxury-heading text-3xl text-foreground">{heading}</h2>
+          <h2 className="luxury-heading text-[clamp(1.65rem,6.5vw,1.875rem)] leading-[1.15] text-foreground md:text-3xl">{heading}</h2>
         </div>
         {presentation === "story" && (
           <button
@@ -113,11 +113,11 @@ const VillaPhotoGallery = ({
         <>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="md:col-span-2">{storyPhotos[0] ? tile(storyPhotos[0], true) : null}</div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1">
               {storyPhotos.slice(1, 3).map((item) => tile(item))}
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {storyPhotos.slice(3).map((item) => tile(item))}
           </div>
         </>
@@ -139,7 +139,7 @@ const VillaPhotoGallery = ({
                 className="h-full w-full object-contain sm:object-cover"
               />
             </span>
-            <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">
+            <span className="mt-2 block text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
               {item.caption}
             </span>
           </button>

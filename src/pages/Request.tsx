@@ -229,18 +229,19 @@ const RequestPage = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="flex items-center justify-center py-8 px-6 relative">
+      <header className="brand-header">
         <Link
           to="/"
-          className="absolute left-6 lg:left-12 text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.2em] font-sans"
+          className="brand-header-back"
         >
           ← {t("common_back")}
         </Link>
-        <Link to="/" className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]">
-          <span className="text-foreground/90">
+        <Link to="/" className="brand-header-mark">
+          <span>
             Antigua<span className="gold-text">Bella</span>
           </span>
         </Link>
+        <span aria-hidden="true" />
       </header>
 
       <main className="flex justify-center px-4 pb-24 pt-2">
@@ -251,16 +252,16 @@ const RequestPage = () => {
           className="w-full max-w-2xl"
         >
           {/* Page heading */}
-          <div className="text-center mb-10">
+          <div className="mb-8 text-center md:mb-10">
             <p className="luxury-subheading text-primary/60 mb-3">Private Villa Inquiry</p>
-            <h1 className="luxury-heading text-3xl md:text-4xl text-foreground mb-5">
+            <h1 className="luxury-heading mb-5 text-[clamp(1.85rem,7.5vw,2.25rem)] text-foreground md:text-4xl">
               Reserve Your <span className="italic">Stay</span>
             </h1>
             <div className="luxury-divider" />
           </div>
 
           {/* ── Villa selector ── */}
-          <div className="grid grid-cols-3 gap-3 mb-8">
+          <div className="mb-6 grid grid-cols-3 gap-2 sm:mb-8 sm:gap-3">
             {VILLAS.map((villa) => {
               const isSelected = selectedVilla === villa.id;
               return (
@@ -320,15 +321,15 @@ const RequestPage = () => {
                   </div>
 
                   {/* Info strip */}
-                  <div className="px-3 py-2.5 bg-card border-t border-border/20">
+                  <div className="border-t border-border/20 bg-card px-2 py-2 sm:px-3 sm:py-2.5">
                     <p
-                      className={`luxury-heading text-[13px] leading-tight mb-0.5 transition-colors duration-300 ${
+                      className={`luxury-heading mb-0.5 text-[11px] leading-tight transition-colors duration-300 sm:text-[13px] ${
                         isSelected ? "text-primary" : "text-foreground/80"
                       }`}
                     >
                       {villa.label}
                     </p>
-                    <p className="luxury-subheading text-[9px] text-muted-foreground/50 tracking-[0.1em]">
+                    <p className="text-[9px] uppercase leading-snug tracking-[0.04em] text-muted-foreground/55 sm:text-[10px] sm:tracking-[0.08em]">
                       {villa.beds} BR · UP TO {villa.maxGuests}
                     </p>
                   </div>
@@ -343,7 +344,7 @@ const RequestPage = () => {
             style={{ boxShadow: "var(--shadow-card)" }}
           >
             {/* Step 1 — Dates */}
-            <div className="p-6 lg:p-8">
+            <div className="p-5 sm:p-6 lg:p-8">
               <p className="luxury-subheading text-primary/60 mb-3">Dates</p>
               <DateRangePicker
                 checkIn={checkIn}
@@ -354,10 +355,10 @@ const RequestPage = () => {
               />
             </div>
 
-            <div className="mx-6 lg:mx-8 border-t border-border/20" />
+            <div className="mx-5 border-t border-border/20 sm:mx-6 lg:mx-8" />
 
             {/* Step 2 — Guests */}
-            <div className="p-6 lg:p-8">
+            <div className="p-5 sm:p-6 lg:p-8">
               <p className="luxury-subheading text-primary/60 mb-3">Guests</p>
               <GuestSelector
                 value={guests}
@@ -422,7 +423,7 @@ const RequestPage = () => {
             </AnimatePresence>
 
             {/* Step 4 — Button */}
-            <div className="px-6 pb-6 lg:px-8 lg:pb-8">
+            <div className="px-5 pb-5 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
               <motion.button
                 type="button"
                 whileHover={submitReady && !submitting ? { scale: 1.01 } : {}}
@@ -430,8 +431,7 @@ const RequestPage = () => {
                 disabled={!submitReady || submitting}
                 onClick={handleSubmit}
                 className={`
-                  w-full py-4 rounded-lg text-[11px] uppercase tracking-[0.3em] font-sans font-medium
-                  border transition-all duration-500
+                  min-h-11 w-full rounded-lg border py-3.5 text-[10px] font-sans font-medium uppercase tracking-[0.14em] transition-all duration-500 sm:text-[11px] sm:tracking-[0.22em] md:tracking-[0.3em]
                   ${
                     submitReady && !submitting
                       ? "border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:shadow-[0_0_36px_hsl(var(--primary)/0.24)] cursor-pointer"

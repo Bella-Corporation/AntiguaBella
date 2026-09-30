@@ -21,3 +21,14 @@ export function getListingById(id: string): BaseListing | undefined {
   return listings.find((l) => l.id === id);
 }
 
+/** Villa pages accept the id or the slug, in any capitalization. */
+export function getVillaByRouteParam(param: string): BaseListing | undefined {
+  const key = param.trim().toLowerCase();
+  if (!key) return undefined;
+  return listings.find(
+    (listing) =>
+      listing.type === "villa" &&
+      (listing.id.toLowerCase() === key || listing.slug.toLowerCase() === key),
+  );
+}
+

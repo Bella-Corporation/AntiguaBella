@@ -97,17 +97,17 @@ const Auth = () => {
         transition={{ duration: 0.6 }}
         className="w-full max-w-md"
       >
-        <div className="text-center mb-10">
-          <a href="/" className="luxury-heading text-[1.6rem] text-foreground/90">
+        <div className="mb-8 text-center">
+          <a href="/" className="luxury-heading text-[clamp(1.35rem,6vw,1.6rem)] text-foreground/90">
             Antigua<span className="gold-text">Bella</span>
           </a>
         </div>
 
-        <div className="bg-card rounded-2xl p-8 border border-foreground/5">
+        <div className="rounded-2xl border border-foreground/5 bg-card p-5 sm:p-8">
           <div className="flex gap-4 mb-8">
             <button
               onClick={() => { setIsLogin(true); setIsForgot(false); setError(""); setMessage(""); }}
-              className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
+              className={`flex-1 pb-2 font-aguero text-[11px] uppercase tracking-[0.14em] border-b-2 transition-colors duration-300 sm:text-[12px] sm:tracking-[0.2em] ${
                 isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >
@@ -115,7 +115,7 @@ const Auth = () => {
             </button>
             <button
               onClick={() => { setIsLogin(false); setIsForgot(false); setError(""); setMessage(""); }}
-              className={`flex-1 pb-2 font-aguero text-[12px] tracking-[0.2em] uppercase border-b-2 transition-colors duration-300 ${
+              className={`flex-1 pb-2 font-aguero text-[11px] uppercase tracking-[0.14em] border-b-2 transition-colors duration-300 sm:text-[12px] sm:tracking-[0.2em] ${
                 !isLogin && !isForgot ? "border-primary text-foreground/90" : "border-transparent text-foreground/30"
               }`}
             >

@@ -53,19 +53,20 @@ const Bag = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header className="flex items-center justify-center py-8 px-6 relative">
+      <header className="brand-header">
         <Link
           to="/"
-          className="absolute left-6 lg:left-12 flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+          className="brand-header-back inline-flex items-center gap-2"
         >
           <ArrowLeft size={16} strokeWidth={1.5} />
-          <span className="text-xs uppercase tracking-[0.2em] font-sans">Back</span>
+          <span>Back</span>
         </Link>
-        <Link to="/" className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]">
-          <span className="text-foreground/90">
+        <Link to="/" className="brand-header-mark">
+          <span>
             Antigua<span className="gold-text">Bella</span>
           </span>
         </Link>
+        <span aria-hidden="true" />
       </header>
 
       <main className="mx-auto max-w-4xl px-4 sm:px-6 pb-32">
@@ -74,10 +75,10 @@ const Bag = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-8 text-center md:mb-12"
         >
           <p className="luxury-subheading text-primary mb-4">Saved Selections</p>
-          <h1 className="luxury-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-3">
+          <h1 className="luxury-heading mb-3 text-[clamp(1.85rem,8vw,2.4rem)] text-foreground md:text-4xl lg:text-5xl">
             Your Curated <span className="italic">Journey</span>
           </h1>
           <div className="luxury-divider mb-4" />
@@ -148,7 +149,7 @@ const Bag = () => {
                           >
                             <div className="flex flex-col sm:flex-row">
                               {/* Image */}
-                              <div className="relative sm:w-40 md:w-48 h-40 sm:h-auto flex-shrink-0 overflow-hidden">
+                              <div className="relative aspect-[16/9] flex-shrink-0 overflow-hidden sm:aspect-auto sm:h-auto sm:w-40 sm:self-stretch md:w-48">
                                 <img
                                   src={item.image}
                                   alt={item.name}
@@ -158,7 +159,7 @@ const Bag = () => {
                               </div>
 
                               {/* Content */}
-                              <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between min-h-[140px]">
+                              <div className="flex min-h-0 flex-1 flex-col justify-between p-4 sm:min-h-[140px] sm:p-6">
                                 <div>
                                   <div className="flex items-start justify-between gap-3 mb-2">
                                     <div>

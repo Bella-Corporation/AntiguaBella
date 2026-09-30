@@ -130,18 +130,19 @@ const RequestConfirmed = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="flex items-center justify-center py-8 px-6 relative">
+      <header className="brand-header">
         <Link
           to="/"
-          className="absolute left-6 lg:left-12 text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.2em] font-sans"
+          className="brand-header-back"
         >
           ← Home
         </Link>
-        <Link to="/" className="luxury-heading tracking-wide text-[1.6rem] lg:text-[2rem]">
-          <span className="text-foreground/90">
+        <Link to="/" className="brand-header-mark">
+          <span>
             Antigua<span className="gold-text">Bella</span>
           </span>
         </Link>
+        <span aria-hidden="true" />
       </header>
 
       <main className="flex justify-center px-4 pb-24 pt-2">
@@ -267,13 +268,13 @@ const RequestConfirmed = () => {
             <div className="border-t border-border/20 px-6 py-5 lg:px-8 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/"
-                className="flex-1 text-center py-3.5 rounded-lg text-[11px] uppercase tracking-[0.3em] font-sans font-medium border border-border/30 text-muted-foreground/50 hover:text-foreground/70 hover:border-border/60 transition-all duration-300"
+                className="flex-1 rounded-lg border border-border/30 py-3.5 text-center text-[10px] font-sans font-medium uppercase tracking-[0.14em] text-muted-foreground/50 transition-all duration-300 hover:border-border/60 hover:text-foreground/70 sm:text-[11px] sm:tracking-[0.22em]"
               >
                 Return Home
               </Link>
               <Link
                 to="/request"
-                className="flex-1 text-center py-3.5 rounded-lg text-[11px] uppercase tracking-[0.3em] font-sans font-medium border border-primary/30 bg-primary/8 text-primary hover:bg-primary/15 hover:shadow-[0_0_24px_hsl(var(--primary)/0.18)] transition-all duration-300"
+                className="flex-1 rounded-lg border border-primary/30 bg-primary/8 py-3.5 text-center text-[10px] font-sans font-medium uppercase tracking-[0.12em] text-primary transition-all duration-300 hover:bg-primary/15 hover:shadow-[0_0_24px_hsl(var(--primary)/0.18)] sm:text-[11px] sm:tracking-[0.18em]"
               >
                 {bookingConfirmed ? "Book Another Stay" : "Submit Another Inquiry"}
               </Link>

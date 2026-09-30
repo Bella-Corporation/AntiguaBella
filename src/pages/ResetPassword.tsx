@@ -52,7 +52,7 @@ const ResetPassword = () => {
         className="w-full max-w-md"
       >
         <div className="text-center mb-10">
-          <a href="/" className="luxury-heading text-[1.6rem] text-foreground/90">
+          <a href="/" className="luxury-heading text-[clamp(1.35rem,6vw,1.6rem)] text-foreground/90">
             Antigua<span className="gold-text">Bella</span>
           </a>
         </div>

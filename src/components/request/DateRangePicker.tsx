@@ -149,7 +149,7 @@ export default function DateRangePicker({
             const showStartHalf = hasVisibleRangeFromStart(day);
 
             return (
-              <div key={day.toISOString()} className="relative h-9 flex items-center justify-center">
+              <div key={day.toISOString()} className="relative flex aspect-square items-center justify-center">
                 {/*
                   Capsule band — positional clipping, no border-radius tricks.
                   h-7 + top-1/2 -translate-y-1/2 pins the band exactly behind the circles.
@@ -192,7 +192,7 @@ export default function DateRangePicker({
                       : {}),
                   }}
                   className={[
-                    "relative z-10 w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-sans transition-all duration-150 select-none",
+                    "relative z-10 flex aspect-square h-auto w-[88%] max-w-8 items-center justify-center rounded-full text-[11px] font-sans transition-all duration-150 select-none sm:text-[12px]",
                     isDisabled ? "text-muted-foreground/20 cursor-not-allowed" : "cursor-pointer",
                     isStart || isEnd ? "font-medium" : "",
                     !isStart && !isEnd && !isDisabled && !isHovered
@@ -257,11 +257,11 @@ export default function DateRangePicker({
       {/* Calendar dropdown */}
       {isOpen && (
         <div
-          className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl border border-border/40 bg-card p-5 shadow-2xl overflow-hidden"
+          className="relative z-50 mt-2 overflow-hidden rounded-2xl border border-border/40 bg-card p-3 shadow-2xl sm:absolute sm:left-0 sm:right-0 sm:top-full sm:p-5"
           style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.55)" }}
         >
           {/* Month navigation */}
-          <div className="flex items-start gap-4">
+          <div className="flex items-start gap-1 sm:gap-4">
             <button
               type="button"
               onClick={() => setLeftMonth(subMonths(leftMonth, 1))}
@@ -271,7 +271,7 @@ export default function DateRangePicker({
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <div className="flex flex-1 gap-6 overflow-hidden">
+            <div className="flex min-w-0 flex-1 gap-6 overflow-hidden">
               {renderMonth(leftMonth, "left")}
               {renderMonth(rightMonth, "right")}
             </div>

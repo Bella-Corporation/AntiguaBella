@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -7,6 +7,28 @@ import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
 import { antiguaBellaHero, heroLoopSrc } from "@/data/antiguabellaMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+const menuEase = [0.22, 0.61, 0.36, 1] as const;
+
+const menuItemMotion = (index: number, reduceMotion: boolean | null) => {
+  if (reduceMotion) {
+    return {
+      initial: false as const,
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0 },
+    };
+  }
+
+  return {
+    initial: { opacity: 0, y: 6 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: 0.48,
+      delay: 0.06 + index * 0.04,
+      ease: menuEase,
+    },
+  };
+};
 
 const HeroSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,7 +48,12 @@ const HeroSection = () => {
   const { t } = useLanguage();
   const [exploreCompact, setExploreCompact] = useState(false);
   const [exploreHidden, setExploreHidden] = useState(false);
-  const [exploreVisible, setExploreVisible] = useState(false);
+  const [exploreVisible, setExploreVisible] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const reduceMotion = useReducedMotion();
   const heroNavLinks = [
     { label: "AntiguaBella", route: "/stays/antiguabella" },
     { label: "AntiguaSoleil", route: "/stays/antiguasoleil" },
@@ -37,9 +64,10 @@ const HeroSection = () => {
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => setExploreVisible(true), 2000);
+    if (exploreVisible) return;
+    const timer = setTimeout(() => setExploreVisible(true), 900);
     return () => clearTimeout(timer);
-  }, []);
+  }, [exploreVisible]);
 
   useEffect(() => {
     if (preferStill) return;
@@ -99,7 +127,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-[78svh] w-full overflow-hidden md:h-screen">
+    <section ref={sectionRef} className="relative h-[clamp(22rem,62svh,32rem)] w-full overflow-hidden md:h-screen">
       {/* Still on phones and reduced motion. Desktop video stays out of the mobile document. */}
       <div className="absolute inset-0">
         <img
@@ -111,7 +139,7 @@ const HeroSection = () => {
           height={antiguaBellaHero.height}
           fetchPriority="high"
           decoding="async"
-          className="h-full w-full object-cover object-[28%_center] md:object-center"
+          className="h-full w-full object-cover object-[26%_center] md:object-center"
         />
         {!preferStill && (
           <video
@@ -124,18 +152,12 @@ const HeroSection = () => {
             aria-hidden="true"
             tabIndex={-1}
             onPlaying={() => setVideoStarted(true)}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            className={`hero-video absolute inset-0 h-full w-full object-cover ${
               videoStarted ? "opacity-100" : "opacity-0"
             }`}
           />
         )}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, hsla(0,0%,0%,0.38) 0%, hsla(41,20%,8%,0.32) 50%, hsla(0,0%,0%,0.42) 100%)",
-          }}
-        />
+        <div className="hero-veil absolute inset-0" />
       </div>
 
       {!preferStill && (
@@ -143,7 +165,7 @@ const HeroSection = () => {
           type="button"
           onClick={toggleBackground}
           aria-pressed={userPaused}
-          className="absolute bottom-28 left-4 z-30 rounded-md border border-foreground/20 bg-background/45 px-4 py-2 font-aguero text-[11px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm md:bottom-32 md:left-8"
+          className="hero-glow-hover absolute bottom-28 left-4 z-30 rounded-md border border-foreground/20 bg-background/45 px-4 py-2 font-aguero text-[11px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm md:bottom-32 md:left-8"
         >
           {userPaused ? "Play background" : "Pause background"}
         </button>
@@ -151,35 +173,34 @@ const HeroSection = () => {
 
       <div className="relative z-10 flex h-full flex-col">
         <header
-          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+          className={`hero-bar fixed top-0 left-0 right-0 z-50 ${
             scrolled
-              ? "bg-background/95 backdrop-blur-md py-3 md:py-4"
-              : "bg-transparent py-5 md:py-6 lg:py-8"
+              ? "is-scrolled bg-background/95 backdrop-blur-md"
+              : "is-open bg-transparent"
           }`}
-          style={{ paddingTop: scrolled ? undefined : "max(env(safe-area-inset-top, 0px), 2rem)" }}
         >
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12 min-h-[44px] md:min-h-[40px]">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 px-4 sm:px-6 lg:px-12 min-h-11">
             {/* Request — canonical inquiry path, visible on all breakpoints */}
-            <div className="flex items-center h-8 min-w-[44px] md:min-w-[80px]">
+            <div className="flex min-w-0 items-center">
               <Link
                 to="/request"
-                className="hero-glow-hover font-aguero text-[11px] tracking-[0.22em] uppercase text-foreground/50 transition-all duration-300 leading-none flex items-center h-8 px-1"
+                className="hero-glow-hover flex h-11 items-center whitespace-nowrap px-0.5 font-aguero text-[10px] uppercase leading-none tracking-[0.04em] text-foreground/50 transition-all duration-300 min-[380px]:tracking-[0.1em] sm:px-1 sm:text-[11px] sm:tracking-[0.18em] md:tracking-[0.22em]"
               >
                 {t("common_request")}
               </Link>
             </div>
 
-            <a href="#" className="absolute left-1/2 -translate-x-1/2 luxury-heading tracking-wide flex items-center">
-              <span className={`transition-all duration-700 ${
-                scrolled ? "text-[1.25rem] md:text-[1.4rem] lg:text-[1.6rem]" : "text-[1.4rem] md:text-[1.6rem] lg:text-[2rem]"
+            <a href="#" className="luxury-heading flex items-center justify-self-center whitespace-nowrap tracking-wide">
+              <span className={`text-foreground/90 transition-all duration-700 ${
+                scrolled
+                  ? "text-[0.95rem] min-[380px]:text-[1.02rem] sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.6rem]"
+                  : "text-[1rem] min-[380px]:text-[1.12rem] sm:text-[1.35rem] md:text-[1.6rem] lg:text-[2rem]"
               }`}>
-                <span className="text-foreground/90">
-                  Antigua<span className="gold-text">Bella</span>
-                </span>
+                Antigua<span className="gold-text">Bella</span>
               </span>
             </a>
 
-            <div className="flex items-center justify-end gap-2 sm:gap-4" style={{ minWidth: isMobile ? '44px' : '80px' }}>
+            <div className="flex items-center justify-end gap-1 sm:gap-4">
               {/* Desktop-only icons */}
               {!isMobile && (
                 <>
@@ -223,52 +244,58 @@ const HeroSection = () => {
         <AnimatePresence>
           {menuOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: reduceMotion ? 0 : 0.4, ease: "easeInOut" }}
               className="fixed inset-0 bg-background/30 backdrop-blur-xl z-40"
             >
-              <nav className="flex flex-col items-center gap-6 h-full justify-center">
-                {/* Account — always visible at top of menu */}
-                <Link
-                  to="/account"
-                  onClick={() => setMenuOpen(false)}
-                  className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                >
-                  {t("common_account")}
-                </Link>
-                <div className="w-8 border-t border-foreground/10" />
-                {/* Mobile-only action links */}
-                {isMobile && (
+              <nav className="flex h-full flex-col items-center justify-center gap-1 px-6 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(4.5rem,env(safe-area-inset-top))]">
+                <motion.div {...menuItemMotion(0, reduceMotion)}>
                   <Link
-                    to="/request"
+                    to="/account"
                     onClick={() => setMenuOpen(false)}
-                    className="hero-glow-hover flex items-center gap-3 font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                    className="hero-glow-hover inline-flex min-h-11 items-center px-4 font-aguero text-[13px] uppercase tracking-[0.18em] text-foreground/50 transition-colors duration-400 hover:text-foreground/80 sm:tracking-[0.25em]"
                   >
-                    <ShoppingBag size={15} strokeWidth={1.4} />
-                    {t("common_request")}
+                    {t("common_account")}
                   </Link>
-                )}
-                {heroNavLinks.map((link) => {
-                  return link.route ? (
+                </motion.div>
+                <motion.div {...menuItemMotion(1, reduceMotion)} className="w-8 border-t border-foreground/10" />
+                {isMobile && (
+                  <motion.div {...menuItemMotion(2, reduceMotion)}>
                     <Link
-                      key={link.route}
-                      to={link.route}
+                      to="/request"
                       onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
+                      className="hero-glow-hover inline-flex min-h-11 items-center gap-3 px-4 font-aguero text-[13px] uppercase tracking-[0.18em] text-foreground/50 transition-colors duration-400 hover:text-foreground/80 sm:tracking-[0.25em]"
                     >
-                      {link.label}
+                      <ShoppingBag size={15} strokeWidth={1.4} />
+                      {t("common_request")}
                     </Link>
+                  </motion.div>
+                )}
+                {heroNavLinks.map((link, index) => {
+                  const itemIndex = (isMobile ? 3 : 2) + index;
+                  const className = "hero-glow-hover inline-flex min-h-11 items-center px-4 font-aguero text-[13px] uppercase tracking-[0.18em] text-foreground/50 transition-colors duration-400 hover:text-foreground/80 sm:tracking-[0.25em]";
+                  return link.route ? (
+                    <motion.div key={link.route} {...menuItemMotion(itemIndex, reduceMotion)}>
+                      <Link
+                        to={link.route}
+                        onClick={() => setMenuOpen(false)}
+                        className={className}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
                   ) : (
-                    <a
-                      key={link.label}
-                      href={`#${link.label.toLowerCase()}`}
-                      onClick={() => setMenuOpen(false)}
-                      className="hero-glow-hover font-aguero text-[13px] tracking-[0.25em] uppercase text-foreground/50 hover:text-foreground/80 transition-colors duration-400"
-                    >
-                      {link.label}
-                    </a>
+                    <motion.div key={link.label} {...menuItemMotion(itemIndex, reduceMotion)}>
+                      <a
+                        href={`#${link.label.toLowerCase()}`}
+                        onClick={() => setMenuOpen(false)}
+                        className={className}
+                      >
+                        {link.label}
+                      </a>
+                    </motion.div>
                   );
                 })}
               </nav>
@@ -281,25 +308,15 @@ const HeroSection = () => {
 
       {/* Fixed Explore CTA — scroll-driven visibility is functional UI, not reveal animation */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
-        style={{
-          paddingBottom: "max(env(safe-area-inset-bottom, 0px), 2.5rem)",
-          opacity: !exploreVisible ? 0 : (exploreHidden || menuOpen) ? 0 : 1,
-          transform: !exploreVisible ? "translateY(20px) scale(0.85)" : (exploreHidden || menuOpen) ? "translateY(20px) scale(0.85)" : "translateY(0) scale(1)",
-          transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
-        }}
+        className={`explore-cta absolute inset-x-0 bottom-0 z-30 flex justify-center pointer-events-none md:fixed md:z-50 ${
+          exploreVisible && !exploreHidden && !menuOpen ? "is-shown" : ""
+        }`}
       >
         <a
           href="#about"
-          className={`hero-glow-hover pointer-events-auto font-luxury text-[13px] tracking-[0.3em] uppercase text-foreground/70 border-0 rounded-md backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 ${
-            exploreCompact ? "py-2.5 px-10" : "py-3.5 px-14"
+          className={`explore-pill hero-glow-hover pointer-events-auto rounded-md border-0 font-luxury text-[11px] uppercase tracking-[0.18em] text-foreground/90 backdrop-blur-sm transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary/40 focus-visible:outline-offset-2 md:text-[13px] md:tracking-[0.3em] md:text-foreground/70 ${
+            exploreCompact ? "is-compact px-7 py-2.5 md:px-10" : "px-8 py-3 md:px-14 md:py-3.5"
           }`}
-          style={{
-            background: exploreCompact
-              ? "hsla(41, 12%, 50%, 0.06)"
-              : "hsla(41, 12%, 50%, 0.08)",
-            boxShadow: "inset 0 0.5px 0 0 hsla(38, 15%, 92%, 0.06)",
-          }}
         >
           Explore
         </a>

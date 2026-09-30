@@ -61,12 +61,12 @@ const ActionListingCard = ({
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          className="w-full h-[240px] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03]"
+          className="w-full aspect-[3/2] object-cover transition-transform duration-1400 ease-out hover:scale-[1.03] sm:aspect-auto sm:h-[240px]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
       </div>
 
-      <div className="p-6 lg:p-7">
+      <div className="p-5 sm:p-6 lg:p-7">
         <p className="luxury-subheading text-primary/60 mb-3">{eyebrow}</p>
         <h3 className="luxury-heading text-xl text-foreground mb-3">
           {listing.title}
