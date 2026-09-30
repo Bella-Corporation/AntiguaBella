@@ -398,10 +398,23 @@
     transition: opacity var(--motion-cinema) var(--ease-fade);
   }
 
+  /* Mobile: match the visible browser viewport, including Chrome's moving bars.
+     svh fills the initial view if dvh is unavailable. Desktop stays on 100vh. */
+  .hero-stage {
+    height: 100svh;
+    height: 100dvh;
+  }
+
+  @media (min-width: 768px) {
+    .hero-stage {
+      height: 100vh;
+    }
+  }
+
   .explore-cta {
     opacity: 0;
     transform: translateY(8px);
-    padding-bottom: max(env(safe-area-inset-bottom, 0px), 1.15rem);
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 1.75rem);
     transition:
       opacity var(--motion-enter) var(--ease-luxury),
       transform var(--motion-enter) var(--ease-luxury);

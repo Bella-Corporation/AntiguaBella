@@ -135,7 +135,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-[clamp(22rem,62svh,32rem)] w-full overflow-hidden md:h-screen">
+    <section ref={sectionRef} className="hero-stage relative w-full overflow-hidden">
       {/* Still shows immediately. The video covers it only after playback has started. */}
       <div className="absolute inset-0">
         <img
@@ -162,7 +162,7 @@ const HeroSection = () => {
             aria-hidden="true"
             tabIndex={-1}
             onPlaying={() => setVideoStarted(true)}
-            className={`hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-[26%_center] md:object-center ${
+            className={`hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-center ${
               videoStarted ? "opacity-100" : "opacity-0"
             }`}
           />
