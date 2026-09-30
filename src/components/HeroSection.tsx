@@ -36,12 +36,11 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  // Decide before paint so a phone or reduced-motion visit never creates the video.
+  // Reduced motion keeps the still. Phones get the same muted hero video as desktop.
   const [preferStill] = useState(
     () =>
       typeof window !== "undefined" &&
-      (window.innerWidth < 768 ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const [videoStarted, setVideoStarted] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -77,7 +76,16 @@ const HeroSection = () => {
 
     const tryPlay = () => {
       if (userPaused) return;
-      video.play().catch(() => setVideoStarted(false));
+      video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      const promise = video.play();
+      if (!promise) return;
+      promise.catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setVideoStarted(false);
+      });
     };
 
     const observer = new IntersectionObserver(
@@ -128,7 +136,7 @@ const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative h-[clamp(22rem,62svh,32rem)] w-full overflow-hidden md:h-screen">
-      {/* Still on phones and reduced motion. Desktop video stays out of the mobile document. */}
+      {/* Still shows immediately. The video covers it only after playback has started. */}
       <div className="absolute inset-0">
         <img
           src={antiguaBellaHero.src}
@@ -145,14 +153,16 @@ const HeroSection = () => {
           <video
             ref={videoRef}
             src={heroLoopSrc}
+            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            poster={antiguaBellaHero.src}
             aria-hidden="true"
             tabIndex={-1}
             onPlaying={() => setVideoStarted(true)}
-            className={`hero-video absolute inset-0 h-full w-full object-cover ${
+            className={`hero-video pointer-events-none absolute inset-0 h-full w-full object-cover object-[26%_center] md:object-center ${
               videoStarted ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -165,7 +175,7 @@ const HeroSection = () => {
           type="button"
           onClick={toggleBackground}
           aria-pressed={userPaused}
-          className="hero-glow-hover absolute bottom-28 left-4 z-30 rounded-md border border-foreground/20 bg-background/45 px-4 py-2 font-aguero text-[11px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm md:bottom-32 md:left-8"
+          className="hero-glow-hover absolute bottom-28 left-4 z-30 hidden rounded-md border border-foreground/20 bg-background/45 px-4 py-2 font-aguero text-[11px] uppercase tracking-[0.18em] text-foreground/80 backdrop-blur-sm md:bottom-32 md:left-8 md:block"
         >
           {userPaused ? "Play background" : "Pause background"}
         </button>
