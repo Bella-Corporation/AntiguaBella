@@ -510,6 +510,146 @@
     .stay-card:focus-visible .stay-card-arrow {
       transform: translateX(4px);
     }
+
+    .stay-deck-card .stay-card-action {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ── Residence deck ───────────────────────── */
+  .stay-deck-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .stay-deck-scroller {
+    --stay-card-w: 88vw;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding-inline: calc((100% - var(--stay-card-w)) / 2);
+    padding-block: 1.15rem 1.25rem;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    cursor: grab;
+  }
+
+  .stay-deck-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stay-deck-scroller.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+
+  .stay-deck-card {
+    flex: 0 0 var(--stay-card-w);
+    width: var(--stay-card-w);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .stay-deck-card + .stay-deck-card {
+    margin-left: -0.75rem;
+  }
+
+  .stay-deck-scroller.is-dragging .stay-deck-card {
+    cursor: grabbing;
+  }
+
+  .stay-deck-shade {
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      hsl(0 0% 4% / 0.62) 0%,
+      hsl(0 0% 4% / 0.12) 26%,
+      transparent 52%
+    );
+  }
+
+  .stay-deck-card img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  .stay-deck-card .stay-card-image {
+    transition: transform 200ms var(--ease-luxury);
+  }
+
+  .stay-deck-card:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .stay-deck-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 0.15rem;
+  }
+
+  .stay-deck-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    color: hsl(var(--primary));
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: color 180ms var(--ease-luxury);
+  }
+
+  .stay-deck-arrow:hover:not(:disabled) {
+    color: hsl(var(--gold-light));
+  }
+
+  .stay-deck-arrow:disabled {
+    color: hsl(var(--foreground) / 0.22);
+  }
+
+  .stay-deck-marks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 4.75rem;
+  }
+
+  .stay-deck-marks span {
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 999px;
+    background: hsl(var(--foreground) / 0.28);
+    transition:
+      width 200ms var(--ease-luxury),
+      height 200ms var(--ease-luxury),
+      background-color 200ms var(--ease-luxury),
+      border-radius 200ms var(--ease-luxury);
+  }
+
+  .stay-deck-marks span.is-active {
+    width: 1.65rem;
+    height: 2px;
+    border-radius: 1px;
+    background: hsl(var(--primary));
+  }
+
+  @media (min-width: 768px) {
+    .stay-deck-scroller {
+      --stay-card-w: min(46rem, 62vw);
+    }
+
+    .stay-deck-card + .stay-deck-card {
+      margin-left: 1.25rem;
+    }
   }
 
   /* ── Luxury Scroll Reveal (opt-in only) ──── */
@@ -626,6 +766,11 @@
 
     .stay-card-dim {
       opacity: 0 !important;
+    }
+
+    .stay-deck-marks span,
+    .stay-deck-arrow {
+      transition: none !important;
     }
 
     .explore-cta.is-shown {

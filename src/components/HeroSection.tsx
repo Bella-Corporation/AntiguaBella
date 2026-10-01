@@ -5,7 +5,7 @@ import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import HeaderSearch from "@/components/HeaderSearch";
 import HeaderAccount from "@/components/HeaderAccount";
-import { antiguaBellaHero, heroLoopSrc } from "@/data/antiguabellaMedia";
+import { antiguaBellaHero, heroLoopMobileSrc, heroLoopSrc } from "@/data/antiguabellaMedia";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const menuEase = [0.22, 0.61, 0.36, 1] as const;
@@ -42,6 +42,11 @@ const HeroSection = () => {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
+  // Chosen once, before the element mounts, so a phone never requests the landscape file.
+  const [heroSrc] = useState(() => {
+    if (typeof window === "undefined") return heroLoopSrc;
+    return window.matchMedia("(max-width: 767px)").matches ? heroLoopMobileSrc : heroLoopSrc;
+  });
   const [videoStarted, setVideoStarted] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
   const { t } = useLanguage();
@@ -97,7 +102,42 @@ const HeroSection = () => {
     );
     observer.observe(section);
     tryPlay();
-    return () => observer.disconnect();
+
+    // Both masters end in a short encoded fade to black. Restart on the last
+    // picture so the loop does not hold that black frame. Native `loop` remains;
+    // `ended` covers browsers that ignore it.
+    let restarting = false;
+    const restart = () => {
+      if (restarting || userPaused) return;
+      restarting = true;
+      video.currentTime = 0;
+      const promise = video.play();
+      if (!promise) return;
+      promise.catch((error: unknown) => {
+        restarting = false;
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setVideoStarted(false);
+      });
+    };
+    const onTimeUpdate = () => {
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration < 1) return;
+      if (video.currentTime < 1) {
+        restarting = false;
+        return;
+      }
+      if (restarting) return;
+      if (video.currentTime >= duration - 0.85) restart();
+    };
+    const onEnded = () => restart();
+    video.addEventListener("timeupdate", onTimeUpdate);
+    video.addEventListener("ended", onEnded);
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("timeupdate", onTimeUpdate);
+      video.removeEventListener("ended", onEnded);
+    };
   }, [preferStill, userPaused]);
 
   const toggleBackground = () => {
@@ -152,7 +192,7 @@ const HeroSection = () => {
         {!preferStill && (
           <video
             ref={videoRef}
-            src={heroLoopSrc}
+            src={heroSrc}
             autoPlay
             muted
             loop

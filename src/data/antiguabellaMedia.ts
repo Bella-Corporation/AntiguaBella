@@ -158,7 +158,14 @@ export const antiguaBellaHighlights = [
   "bella-glass-bath",
 ];
 
+/** Landscape hero. Desktop and landscape tablets only. */
 export const heroLoopSrc = `${mediaRoot}/hero-landing.mp4`;
+
+/**
+ * Portrait reframe of the same film, edited shot by shot for a phone.
+ * Phones request this file instead of the landscape master.
+ */
+export const heroLoopMobileSrc = `${mediaRoot}/hero-landing-mobile.mp4`;
 
 export const villaFilmSrc = `${mediaRoot}/villa-film.mp4`;
 
