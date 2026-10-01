@@ -72,7 +72,7 @@ const StaysSection = () => {
         </div>
       </div>
 
-      <div className="stay-deck-bleed">
+      <div className="stay-deck-slot">
         <StayDeck cards={cards} />
       </div>
 

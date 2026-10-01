@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import PropertyPicture from "@/components/PropertyPicture";
 import type { SharedPhoto } from "@/data/sharedMedia";
 
+const DESKTOP_MQ = "(min-width: 768px)";
+
 export type StayCard = {
   key: string;
   title: string;
@@ -23,11 +25,67 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function useIsDesktopListing() {
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(DESKTOP_MQ).matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return isDesktop;
+}
+
 function easeOut(t: number) {
   return 1 - (1 - t) ** 3;
 }
 
+const StayCardFace = ({ card, deck }: { card: StayCard; deck?: boolean }) => (
+  <>
+    <div className="stay-deck-photo relative aspect-video overflow-hidden">
+      <PropertyPicture
+        photo={card.photo}
+        alt={card.photo.alt}
+        sizes={deck ? "90vw" : "(min-width: 1024px) 420px, 80vw"}
+        pictureClassName="block h-full w-full"
+        className="stay-card-image h-full w-full object-cover"
+        style={{ objectPosition: card.imagePosition }}
+      />
+      {deck ? null : <div className="stay-card-dim absolute inset-0" />}
+      <div className="stay-deck-shade absolute inset-0" />
+      <div className="stay-card-action absolute bottom-0 left-0 right-0 z-10 p-5 md:p-6">
+        <span className="luxury-subheading text-[11px] font-bold text-primary">
+          {card.action} <span className="stay-card-arrow" aria-hidden="true">→</span>
+        </span>
+      </div>
+    </div>
+    <div className={deck ? "p-6" : "p-5 sm:p-6 lg:p-7"}>
+      <h3 className={`luxury-heading mb-3 text-foreground ${deck ? "text-2xl" : "text-xl lg:text-[1.35rem]"}`}>
+        {card.title}
+      </h3>
+      <div className="mb-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.18em] text-foreground/45">
+        <span>{card.meta[0]}</span>
+        {card.meta[1] ? (
+          <>
+            <span className="text-foreground/20">|</span>
+            <span>{card.meta[1]}</span>
+          </>
+        ) : null}
+      </div>
+      <p className={`luxury-body leading-[1.7] ${deck ? "text-[15px] text-muted-foreground/80" : "text-[13px] text-muted-foreground/60"}`}>
+        {card.tagline}
+      </p>
+    </div>
+  </>
+);
+
 const StayDeck = ({ cards }: { cards: StayCard[] }) => {
+  const isDesktop = useIsDesktopListing();
   const deckRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef(0);
@@ -156,6 +214,7 @@ const StayDeck = ({ cards }: { cards: StayCard[] }) => {
   );
 
   useEffect(() => {
+    if (isDesktop) return;
     const root = scrollerRef.current;
     const deck = deckRef.current;
     if (!root || !deck) return;
@@ -263,7 +322,26 @@ const StayDeck = ({ cards }: { cards: StayCard[] }) => {
       deck.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("resize", onResize);
     };
-  }, [cards.length, commitIndex, nearestIndex, paint, scrollToIndex]);
+  }, [isDesktop, cards.length, commitIndex, nearestIndex, paint, scrollToIndex]);
+
+  if (isDesktop) {
+    return (
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-5">
+        {cards.map((card) => (
+          <Link
+            key={card.key}
+            to={card.href}
+            target={card.external ? "_blank" : undefined}
+            rel={card.external ? "noopener noreferrer" : undefined}
+            aria-label={card.external ? `${card.title} on Airbnb (opens in a new tab)` : undefined}
+            className="stay-card block overflow-hidden rounded-2xl"
+          >
+            <StayCardFace card={card} />
+          </Link>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -289,39 +367,7 @@ const StayDeck = ({ cards }: { cards: StayCard[] }) => {
             }
             className="stay-deck-card stay-card"
           >
-            <div className="stay-deck-photo relative aspect-video overflow-hidden">
-              <PropertyPicture
-                photo={card.photo}
-                alt={card.photo.alt}
-                sizes="(min-width: 768px) 736px, 90vw"
-                pictureClassName="block h-full w-full"
-                className="stay-card-image h-full w-full object-cover"
-                style={{ objectPosition: card.imagePosition }}
-              />
-              <div className="stay-deck-shade absolute inset-0" />
-              <div className="stay-card-action absolute bottom-0 left-0 right-0 z-10 p-5 md:p-6">
-                <span className="luxury-subheading text-[11px] font-bold text-primary">
-                  {card.action} <span className="stay-card-arrow" aria-hidden="true">→</span>
-                </span>
-              </div>
-            </div>
-            <div className="p-6 md:p-7 lg:p-8">
-              <h3 className="luxury-heading mb-3 text-2xl text-foreground md:text-3xl">
-                {card.title}
-              </h3>
-              <div className="mb-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.18em] text-foreground/45">
-                <span>{card.meta[0]}</span>
-                {card.meta[1] ? (
-                  <>
-                    <span className="text-foreground/20">|</span>
-                    <span>{card.meta[1]}</span>
-                  </>
-                ) : null}
-              </div>
-              <p className="luxury-body text-[15px] leading-[1.7] text-muted-foreground/80">
-                {card.tagline}
-              </p>
-            </div>
+            <StayCardFace card={card} deck />
           </Link>
         ))}
       </div>
